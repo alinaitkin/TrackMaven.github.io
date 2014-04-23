@@ -31,7 +31,7 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 
 # Static paths will be copied without parsing their contents
-STATIC_PATHS = ['images', 'extra']
+STATIC_PATHS = ['images', 'extra/CNAME']
 
 # Shift the installed location of a file
 EXTRA_PATH_METADATA = {
