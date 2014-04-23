@@ -29,3 +29,11 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+# Static paths will be copied without parsing their contents
+STATIC_PATHS = ['images', 'extra']
+
+# Shift the installed location of a file
+EXTRA_PATH_METADATA = {
+    'extra/CNAME': {'path': 'CNAME'},
+}
