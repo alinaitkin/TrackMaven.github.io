@@ -1,4 +1,4 @@
-from fabric.api import *
+from fabric.api import hosts, local, env
 import fabric.contrib.project as project
 import os
 
@@ -21,25 +21,34 @@ def clean():
         local('rm -rf {deploy_path}'.format(**env))
         local('mkdir {deploy_path}'.format(**env))
 
+
 def build():
     local('pelican -s pelicanconf.py')
+    local("echo 'engineroom.trackmaven.com' > {}/CNAME".format(
+        env.deploy_path))
+
 
 def rebuild():
     clean()
     build()
 
+
 def regenerate():
     local('pelican -r -s pelicanconf.py')
 
+
 def serve():
     local('cd {deploy_path} && python -m SimpleHTTPServer'.format(**env))
+
 
 def reserve():
     build()
     serve()
 
+
 def preview():
     local('pelican -s publishconf.py')
+
 
 def cf_upload():
     rebuild()
@@ -48,6 +57,14 @@ def cf_upload():
           '-U {cloudfiles_username} '
           '-K {cloudfiles_api_key} '
           'upload -c {cloudfiles_container} .'.format(**env))
+
+
+def push():
+    rebuild()
+    local('git push origin source:source')
+    local('ghp-import {}'.format(env.deploy_path))
+    local('git push origin gh-pages:master --force')
+
 
 @hosts(production)
 def publish():

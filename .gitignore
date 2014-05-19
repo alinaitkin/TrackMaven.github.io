@@ -1,2 +1,4 @@
 .vfenv
 *.pyc
+.venv
+output
