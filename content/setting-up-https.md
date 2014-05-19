@@ -12,15 +12,15 @@ Here at [TrackMaven](http://trackmaven.com), we have made it our goal to provide
 
 ## What is HTTPS?
 
-HTTPS stands for Hypertext Transfer Protocol (HTTP) Secure and it is a way in which computers can securely communicate over the internet. The secure communication is done through an encryption protocol either the Transport Layer Security (TLS) protocol or its predecessor the Secure Soickets Layer (SSL) protocol. Each of these protocols use asymmetric cryptography using private and public certificates to make sure the communication is secure; it is the creation of these certificates which make people feel as through setting up HTTPS on your own servers is difficult.
+HTTPS stands for Hypertext Transfer Protocol (HTTP) Secure and it is a way in which computers can securely communicate over the internet. The secure communication is done either the newer Transport Layer Security (TLS) encryption protocol or its predecessor the Secure Sockets Layer (SSL) encryption protocol. Each uses asymmetric cryptography involving private and public certificates to make sure the communication is secure; the creation of these certificates is commonly believed to be the difficult part of implementing HTTPS on your own servers.
 
 ## Setting up HTTPS on your server
 
-The first thing you'd want to do is to secure those certificates. A certificate will consist of the owner's name, a identification number, expiration date, a public key for encryption and a private key for decryption. When starting the certification creation process, this is asked from you, so don't worry about knowing how to input all the information into the certificate yourself.
+The first thing you will want to do is to secure your certificates. A certificate will consist of the owner's name, a identification number, expiration date, a public key for encryption and a private key for decryption. The certification creation process asks you for this information automatically, so don't worry about knowing how to input all the information into the certificate yourself.
 
-You could, of course, go through the process of creating a certificate yourself, without the help of any [Certificate Authorities (CA)](http://www.sslshopper.com/certificate-authority-reviews.html), but you lose the ability to be validated by them which for better or worse are out there to make sure the public key given to you is true and unadulterated. Going through one of these CAs will make sure that modern web browsers recognize your certificate as valid and trusted.
+You could, of course, create a certificate yourself (self-sign) without the help of any [Certificate Authorities (CA)](http://www.sslshopper.com/certificate-authority-reviews.html), but you will lose the ability to be validated by them. For better or worse the CAs exist to make sure the public key given to you is true and unadulterated. Going through a CA will make sure that modern web browsers recognize your certificate as valid and trusted.
 
-THere are a few different version of certificates. It is best to read up on them and find which would best fit your need. Here at TrackMaven, we went with a Wildcard SSL which allows us to use it on multiple subdomains (i.e. [app.trackmaven.com](https://app.trackmaven.com) or [blog.trackmaven.com](http://blog.trackmaven.com)). For example, [DigiCert](https://www.digicert.com/) offers 5 different types of certificates:
+THere are a few different version of certificates. It is best to read up on them and find which would best fit your need. Here at TrackMaven, we went with a Wildcard SSL which allows us to use it on multiple subdomains (i.e. [app.trackmaven.com](https://app.trackmaven.com) and [blog.trackmaven.com](http://blog.trackmaven.com)). For example, [DigiCert](https://www.digicert.com/) offers 5 different types of certificates:
 
 * [WildCard SSL](https://www.digicert.com/wildcard-ssl-certificates.htm)
 * [Single Certificate](https://www.digicert.com/ssl-certificate.htm)
@@ -28,13 +28,13 @@ THere are a few different version of certificates. It is best to read up on them
 * [Extended Validation Certificate](https://www.digicert.com/ev-ssl-certification.htm)
 * [DigiCert Extended Validation Multi-Domain Certificate](http://www.digicert.com/ev-multi-domain-ssl.htm)
 
-To continue with the process of securing your web application, go purchase a SSL certificate from one of the meny repetible vendors. Shop around, since prices do vary greatly... Once you have purchased an SSL certificate, you will need to create a Certificate Signing Request (CSR). Running the below command will create both a server key and csr:
+To continue with the process of securing your web application, purchase a SSL certificate from one of the meny reputable vendors. Shop around; prices do vary. Once you have purchased an SSL certificate you will need to create a Certificate Signing Request (CSR). The below command will generate both a server key and csr:
 
     openssl req -new -newkey rsa:2048 -keyout your_server_name.key -out your_server_name.csr
 
-You then take the newly created CSR file to the certificate provider of your choice and purchase the SSL Certificate. This process can take anywhere from a few minutes to a few weeks dependent on the level of certification your purchased. But once your provider has completed generating the certificates, you should receive them via email to the designated email which you used to sign the CSR.
+You then take the newly created CSR file to the certificate provider of your choice and purchase the SSL Certificate. This process can take anywhere from a few minutes to a few weeks depending on the level of certification you purchased. Once your provider has generated the certificates you should receive them via the email address which you used to sign the CSR.
 
-I would recommend you follow the instructions of your certificate provider as all providers do things slightly different, but once you have successfully got the email with your certificates, all that is left to do is put them on the server and tell your http server (either NGINX, Apache, etc.) to start hosting content through HTTPS.
+I would recommend you follow the instructions of your certificate provider closely as all providers do things slightly differently. Once you have successfully received the email with your certificates all that is left to do is to put them on the server and tell your http server (either NGINX, Apache, etc.) to start hosting content through HTTPS.
 
 Setting up your server is the easier of these processes; you only need to save the key you created above and the output of the directions your CA provided you to your server. I recommend you putting it under `/etc/{apache2,nginx}/ssl/` for safe keeping.
 
@@ -69,7 +69,7 @@ Now that we have set up a secure connection on your server of choice, it is impo
 
 ### Hardening Apache
 
-Adding the below lines to your `VirtualHost` will give you all the benefits of the most up-to-date ciphers while disallowing some of the weakers known ones:
+Adding the below lines to your `VirtualHost` will give you all the benefits of the most up-to-date ciphers while disallowing some of the known-to-be-weaker ones:
 
     SSLProtocol ALL -SSLv2
     SSLHonorCipherOrder On
@@ -78,7 +78,7 @@ Adding the below lines to your `VirtualHost` will give you all the benefits of t
 
 ### Hardening Nginx
 
-Adding the below lines to your `server` virtual host will give you all the benefits of the most up-to-date ciphers while disallowing some of the weakers known ones:
+Adding the below lines to your `server` virtual host will give you all the benefits of the most up-to-date ciphers while disallowing some of the known-to-be-weaker ones:
 
     ssl_prefer_server_ciphers on;
     ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
@@ -89,7 +89,7 @@ Adding the below lines to your `server` virtual host will give you all the benef
 
 ## Conclusion
 
-With this article, I hope I cleared some of the air around setting up HTTPS on your server. It shouldn't be this scary thing that you have been putting off, but something that should take an hour out of your day and protect your users for the life of your application. 
+With this article, I hope I cleared some of the air around setting up HTTPS on your server. HTTPS shouldn't be a scary thing you have been putting off but rather something that you should spend an hour of your day on to best protect your users for the life of your application. 
 
 ## Further Reading and Resources
 
