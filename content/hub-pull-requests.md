@@ -17,7 +17,7 @@ The syntax can be annoyingly verbose, though, especially if you don't have upstr
     end
 
     function pr
-        hubpr (git rev-parse --abbrev-ref HEAD)
+        hubpr (git rev-parse --abbrev-ref HEAD) $argv
     end
 ```
 
