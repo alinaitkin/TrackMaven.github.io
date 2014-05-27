@@ -44,7 +44,7 @@ Alright, let's get started.
   * In the event that the psql command says that authentication failed, edit /etc/postgresql/9.3/main/pg_hba.conf and edit the line (likely top line) that says 
 `local all postgres md5` to say `local all postgres peer` and restart the server with 
 `service postgresql restart`
-* Edit /etc/postgresql/9.3/main/pg_hba.conf: Add `host replication replicator <IP_OF_replica>/32 md5` to the bottom of the file.
+* Edit /etc/postgresql/9.3/main/pg_hba.conf: Add `host replication replicator <IP_OF_REPLICA>/32 md5` to the bottom of the file.
 * Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options **(ensure they are not set anywhere else in the config file already)**:
 ```
 hot_standby = 'on'
@@ -75,12 +75,12 @@ echo Cleaning up old cluster directory
 rm -rf /var/lib/postgresql/9.3/main
 
 echo Starting base backup as replicator
-pg_basebackup -h <IP_OF_primary> -D /var/lib/postgresql/9.3/main -U replicator -v -P
+pg_basebackup -h <IP_OF_PRIMARY> -D /var/lib/postgresql/9.3/main -U replicator -v -P
 
 echo Writing recovery.conf file
 bash -c "cat > /var/lib/postgresql/9.3/main/recovery.conf <<- _EOF1_
   standby_mode = 'on'
-  primary_conninfo = 'host=<IP_OF_primary> port=5432 user=replicator password=<PASSWORD>'
+  primary_conninfo = 'host=<IP_OF_PRIMARY> port=5432 user=replicator password=<PASSWORD>'
   trigger_file = '/tmp/postgresql.trigger'
   restore_command = 'envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch "%f" "%p"'
 _EOF1_
