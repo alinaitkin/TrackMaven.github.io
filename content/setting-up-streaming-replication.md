@@ -39,6 +39,7 @@ Alright, let's get started.
     * It's important that ssh works from postgres user to postgres user with no parameters given. If my primary server's IP is 1.2.3.4 and my replica's is 5.6.7.8, then I should be able to do this with no problems: `postgres@ip-1-2-3-4:~$ ssh 5.6.7.8`
 
 ### Perform only on primary
+We need a user with replication privileges so that we can ship our WAL files. This only needs to be done on the primary, as all changes made to it will be automatically re-created on the replica. We also need to tune specific settings in the config files to tell PostgreSQL what we want it to do. Most importantly, the `archive_command` setting is what actually ships WAL files, and here we use WAL-E to send ours to S3 for an external backup. The others tell the server that we want our server to archive detailed WAL files, with more detailed documentation on the behavior and other choices for each available from [the Postgres docs](http://www.postgresql.org/docs/9.3/static/runtime-config-wal.html).
 * Create a user with superuser and replication privileges: 
 `psql -c "CREATE USER replicator SUPERUSER REPLICATION LOGIN CONNECTION LIMIT 1 ENCRYPTED PASSWORD '<PASSWORD>';"`
   * In the event that the psql command says that authentication failed, edit /etc/postgresql/9.3/main/pg_hba.conf and edit the line (likely top line) that says 
@@ -66,7 +67,7 @@ hot_standby = 'on'
 max_wal_senders = 5
 wal_level = 'hot_standby'
 ```
-* Create a new script file: `vim replication_setup` and place the following commands in it.
+* Next, we want to create a base backup of the primary and write a recovery.conf file to tell PostgreSQL how read from our WALs. In our case, that means pulling WAL files from S3 using WAL-E. Create a new script file: `vim replication_setup` and place the following commands in it.
 ```
 echo Stopping PostgreSQL
 service postgresql stop
@@ -78,12 +79,12 @@ echo Starting base backup as replicator
 pg_basebackup -h <IP_OF_PRIMARY> -D /var/lib/postgresql/9.3/main -U replicator -v -P
 
 echo Writing recovery.conf file
-bash -c "cat > /var/lib/postgresql/9.3/main/recovery.conf <<- _EOF1_
+bash -c "cat > /var/lib/postgresql/9.3/main/recovery.conf <<- EOF
   standby_mode = 'on'
   primary_conninfo = 'host=<IP_OF_PRIMARY> port=5432 user=replicator password=<PASSWORD>'
   trigger_file = '/tmp/postgresql.trigger'
   restore_command = 'envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch "%f" "%p"'
-_EOF1_
+EOF
 "
 
 echo Starting PostgreSQL
