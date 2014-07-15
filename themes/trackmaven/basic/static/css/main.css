@@ -1,0 +1,185 @@
+@font-face {
+    font-family: 'Proxima Nova Regular';
+    src: url('../font/proximanova-regular-webfont.eot');
+    src: url('../font/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/proximanova-regular-webfont.woff') format('woff'),
+         url('../font/proximanova-regular-webfont.ttf') format('truetype'),
+         url('../font/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Bold';
+    src: url('../font/proximanova-bold_0-webfont.eot');
+    src: url('../font/proximanova-bold_0-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/proximanova-bold_0-webfont.woff') format('woff'),
+         url('../font/proximanova-bold_0-webfont.ttf') format('truetype'),
+         url('../font/proximanova-bold_0-webfont.svg#proxima_nova_rgbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Semibold';
+    src: url('../font/proximanova-semibold-webfont.eot');
+    src: url('../font/proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/proximanova-semibold-webfont.woff') format('woff'),
+         url('../font/proximanova-semibold-webfont.ttf') format('truetype'),
+         url('../font/proximanova-semibold-webfont.svg#proxima_nova_ltbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Light';
+    src: url('../font/proximanova-light_0-webfont.eot');
+    src: url('../font/proximanova-light_0-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/proximanova-light_0-webfont.woff') format('woff'),
+         url('../font/proximanova-light_0-webfont.ttf') format('truetype'),
+         url('../font/proximanova-light_0-webfont.svg#proxima_nova_ltregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*
+ * Globals
+ */
+
+html,
+body {
+  font-size: 17px;
+  background: #fffefb;
+}
+
+body {
+  background: #fffefb;
+  color: #6c6c6c;
+  padding: 0;
+  margin: 0;
+  font-family: "Proxima Nova Regular", "sans-serif";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  position: relative;
+  cursor: default;
+  min-width: 1020px;
+}
+
+/*
+ * Override Bootstrap's default container.
+ */
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
+
+
+/*
+ * Masthead for nav
+ */
+
+.blog-masthead {
+  background-color: #dc795e;
+  -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+}
+
+.blog-masthead a {
+  color: white;
+  text-decoration: none;
+}
+
+/*
+ * Blog name and description
+ */
+
+.blog-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.blog-title {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff
+}
+.blog-description {
+  font-size: 20px;
+  color: #999;
+}
+
+
+/*
+ * Main column and sidebar layout
+ */
+
+.blog-main {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Sidebar modules for boxing content */
+.sidebar-module {
+  padding: 15px;
+  margin: 0 -15px 15px;
+}
+.sidebar-module-inset {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+  margin-bottom: 0;
+}
+
+/* Pagination */
+.pager {
+  margin-bottom: 60px;
+  text-align: left;
+}
+.pager > li > a {
+  width: 140px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+*
+ * Blog posts
+ */
+
+.blog-post {
+  margin-bottom: 60px;
+}
+.blog-post-title {
+  margin-bottom: 5px;
+  font-size: 40px;
+}
+.blog-post-meta {
+  margin-bottom: 20px;
+  color: #999;
+}
+
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+  padding: 20px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 50px
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
