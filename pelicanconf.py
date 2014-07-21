@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Maven'
 SITENAME = u'The Engine Room'
 SITEURL = ''
+ABOUT = u'This is the home of the Engineering blog for TrackMaven.'
 
 TIMEZONE = 'Europe/Paris'
 
@@ -33,7 +34,12 @@ DEFAULT_PAGINATION = 10
 # Static paths will be copied without parsing their contents
 STATIC_PATHS = ['images', 'extra/CNAME']
 
+# Specify theme
+THEME = "themes/trackmaven/basic"
+
 # Shift the installed location of a file
 EXTRA_PATH_METADATA = {
     'extra/CNAME': {'path': 'CNAME'},
 }
+
+READERS = {'html': None}
