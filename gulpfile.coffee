@@ -17,14 +17,14 @@ gulp.task 'serve', ->
 
 # Styles for the site. Turns .scss files into a single main.css
 gulp.task 'scss', ->
-    gulp.src("./theme/styles/main.scss")
+    gulp.src("theme/styles/main.scss")
         .pipe(plumber())
         .pipe(sass())
-        .pipe(gulp.dest("./theme/static/css"))
-        .pipe(shell('sh develop_server.sh start'))
+        .pipe(gulp.dest("theme/static/css"))
+        #.pipe(shell('fab preview'))
 
 # Watch for any changes and run the required tasks.
 gulp.task 'watch', ->
-    gulp.watch('./theme/styles/*.scss', ['scss'])
+    gulp.watch('theme/styles/*.scss', ['scss'])
 
-gulp.task('default', ['watch', 'serve'])
+gulp.task('default', ['watch', 'serve', 'scss'])

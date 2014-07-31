@@ -35,7 +35,7 @@ DEFAULT_PAGINATION = 10
 STATIC_PATHS = ['images', 'extra/CNAME']
 
 # Specify theme
-THEME = "themes/trackmaven/basic"
+THEME = "theme"
 
 # Shift the installed location of a file
 EXTRA_PATH_METADATA = {
