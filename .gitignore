@@ -5,6 +5,6 @@ output
 node_modules
 
 .floo*
-.sass-cache/
+.sass-cache*
 pelican.pid
 srv.pid

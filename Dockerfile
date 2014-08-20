@@ -21,4 +21,3 @@ RUN apt-get install -y python python-pip python-dev
 ADD requirements.txt /code/requirements.txt
 RUN pip install -r /code/requirements.txt
 WORKDIR /code
-RUN gem install sass
