@@ -28,11 +28,38 @@
 $background-light: #fffefb;
 $default-font-color: #6c6c6c;
 $default-font: "proxima-nova", "sans-serif";
+$footer-height: 30px;
 
 html,
 body {
+  height: 100%;
   font-size: 17px;
   background: $background-light;
+}
+
+/* Wrapper for page content to push down footer */
+.wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -$footer-height;
+  /* Pad bottom by footer height */
+  padding: 0 0 $footer-height;
+}
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+    padding: $footer-height/2 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+    p:last-child {
+        margin-bottom: 0;
+    }
 }
 
 body {
@@ -63,13 +90,17 @@ body {
 /*
  * Masthead for nav
  */
+ .logo {
+  position: absolute;
+  top: 21px;
+ }
+
 .blog-masthead {
-    background-color: #dc795e;
-    a {
-        color: white;
-        text-decoration: none;
-    }
-    padding: 15px;
+    background: white url("../images/web-tile.png") 0 0 repeat;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    height: 105px;
+    padding: 20px 0;
 }
 
 /*
@@ -82,11 +113,17 @@ body {
 }
 
 .blog-title {
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: 0;
-    font-size: 25px;
-    font-weight: bold;
-    color: #fff
+    a {
+      font-size: 30px;
+      font-weight: 600;
+      color: #373636;
+      &:hover {
+        color: #de9a4e;
+        text-decoration: none;
+      }
+    }
 }
 
 .blog-description {
@@ -144,17 +181,27 @@ body {
 }
 .blog-post-title {
   margin-top: 10px;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+  a {
     font-size: 40px;
     font-weight: 800;
+    color: #373636;
+    font-family: "proxima-nova-alt", "proxima-nova";
+
+    &:hover {
+      color: #de9a4e;
+      text-decoration: none;
+    }
+  }
 }
+
 .blog-post-meta {
     margin-top: 20px;
     margin-bottom: 20px;
     color: #999;
 }
 .blog-post-content {
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .side-image {
@@ -167,18 +214,4 @@ body {
 }
 
 
-/*
- * Footer
- */
 
-.blog-footer {
-    padding: 20px 0;
-    color: #999;
-    text-align: center;
-    background-color: #f9f9f9;
-    border-top: 1px solid #e5e5e5;
-    margin-top: 50px;
-    p:last-child {
-        margin-bottom: 0;
-    }
-}
