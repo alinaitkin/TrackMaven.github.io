@@ -29,6 +29,9 @@ $background-light: #fffefb;
 $default-font-color: #6c6c6c;
 $default-font: "proxima-nova", "sans-serif";
 $footer-height: 30px;
+$primary-gray: #373636;
+$primary-turqoise: #9cd5cb;
+
 
 html,
 body {
@@ -103,6 +106,8 @@ body {
     padding: 20px 0;
 }
 
+
+
 /*
  * Blog name and description
  */
@@ -110,7 +115,7 @@ body {
 .blog-header {
     padding-top: 20px;
     padding-bottom: 20px;
-}
+} 
 
 .blog-title {
     margin-top: 15px;
@@ -120,7 +125,7 @@ body {
       font-weight: 600;
       color: #373636;
       &:hover {
-        color: #de9a4e;
+        color: #dc795e;
         text-decoration: none;
       }
     }
@@ -189,7 +194,7 @@ body {
     font-family: "proxima-nova-alt", "proxima-nova";
 
     &:hover {
-      color: #de9a4e;
+      color: #9cd5cb;
       text-decoration: none;
     }
   }
@@ -199,6 +204,13 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     color: #999;
+  a {
+    color: #9cd5cb;  
+    &:hover {
+      color:#9cd5cb;
+      text-decoration: none;
+    }
+  }
 }
 .blog-post-content {
     line-height: 1.45;
