@@ -2,17 +2,16 @@
 
 The TrackMaven development blog powered by [Pelican](http://pelican.readthedocs.org/en/3.4.0/)
 
-## Setup
+# Development.
 
-Inside of a [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) install the required python package by running
+Install node modules with...
+```
+fig run builder npm install .
+```
 
-    pip install -r requirements.txt
+Then run
+```
+fig up
+```
 
-## Running locally.
-
-Build the latest copy then serve by running...
-
-    fab preview
-    fab serve
-
-You should now be able to access it at [http://localhost:8000](http://localhost:8000)
+Navigate to [localdocker:8080](http://localdocker:8080)

@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Maven'
 SITENAME = u'The Engine Room'
 SITEURL = ''
+ABOUT = u'This is the home of the Engineering blog for TrackMaven.'
 
 TIMEZONE = 'Europe/Paris'
 
@@ -16,14 +17,18 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 # Blogroll
-LINKS =  (('Pelican', 'http://getpelican.com/'),
-          ('Python.org', 'http://python.org/'),
-          ('Jinja2', 'http://jinja.pocoo.org/'),
-          ('You can modify those links in your config file', '#'),)
+LINKS = (
+    ('Pelican', 'http://getpelican.com/'),
+    ('Python.org', 'http://python.org/'),
+    ('Jinja2', 'http://jinja.pocoo.org/'),
+    ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (
+    ('You can add links in your config file', '#'),
+    ('Another social link', '#'),)
+
+TWITTER_USERNAME = 'TrackMaven'
 
 DEFAULT_PAGINATION = 10
 
@@ -33,7 +38,13 @@ DEFAULT_PAGINATION = 10
 # Static paths will be copied without parsing their contents
 STATIC_PATHS = ['images', 'extra/CNAME']
 
+# Specify theme
+THEME = "theme"
+
 # Shift the installed location of a file
 EXTRA_PATH_METADATA = {
     'extra/CNAME': {'path': 'CNAME'},
 }
+
+READERS = {'html': None}
+DEBUG = True
