@@ -31,7 +31,7 @@ gulp.task "html", ->
 # Watch for any changes and run the required tasks.
 gulp.task "watch", ->
     gulp.watch("theme/styles/*.scss", ["scss"])
-    gulp.watch("theme/templates/*.html", ["html"])
+    gulp.watch("theme/templates/**/*.html", ["html"])
     gulp.watch("content/*.md", ["html"])
 
 gulp.task("default", ["watch", "serve"])

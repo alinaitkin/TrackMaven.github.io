@@ -15,6 +15,7 @@
 // Components
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
+@import "bootstrap/wells";
 
 // Utility classes
 @import "bootstrap/utilities";
@@ -187,12 +188,12 @@ body {
 .blog-post-title {
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 800;
+  color: #373636;
+  font-family: "proxima-nova-alt", "proxima-nova";
   a {
-    font-size: 40px;
-    font-weight: 800;
     color: #373636;
-    font-family: "proxima-nova-alt", "proxima-nova";
-
     &:hover {
       color: #9cd5cb;
       text-decoration: none;
@@ -225,5 +226,30 @@ body {
   background-position: center;
 }
 
+.cameron-maske-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/cam_large.png');
+}
 
+.jonathan-evans-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/jon_large.png');
+}
 
+.matt-camilli-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/matt_large.png');
+}
+
+.fred-battista-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/fred_large.png');
+}
+
+.john-young-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/john_large.png');
+}
+
+.fletcher-heisler-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/fletcher_large.png');
+}
+
+.josh-finnie-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/joshf_large1.png');
+}

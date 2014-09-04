@@ -7,8 +7,8 @@
 <div class="row">
   <div class="col-md-3">
 
-    <div class="side-image" style="background-image: url('http://placecorgi.com/220/140')"> </div>
-     <p class="blog-post-meta">{{ article.locale_date }} by <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></p>
+    <div class="side-image {{ article.avatar }}-avatar"> </div>
+    <p class="blog-post-meta">{{ article.locale_date }}<br>By <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></p>
   </div>
   <div class="col-md-9">
     <div class="blog-post">
@@ -17,7 +17,7 @@
       	{{ article.title }}
       	</a>
       </h2>
-      <div class="blog-post-content">{{ article.content }}</div>
+      <div class="blog-post-content">{{ article.content|truncate(400) }} <a href="{{ SITEURL }}/{{ article.url }}">Read more.</a></div>
     </div>
   </div>
 </div>
