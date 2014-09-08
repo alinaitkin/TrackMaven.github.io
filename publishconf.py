@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'engineroom.trackmaven.com'
+SITEURL = 'http://engineroom.trackmaven.com'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/atom.xml'
