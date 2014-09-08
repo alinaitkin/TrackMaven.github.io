@@ -3,7 +3,7 @@
 {% block content %}
 <div class="blog-post">
   <h2 class="blog-post-title">{{ article.title }}</h2>
-  <p class="blog-post-meta">{{ article.locale_date }} by <a href="#">{{ article.author }}</a>{% if article.category %}<br>Category: <a href="/{{ article.category.url }}">{{ article.category }}</a>{% endif %}</p>
+  <p class="blog-post-meta">{{ article.locale_date }} by <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>{% if article.category %}<br>Category: <a href="/{{ article.category.url }}">{{ article.category }}</a>{% endif %}</p>
   <div class="blog-post-content">{{ article.content }}</div>
   {% if article.tags %}<p class="blog-post-meta">Tags: {% for tag in article.tags %}<a href="/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
   <div class="well">
