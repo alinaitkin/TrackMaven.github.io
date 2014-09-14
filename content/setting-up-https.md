@@ -4,9 +4,8 @@ Category: DevOps
 Tags: security, how-to
 Slug: setting-up-https-security
 Author: Josh Finnie
+Avatar: josh-finnie
 Summary: !
-
-# Setting Up HTTPS Security
 
 Here at [TrackMaven](http://trackmaven.com), we have made it our goal to provide our customers with the most secure access to our application as possible. And in light of the recent news emerging in web security, most concerning [Heartbleed](http://heartbleed.com/), we rethought our best practices and now limit access to our application to only secured HTTPS and making sure that we have the full range of coverage based off of SSL Lab's standards for security. It is often thought that securing your site through TSL/SSL is hard, but hopefully this post will show you just how easy it can be.
 

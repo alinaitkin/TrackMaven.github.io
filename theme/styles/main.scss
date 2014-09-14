@@ -16,6 +16,7 @@
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
 @import "bootstrap/wells";
+@import "bootstrap/panels";
 
 // Utility classes
 @import "bootstrap/utilities";
@@ -201,6 +202,10 @@ body {
   }
 }
 
+code {
+  color: #373636;
+}
+
 .blog-post-meta {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -216,7 +221,9 @@ body {
 .blog-post-content {
     line-height: 1.45;
 }
-
+.well-content {
+    line-height: 1.45;
+}
 .side-image {
   border-radius: 100%;
   height: 150px;
