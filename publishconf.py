@@ -21,5 +21,4 @@ DEBUG = False
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
 GOOGLE_ANALYTICS = "UA-54925402-1"
