@@ -22,7 +22,6 @@ The Engine Room - TrackMaven
     </script>
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
-
   <body>
     <div class="wrap">
       <div class="blog-masthead">
@@ -42,7 +41,7 @@ The Engine Room - TrackMaven
        <div class="container">
 <div class="blog-post">
   <h2 class="blog-post-title">Setting Up HTTPS Security</h2>
-  <p class="blog-post-meta">Written on May 19, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a></p>
+  <p class="blog-post-meta">Written on September 13, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a></p>
   <div class="blog-post-content"><p>Here at <a href="http://trackmaven.com">TrackMaven</a>, we have made it our goal to provide our customers with the most secure access to our application as possible. And in light of the recent news emerging in web security, most concerning <a href="http://heartbleed.com/">Heartbleed</a>, we rethought our best practices and now limit access to our application to only secured HTTPS and making sure that we have the full range of coverage based off of SSL Lab's standards for security. It is often thought that securing your site through TSL/SSL is hard, but hopefully this post will show you just how easy it can be.</p>
 <h2>What is HTTPS?</h2>
 <p>Hypertext Transfer Protocol Secure (HTTPS) is a way in which computers can securely communicate over the internet. The secure communication is done either the through the newer  Transport Layer Security (TLS) encryption protocol or its predecessor the SSL Secure Sockets Layer (SLS) encryption protocol. Each uses asymmetric cryptography involving private and public certificates to make sure the communication is secure; the creation of these certificates is commonly believed to be the difficult part of implementing HTTPS on your own servers.</p>
@@ -132,5 +131,13 @@ ssl_certificate_key /etc/ngin/ssl/your_server_name.key</p>
     <div class="blog-footer">
       <p>&copy; 2014 - TrackMaven</p>
     </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-54925402-1', 'auto');
+  ga('send', 'pageview');
+</script>
   </body>
 </html>
