@@ -53,3 +53,4 @@ IGNORE_FILES = ['node_modules/**/*']
 
 READERS = {'html': None}
 DEBUG = True
+DISQUS_SHORTNAME = "tmengineroom"
