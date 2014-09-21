@@ -41,7 +41,7 @@ The Engine Room - TrackMaven
        <div class="container">
 <div class="blog-post">
   <h2 class="blog-post-title">Setting Up HTTPS Security</h2>
-  <p class="blog-post-meta">Written on September 13, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a></p>
+  <p class="blog-post-meta">Posted on September 13, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/setting-up-https-security/#disqus_thread"></a></p>
   <div class="blog-post-content"><p>Here at <a href="http://trackmaven.com">TrackMaven</a>, we have made it our goal to provide our customers with the most secure access to our application as possible. And in light of the recent news emerging in web security, most concerning <a href="http://heartbleed.com/">Heartbleed</a>, we rethought our best practices and now limit access to our application to only secured HTTPS and making sure that we have the full range of coverage based off of SSL Lab's standards for security. It is often thought that securing your site through TSL/SSL is hard, but hopefully this post will show you just how easy it can be.</p>
 <h2>What is HTTPS?</h2>
 <p>Hypertext Transfer Protocol Secure (HTTPS) is a way in which computers can securely communicate over the internet. The secure communication is done either the through the newer  Transport Layer Security (TLS) encryption protocol or its predecessor the SSL Secure Sockets Layer (SLS) encryption protocol. Each uses asymmetric cryptography involving private and public certificates to make sure the communication is secure; the creation of these certificates is commonly believed to be the difficult part of implementing HTTPS on your own servers.</p>
@@ -118,12 +118,18 @@ ssl_certificate_key /etc/ngin/ssl/your_server_name.key</p>
 <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security">TLS/SSL</a></p></div>
 <p class="blog-post-meta">Tags: <a href="/tag/security/">security</a>, <a href="/tag/how-to/">how-to</a></p>  <div class="well">
     <div class="row">
-      <div class="side-image josh-finnie-avatar col-sm-3"> </div>
-      <div class="col-sm-9"><h3>Josh Finnie</h3>
-<p class="well-content">I am a Software Maven at TrackMaven</p>
+      <div class="text-center col-md-4 col-md-offset-4">
+        <span class="side-image josh-finnie-avatar col-sm-3"></span>
+        <h3>Josh Finnie</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12"><p class="well-content">I am a Software Maven at TrackMaven</p>
 <p class="well-content">You can follow me on <a href="https://twitter.com/joshfinnie">Twitter</a>, find my open-source projects on <a href="https://github.com/joshfinnie">Github</a> or read more of my writtings on <a href="http://www.joshfinnie.com/blog/">my personal website</a>.</p></div>
     </div>
   </div>
+    <h3>Comments</h3>
+    <div id="disqus_thread"></div>
 </div><!-- /.blog-post -->
         </div>
       </div>
@@ -138,6 +144,20 @@ ssl_certificate_key /etc/ngin/ssl/your_server_name.key</p>
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-54925402-1', 'auto');
   ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+var disqus_shortname = 'tmengineroom'; // required: replace example with your forum shortname
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+(function () {
+  var s = document.createElement('script'); s.async = true;
+  s.type = 'text/javascript';
+  s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
 </script>
   </body>
 </html>
