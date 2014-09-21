@@ -49,7 +49,7 @@ EXTRA_PATH_METADATA = {
     'extra/CNAME': {'path': 'CNAME'},
 }
 
-IGNORE_FILES = ['node_modules/**/*']
+IGNORE_FILES = ['*/node_modules/**/*']
 
 READERS = {'html': None}
 DEBUG = True
