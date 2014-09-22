@@ -33,13 +33,16 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Perform only on primary&lt;/h3&gt;
-&lt;p&gt;We need a user with replication privileges so that we can ship our WAL files. This only needs to be done on the primary, as all changes made to it will be automatically re-created on the replica. We also need to tune specific settings in the config files to tell PostgreSQL what we want it to do. Most importantly, the &lt;code&gt;archive_command&lt;/code&gt; setting is what actually ships WAL files, and here we use WAL-E to send ours to S3 for an external backup. The others tell the server that we want our server to archive detailed WAL files, with more detailed documentation on the behavior and other choices for each available from &lt;a href="http://www.postgresql.org/docs/9.3/static/runtime-config-wal.html"&gt;the Postgres docs&lt;/a&gt;.
-&lt;em&gt; Create a user with superuser and replication privileges: 
-&lt;code&gt;psql -c "CREATE USER replicator SUPERUSER REPLICATION LOGIN CONNECTION LIMIT 1 ENCRYPTED PASSWORD '&amp;lt;PASSWORD&amp;gt;';"&lt;/code&gt;
-  * In the event that the psql command says that authentication failed, edit /etc/postgresql/9.3/main/pg_hba.conf and edit the line (likely top line) that says &lt;code&gt;local all postgres md5&lt;/code&gt; to say &lt;code&gt;local all postgres peer&lt;/code&gt; and restart the server with 
-&lt;code&gt;service postgresql restart&lt;/code&gt;
-&lt;/em&gt; Edit /etc/postgresql/9.3/main/pg_hba.conf: Add &lt;code&gt;host replication replicator &amp;lt;IP_OF_REPLICA&amp;gt;/32 md5&lt;/code&gt; to the bottom of the file.
-* Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options &lt;strong&gt;(ensure they are not set anywhere else in the config file already)&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;We need a user with replication privileges so that we can ship our WAL files. This only needs to be done on the primary, as all changes made to it will be automatically re-created on the replica. We also need to tune specific settings in the config files to tell PostgreSQL what we want it to do. Most importantly, the &lt;code&gt;archive_command&lt;/code&gt; setting is what actually ships WAL files, and here we use WAL-E to send ours to S3 for an external backup. The others tell the server that we want our server to archive detailed WAL files, with more detailed documentation on the behavior and other choices for each available from &lt;a href="http://www.postgresql.org/docs/9.3/static/runtime-config-wal.html"&gt;the Postgres docs&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a user with superuser and replication privileges: 
+&lt;code&gt;psql -c "CREATE USER replicator SUPERUSER REPLICATION LOGIN CONNECTION LIMIT 1 ENCRYPTED PASSWORD '&amp;lt;PASSWORD&amp;gt;';"&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;In the event that the psql command says that authentication failed, edit /etc/postgresql/9.3/main/pg_hba.conf and edit the line (likely top line) that says 
+&lt;code&gt;local all postgres md5&lt;/code&gt; to say &lt;code&gt;local all postgres peer&lt;/code&gt; and restart the server with 
+&lt;code&gt;service postgresql restart&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Edit /etc/postgresql/9.3/main/pg_hba.conf: Add &lt;code&gt;host replication replicator &amp;lt;IP_OF_REPLICA&amp;gt;/32 md5&lt;/code&gt; to the bottom of the file.&lt;/li&gt;
+&lt;li&gt;Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options &lt;strong&gt;(ensure they are not set anywhere else in the config file already)&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;max_wal_senders&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
 &lt;span class="n"&gt;wal_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
