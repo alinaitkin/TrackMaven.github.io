@@ -2708,6 +2708,9 @@ body {
   position: relative;
   cursor: default;
   min-width: 1020px; }
+  @media (max-width: 1040px) {
+    body {
+      min-width: 100%; } }
 
 /*
  * Override Bootstrap's default container.
@@ -2720,14 +2723,20 @@ body {
  */
 .logo {
   position: absolute;
-  top: 21px; }
+  top: 7px;
+  width: 70px;
+  left: 60px; }
+  @media (max-width: 970px) {
+    .logo {
+      left: 13px; } }
 
 .blog-masthead {
   background: white url("../images/web-tile.png") 0 0 repeat;
   border-bottom: 1px solid #dbdbdb;
   margin-bottom: 20px;
   height: 105px;
-  padding: 20px 0; }
+  padding: 20px 0;
+  overflow: hidden; }
 
 /*
  * Blog name and description
@@ -2737,7 +2746,7 @@ body {
   padding-bottom: 20px; }
 
 .blog-title {
-  margin-top: 15px;
+  margin-top: 35px;
   margin-bottom: 0; }
   .blog-title a {
     font-size: 30px;
@@ -2746,6 +2755,11 @@ body {
     .blog-title a:hover {
       color: #dc795e;
       text-decoration: none; }
+  @media (max-width: 970px) {
+    .blog-title {
+      margin-left: 70px; }
+      .blog-title a {
+        font-size: 26px; } }
 
 .blog-description {
   font-size: 20px;
@@ -2801,6 +2815,9 @@ body {
     .blog-post-title a:hover {
       color: #9cd5cb;
       text-decoration: none; }
+  @media (max-width: 970px) {
+    .blog-post-title {
+      font-size: 32px; } }
 
 code {
   color: #373636; }
@@ -2808,7 +2825,8 @@ code {
 .blog-post-meta {
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #999; }
+  color: #999;
+  line-height: 1.4; }
   .blog-post-meta a {
     color: #9cd5cb; }
     .blog-post-meta a:hover {
@@ -2817,6 +2835,8 @@ code {
 
 .blog-post-content {
   line-height: 1.45; }
+  .blog-post-content h2 {
+    font-size: 22px; }
 
 .well-content {
   line-height: 1.45; }
@@ -2827,7 +2847,24 @@ code {
   width: 150px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center; }
+  background-position: center;
+  border: 3px solid #bbb;
+  margin-top: 15px; }
+
+@media (max-width: 970px) {
+  .col-md-3 .side-image {
+    height: 50px;
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+    margin-top: 20px; } }
+
+@media (max-width: 970px) {
+  .col-md-3:before, .col-md-3:after {
+    content: " ";
+    display: table; }
+  .col-md-3:after {
+    clear: both; } }
 
 .cameron-maske-avatar {
   background-image: url("http://trackmaven.com/wp-content/uploads/2014/01/cam_large.png"); }
