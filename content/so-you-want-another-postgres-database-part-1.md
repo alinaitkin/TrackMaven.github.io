@@ -47,6 +47,7 @@ Alright, let's get started.
 
 ### Perform only on primary
 We need a user with replication privileges so that we can ship our WAL files. This only needs to be done on the primary, as all changes made to it will be automatically re-created on the replica. We also need to tune specific settings in the config files to tell PostgreSQL what we want it to do. Most importantly, the `archive_command` setting is what actually ships WAL files, and here we use WAL-E to send ours to S3 for an external backup. The others tell the server that we want our server to archive detailed WAL files, with more detailed documentation on the behavior and other choices for each available from [the Postgres docs](http://www.postgresql.org/docs/9.3/static/runtime-config-wal.html).
+
 * Create a user with superuser and replication privileges: 
 `psql -c "CREATE USER replicator SUPERUSER REPLICATION LOGIN CONNECTION LIMIT 1 ENCRYPTED PASSWORD '<PASSWORD>';"`
   * In the event that the psql command says that authentication failed, edit /etc/postgresql/9.3/main/pg_hba.conf and edit the line (likely top line) that says 
