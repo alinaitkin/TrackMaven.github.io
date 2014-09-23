@@ -2801,7 +2801,7 @@ body {
  */
 .blog-post {
   margin-bottom: 60px;
-  max-width: 570px; }
+  word-wrap: break-word; }
 
 .blog-post-title {
   margin-top: 10px;
@@ -2858,6 +2858,13 @@ code {
     float: left;
     margin-right: 10px;
     margin-top: 20px; } }
+
+@media (max-width: 970px) {
+  .well .side-image {
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin: 0 auto; } }
 
 @media (max-width: 970px) {
   .col-md-3:before, .col-md-3:after {
