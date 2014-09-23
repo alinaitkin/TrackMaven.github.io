@@ -9,3 +9,4 @@ node_modules
 pelican.pid
 srv.pid
 .ropeproject
+engineroom/
