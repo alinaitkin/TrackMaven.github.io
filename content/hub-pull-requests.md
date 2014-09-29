@@ -43,4 +43,20 @@ The second argument, the actual issue number, is supplied when actually using th
 
     pr 123
 
+Finally, if you want to create a pull request based off of any arbitrary branch, rather than just your current branch, this simple addition to the args should do the trick: 
+
+```fish
+function hubpr
+    hub pull-request -b [GitHubName]:$argv[3] -h [GitHubName]:$argv[1] -i $argv[2]
+end
+ 
+function pr
+    if set -q argv[2]
+       hubpr (git rev-parse --abbrev-ref HEAD) $argv[1] $argv[2]
+    else
+       hubpr (git rev-parse --abbrev-ref HEAD) $argv[1] master
+    end
+end
+```
+
 That's it! No more unnecessary issue/pull request duplication.
