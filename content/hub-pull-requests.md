@@ -1,5 +1,12 @@
-#Using hub in fish to turn GitHub issues into pull requests
-##Or: How I Learned to Stop Worrying and Love ZenHub
+Title: Using Hub and Fish to Turn GitHub Issues into Pull Requests
+Date: 2014-09-27
+Category: Scripting
+Tags: Github, Hub, Zenhub, Fish
+Slug: using-hub-and-fish-to-turn-github-issues-into-pull-requests
+Author: Fletcher Heisler
+Avatar: fletcher-heisler
+
+## Or: How I Learned to Stop Worrying and Love ZenHub
 
 Lately we've been making use of [ZenHub](https://www.zenhub.io/) here at TrackMaven for tracking our engineering tasks as GitHub issues move from the backlog into our current cycle, become WIP, enter QC and eventually get merged in. Although ZenHub has certainly had its growing pains (they're still in open beta), it's been great to get GitHub issues organized in one place.
 
