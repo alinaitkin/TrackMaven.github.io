@@ -71,6 +71,21 @@ The Engine Room - TrackMaven
 </pre></div>
 
 
+<p>Finally, if you want to create a pull request based off of any arbitrary branch, rather than just your current branch, this simple addition to the args should do the trick: </p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">hubpr</span>
+    <span class="nx">hub</span> <span class="nx">pull</span><span class="o">-</span><span class="nx">request</span> <span class="o">-</span><span class="nx">b</span> <span class="cp">[</span><span class="nx">GitHubName</span><span class="cp">]</span><span class="o">:</span><span class="nx">$argv</span><span class="cp">[</span><span class="mi">3</span><span class="cp">]</span> <span class="o">-</span><span class="nx">h</span> <span class="cp">[</span><span class="nx">GitHubName</span><span class="cp">]</span><span class="o">:</span><span class="nx">$argv</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span> <span class="o">-</span><span class="nx">i</span> <span class="nx">$argv</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span>
+<span class="nx">end</span>
+
+<span class="kd">function</span> <span class="nx">pr</span>
+    <span class="k">if</span> <span class="nx">set</span> <span class="o">-</span><span class="nx">q</span> <span class="nx">argv</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span>
+       <span class="nx">hubpr</span> <span class="p">(</span><span class="nx">git</span> <span class="nx">rev</span><span class="o">-</span><span class="nx">parse</span> <span class="o">--</span><span class="nx">abbrev</span><span class="o">-</span><span class="nx">ref</span> <span class="nx">HEAD</span><span class="p">)</span> <span class="nx">$argv</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span> <span class="nx">$argv</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span>
+    <span class="k">else</span>
+       <span class="nx">hubpr</span> <span class="p">(</span><span class="nx">git</span> <span class="nx">rev</span><span class="o">-</span><span class="nx">parse</span> <span class="o">--</span><span class="nx">abbrev</span><span class="o">-</span><span class="nx">ref</span> <span class="nx">HEAD</span><span class="p">)</span> <span class="nx">$argv</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span> <span class="nx">master</span>
+    <span class="nx">end</span>
+<span class="nx">end</span>
+</pre></div>
+
+
 <p>That's it! No more unnecessary issue/pull request duplication.</p></div>
 <p class="blog-post-meta">Tags: <a href="/tag/github/">Github</a>, <a href="/tag/hub/">Hub</a>, <a href="/tag/zenhub/">Zenhub</a>, <a href="/tag/fish/">Fish</a></p>  <div class="well">
     <div class="row">
