@@ -1,13 +1,10 @@
-Title: Building a testable d3 charting application within Angular.js
+Title: Building a Testable D3 Charting Application Within Angular.js
 Date: 2014-10-04
 Category: Graphing
 Tags: charting, d3, best-practices, testing
 Slug: building-a-testable-d3-charting-application-within-angularjs
 Author: Fred Battista
 Avatar: fred-battista
-Summary: !
-
-### Building a testable d3 charting application within Angular.js
 
 Why this post?
 
