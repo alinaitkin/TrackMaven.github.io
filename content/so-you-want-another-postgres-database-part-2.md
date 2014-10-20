@@ -1,5 +1,5 @@
 Title: So You Want Another PostgreSQL Database? (Part 2)
-Date: 2014-09-20
+Date: 2014-10-18
 Category: DevOps
 Tags: postgres, double-database, how-to
 Slug: so-you-want-another-postgresql-database-part-2
