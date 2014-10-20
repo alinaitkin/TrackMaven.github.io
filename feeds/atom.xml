@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-10-04T00:00:00+02:00</updated><entry><title>Building a Testable D3 Charting Application Within Angular.js</title><link href="http://engineroom.trackmaven.com/blog/building-a-testable-d3-charting-application-within-angularjs/" rel="alternate"></link><updated>2014-10-04T00:00:00+02:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-10-04:blog/building-a-testable-d3-charting-application-within-angularjs/</id><summary type="html">&lt;p&gt;Why this post?&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-10-18T00:00:00+02:00</updated><entry><title>So You Want Another PostgreSQL Database? (Part 2)</title><link href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/" rel="alternate"></link><updated>2014-10-18T00:00:00+02:00</updated><author><name>John Young</name></author><id>tag:engineroom.trackmaven.com,2014-10-18:blog/so-you-want-another-postgresql-database-part-2/</id><summary type="html">&lt;h2&gt;Automatic nightly base backups to Amazon S3 using WAL-E&lt;/h2&gt;
+&lt;p&gt;In the first part of this series of posts, we set up streaming replication between a primary database and a replica database by shipping WAL files between them. While functional, it lacks the robustness and safety that a production database requires. To add an additional layer of protection to our process, we ship our WAL files to S3 so that our replica can ALWAYS bring itself up to date regardless of an enormous write load on the primary or a temporary network disruption preventing the primary and replica from communicating with each other. &lt;/p&gt;
+&lt;p&gt;We also create a base backup of our database nightly and send that to S3 so that we can restore our database to any point in time we need in case of catastrophe. With a base backup and the WAL files written since that backup was taken, your database can very easily be recovered to any point in time you specify.&lt;/p&gt;
+&lt;h3&gt;S3&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;First things first, create a bucket on S3 to store our backups&lt;/li&gt;
+&lt;li&gt;Turn on versioning as a safeguard against file manipulation&lt;/li&gt;
+&lt;li&gt;Create a user in AWS IAM to have Put access to the S3 bucket&lt;/li&gt;
+&lt;li&gt;Give the user read/put access, but NOT delete access. If, for some reason, our database server is compromised and an attacker gets our AWS credentials for this user, they will be able to overwrite our files but not delete them. Thanks to versioning, overwriting of our files is a non-issue. If the name of our bucket is db-backup, a policy like this will do:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;Version&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;2014-05-14&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;Statement&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;Sid&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Stmt1399394132000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;Effect&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Allow&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;Action&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;[&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;s3:GetObject&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;s3:ListBucket&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;s3:PutObject&amp;quot;&lt;/span&gt;
+      &lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;Resource&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::db-backup&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::db-backup/*&amp;quot;&lt;/span&gt;
+      &lt;span class="cp"&gt;]&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Create a new user, making sure to save their AWS credentials (access key AND secret key), and add them to the newly created group&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Master and Slave Database Servers&lt;/h3&gt;
+&lt;p&gt;Install WAL-E and its dependencies, then set it up by saving your bucket name, AWS user's access key, and AWS user's secret key.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt-get install daemontools python-dev lzop pv python-pip&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;I ran into problems with my older version of six, so just to be safe... &lt;code&gt;sudo pip install -U six&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo pip install wal-e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set up WAL-E:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;umask&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;rwx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;rx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;
+&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;AWS SECRET KEY&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;
+&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;AWS ACCESS KEY&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;
+&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//db-backup/&amp;#39; | sudo tee /etc/wal-e.d/env/WALE_S3_PREFIX&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chown&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;That's all there is to it when it comes to setting up WAL-E. Ensure that the following options are set correctly in /etc/postgresql/9.3/main/postgresql.conf:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;wal_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;archive_mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
+&lt;span class="n"&gt;archive_command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;envdir&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;archive_timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;60&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Become the postgres user: &lt;code&gt;su - postgres&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set up a cron job: &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;0 2 * * * /usr/bin/envdir /etc/wal-e.d/env /usr/local/bin/wal-e backup-push /data/trackmaven&lt;/code&gt; will push a base backup of the master database to S3 at 2am nightly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will also need to clean up our S3 bucket by deleting old base backups. This can be done manually, but can also be done with WAL-E. You will need to add Delete permissions to the bucket before WAL-E can do it, so understand the risks that are associated with that. The following command will keep the 5 most recent base backups and delete all others at 2:30am nightly. We could schedule it to run after the nightly backup like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;30 2 * * * /usr/bin/envdir /etc/wal-e.d/env /usr/local/bin/wal-e delete --confirm retain 5&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="postgres"></category><category term="double-database"></category><category term="how-to"></category></entry><entry><title>Building a Testable D3 Charting Application Within Angular.js</title><link href="http://engineroom.trackmaven.com/blog/building-a-testable-d3-charting-application-within-angularjs/" rel="alternate"></link><updated>2014-10-04T00:00:00+02:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-10-04:blog/building-a-testable-d3-charting-application-within-angularjs/</id><summary type="html">&lt;p&gt;Why this post?&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
