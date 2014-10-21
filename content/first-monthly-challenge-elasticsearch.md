@@ -195,7 +195,9 @@ python -m SimpleHTTPServer 9201
 ```
 
 If you now visit:
+```
 http://localhost:9201/
+```
 
 you should be able to see Kibana's default interface. Click "Blank Dashboard" at the bottom to get started, or let Kibana fill in some default panels. Add a row of query results using a "table" panel and try searching for `subscriber:registered` at the top instead of the default `*` to see the results limit. (To add a panel to a new row, click the green "+" on the far left.)
 
