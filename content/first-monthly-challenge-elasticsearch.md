@@ -6,7 +6,7 @@ Slug: first-monthly-challenge-elasticsearch
 Author: Fletcher Heisler
 Avatar: fletcher-heisler
 
-TrackMaven has begun hosting a [Monthly Challenge meetup](www.meetup.com/TrackMaven-Monthly-Challenge/)! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.
+TrackMaven has begun hosting a [Monthly Challenge meetup](http://www.meetup.com/TrackMaven-Monthly-Challenge/)! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.
 
 Our first topic is **Elasticsearch**, an incredibly powerful search and analytics engine. Go [here](http://www.elasticsearch.org/overview/elasticsearch) for a high level, buzzword-heavy overview, or just jump into [the documentation](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/) if you're feeling bold.
 
