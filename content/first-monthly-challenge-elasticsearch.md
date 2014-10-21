@@ -13,6 +13,7 @@ Our first topic is **Elasticsearch**, an incredibly powerful search and analytic
 Built on top of [Lucene](http://lucene.apache.org/core/), Elasticsearch is most frequently used to add full text search functionality; it comes out of the box with a rich query language that supports fuzzy matching and advanced [parsing patterns](http://lucene.apache.org/core/3_0_3/queryparsersyntax.html).
 
 We'll go into the details of a sample project to get you started below. A few Elasticsearch-inspired possibilities for projects might be:
+
 - Provide real-time text search over a large corpus (ie, some subset of [Project Gutenburg](http://www.gutenberg.org/), a bunch of product reviews, etc.)
 - Beyond search, *analysis* of a large set of text: determine similar authors based on vocabulary, compare word usage over time using Google Books data, or see what stands out in the language of spammy emails
 - Task logging and visualization of results with [Logstash](http://www.elasticsearch.org/overview/logstash/) and [Kibana](http://www.elasticsearch.org/overview/kibana/), the Elasticsearch ["ELK" stack](http://www.elasticsearch.org/webinars/introduction-elk-stack/)
