@@ -127,7 +127,7 @@ print res['hits']['total']
 print res['hits']['hits'][0]['_source']['title']
 ```
 
-At this point, you could build more functionality around the built-in search or use [aggregations]() to perform broader analysis on the data.
+At this point, you could build more functionality around the built-in search or use [aggregations](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations.html) to perform broader analysis on the data.
 
 For now, let's try working with some time series data so that we can make some pretty charts. Download a CSV of some [trip history data](http://www.capitalbikeshare.com/trip-history-data) from Capital Bikeshare.
 
