@@ -6,6 +6,8 @@ Slug: so-you-want-another-postgresql-database-part-2
 Author: John Young
 Avatar: john-young
 
+__Read [Part 1](http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-1/)__
+
 ## Automatic nightly base backups to Amazon S3 using WAL-E
 
 In the first part of this series of posts, we set up streaming replication between a primary database and a replica database by shipping WAL files between them. While functional, it lacks the robustness and safety that a production database requires. To add an additional layer of protection to our process, we ship our WAL files to S3 so that our replica can ALWAYS bring itself up to date regardless of an enormous write load on the primary or a temporary network disruption preventing the primary and replica from communicating with each other. 
