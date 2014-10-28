@@ -1,9 +1,10 @@
 Title: A Better Development Environment with Docker and Fig
-Date: 2014-06-30
+Date: 2014-10-28
 Category: Development
 Tags: docker, fig, how-to
 Slug: a-better-development-environment-with-docker-and-fig
 Author: Cameron Maske
+Avatar: cameron-maske
 Summary: In this post, I'll be talking about how we manage our local development environments across TrackMaven's development team and cover an example of spinning up a non-trivial stack locally.
 
 # A Better Development Environment with Docker and Fig
