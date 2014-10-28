@@ -7,6 +7,8 @@ SITENAME = u'The Engine Room'
 SITEURL = ''
 ABOUT = u'This is the home of the Engineering blog for TrackMaven.'
 
+PATH = 'content'
+
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = u'en'
@@ -48,8 +50,6 @@ THEME = "theme"
 EXTRA_PATH_METADATA = {
     'extra/CNAME': {'path': 'CNAME'},
 }
-
-IGNORE_FILES = ['*/node_modules/**/*']
 
 READERS = {'html': None}
 DEBUG = True

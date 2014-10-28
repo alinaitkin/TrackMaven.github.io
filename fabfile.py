@@ -16,6 +16,7 @@ def build():
     local('pelican -s pelicanconf.py')
     local("echo 'engineroom.trackmaven.com' > {}/CNAME".format(
         env.deploy_path))
+    local("cp -r images/ output/images/")
 
 
 def rebuild():
@@ -41,6 +42,7 @@ def prodbuild():
     local('pelican -s publishconf.py')
     local("echo 'engineroom.trackmaven.com' > {}/CNAME".format(
         env.deploy_path))
+    local("cp -r images/ output/images/")
 
 
 def push():

@@ -1,3 +1,4 @@
+.DS_Store
 .vfenv
 *.pyc
 .venv
@@ -9,3 +10,4 @@ node_modules
 pelican.pid
 srv.pid
 .ropeproject
+engineroom/
