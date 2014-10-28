@@ -11,4 +11,3 @@ pelican.pid
 srv.pid
 .ropeproject
 engineroom/
-theme/static/css/main.css*
