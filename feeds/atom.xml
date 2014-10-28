@@ -1,5 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-10-20T00:00:00+02:00</updated><entry><title>First Monthly Challenge: Elasticsearch!</title><link href="http://engineroom.trackmaven.com/blog/first-monthly-challenge-elasticsearch/" rel="alternate"></link><updated>2014-10-20T00:00:00+02:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2014-10-20:blog/first-monthly-challenge-elasticsearch/</id><summary type="html">&lt;p&gt;TrackMaven has begun hosting a &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt;! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-10-28T00:00:00+01:00</updated><entry><title>A Better Development Environment with Docker and Fig</title><link href="http://engineroom.trackmaven.com/blog/a-better-development-environment-with-docker-and-fig/" rel="alternate"></link><updated>2014-10-28T00:00:00+01:00</updated><author><name>Cameron Maske</name></author><id>tag:engineroom.trackmaven.com,2014-10-28:blog/a-better-development-environment-with-docker-and-fig/</id><summary type="html">&lt;p&gt;Local development environments can be a nightmare.
+Have you every run into a scenario where something works on your machine, but not on your colleagues?
+Having to spend time debugging platform specific problems is a frustrating productivity sink.&lt;/p&gt;
+&lt;p&gt;Before we explore how to set up our stress free development environment, let's consider what key elements it should have.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Isolated. No other project should affect it, and it shouldn't affect any other projects. For example, if one project uses Python 2.7, that shouldn't affect another with Python 3.4.&lt;/li&gt;
+&lt;li&gt;Repeatable. Write it once, and have it work each time. I don't want to have to spend time tweaking it for each user.&lt;/li&gt;
+&lt;li&gt;Be as close to production as possible.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All that sounds great. But how do we achieve this?&lt;/p&gt;
+&lt;p&gt;Enter Docker. If you are unfamiliar with what Docker is, Solomon Hykes (founder and CTO of Docker) gives a great &lt;a href="http://youtu.be/Q5POuMHxW-0?t=2m18s"&gt;introduction talk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Docker lend's itself perfectly to our 3 requirements above. Docker was built to solve the problem of "run it once, run it everywhere". Docker containers are isolated, portable and repeatable.&lt;/p&gt;
+&lt;p&gt;But, building, booting and managing container's can take a fair few complex shell commands.&lt;/p&gt;
+&lt;p&gt;The missing link is Fig. Fig describes it's self as a tool to create &lt;a href="http://orchardup.github.io/fig/"&gt;fast, isolated development environments&lt;/a&gt; using Docker.&lt;/p&gt;
+&lt;p&gt;Fig moves all the configuration required to orchestra Docker into a simple clear &lt;code&gt;fig.yml&lt;/code&gt; file. It handles all the work of building and running container's, forwarding their ports, sharing volumes and linking them.&lt;/p&gt;
+&lt;p&gt;Let's explore Fig by example and let's make it challenging.&lt;/p&gt;
+&lt;p&gt;I want a project with TWO databases, &lt;code&gt;Postgres 9.1&lt;/code&gt; and &lt;code&gt;ElasticSearch 1.1&lt;/code&gt;. I want &lt;code&gt;Redis 2.8.3&lt;/code&gt; for a caching and I'll be running my main site through a python powered Flask app.&lt;/p&gt;
+&lt;p&gt;Before we set this up in Fig, imagine setting this up locally. How long would it take?&lt;/p&gt;
+&lt;p&gt;Thought experiment over, let's dive into an example. All code featured is available in this &lt;a href="https://github.com/TrackMaven/using-fig"&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;An example&lt;/h3&gt;
+&lt;p&gt;Let's start with the &lt;code&gt;fig.yml&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;
+    &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;py&lt;/span&gt;
+    &lt;span class="n"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;./&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;links&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;es&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;
+&lt;span class="n"&gt;es&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
+    &lt;span class="n"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;elasticsearch&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;environment&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;POSTGRESQL_DB&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;test_db&lt;/span&gt;
+&lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In less then 30 lines of yaml, I've declared our stack.&lt;/p&gt;
+&lt;p&gt;With &lt;a href="http://orchardup.github.io/fig/install.html"&gt;Fig installed&lt;/a&gt; we can start our stack by running &lt;code&gt;fig up&lt;/code&gt;.&lt;/p&gt;
+&lt;iframe src="https://gfycat.com/ifr/SlightZestyGlassfrog" frameborder="0" scrolling="no" width="100%" &gt;&lt;/iframe&gt;
+
+&lt;p&gt;Let's break down what our simple command above did into 2 stages.&lt;/p&gt;
+&lt;h4&gt;Building stage.&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;demo_web&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;True&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Equivalent docker commands preformed by Fig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Fig goes through each service, then if needed, builds an image.&lt;/p&gt;
+&lt;p&gt;Building is based off a &lt;a href="http://docs.docker.com/reference/builder/"&gt;Dockerfile&lt;/a&gt; that contains all the required steps to produce our desired image.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# Our base image is Ubuntu 13.04&lt;/span&gt;
+&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;stackbrew&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ubuntu&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;raring&lt;/span&gt;
+&lt;span class="cp"&gt;# Install any updates&lt;/span&gt;
+&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
+&lt;span class="cp"&gt;# Ensure python is installed and postgres drivers.&lt;/span&gt;
+&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;psycopg2&lt;/span&gt;
+
+&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;
+&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In our example project, our &lt;a href="https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile"&gt;Dockerfile&lt;/a&gt; builds on top of an Ubuntu 13.04 base. It ensures Python and pip are installed before installing our project specific python packages from requirements.txt.&lt;/p&gt;
+&lt;p&gt;Alternatively, you can point services towards a pre-built image.
+This can exist locally and be referenced by a tag or a partial image ID or remotely on Docker's &lt;a href="https://registry.hub.docker.com/"&gt;public registry&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Building a container off a Dockerfile works best for a  service that is dependent on code within your project. In this case, the core logic for our python powered app is in our source control. In contrast, images work best for services that don't rely as heavily on project specific code (e.g. the datastores).&lt;/p&gt;
+&lt;p&gt;Once Fig is satisfied all the required images are built or pulled, it's then time to run the services...&lt;/p&gt;
+&lt;h4&gt;Running stage.&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_es_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;elasticsearch:/data&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_db_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;POSTGRESQL_DB:test_db&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_redis_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_web_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;web:/code&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;es&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_es_1&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_db_1&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_redis_1&lt;/span&gt; &lt;span class="n"&gt;demo_web&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Equivalent docker commands preformed by Fig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Each service has a variety of run time options, including...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;volumes&lt;/code&gt;: Allows you to share folders between your host machine and the services' docker containers. In our example, the &lt;code&gt;web&lt;/code&gt; folder is shared, so any code changes to the contained files are immediately updated on the running container.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ports&lt;/code&gt;: Exposes ports between the host (you) and the container (service).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment&lt;/code&gt;: Allows you to set environment variables for containers. In our example, this allows us to configure the name of our database, &lt;a href="https://github.com/orchardup/docker-postgresql/blob/master/run"&gt;due to a clever run script&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;links&lt;/code&gt;: &lt;a href="http://orchardup.github.io/fig/env.html"&gt;Allows inter-service communication&lt;/a&gt;. In our example, &lt;code&gt;web&lt;/code&gt; needs to know the ip and ports for the &lt;code&gt;redis&lt;/code&gt;, &lt;code&gt;db&lt;/code&gt; and &lt;code&gt;es&lt;/code&gt; services. Fig ensures those boot up first, then injects in a set of environment variables to &lt;code&gt;web&lt;/code&gt; that includes the ip address and various ports of the linked services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To stop the running services, you kill them with &lt;code&gt;Ctrl+C&lt;/code&gt; or run &lt;code&gt;fig stop&lt;/code&gt; in another terminal window.&lt;/p&gt;
+&lt;p&gt;Behind the scenes, Fig has used Docker to build and then run containers for each service. Running &lt;code&gt;fig up&lt;/code&gt; again will restart the previously created containers, whose volume changes (files, folders, etc) persist between boots. This means, if you have added data to one of the data stores, it will still be present between restarts. You can remove the containers associated with services, and thus any volume changes by running &lt;code&gt;fig remove [SERVICE]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After a successful build of a service, Fig won't attempt to rebuild that service on the next up. That means if you've want to make any changes to a built service's  &lt;code&gt;Dockerfile&lt;/code&gt;, you'll need to tell Fig to &lt;code&gt;rebuild&lt;/code&gt; that image, using &lt;code&gt;fig build [SERVICE]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Fig also gives you the ability to run one off commands in services using &lt;code&gt;fig run [SERVICE] [COMMAND]&lt;/code&gt;. For example, &lt;code&gt;fig run web python&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;That's it!&lt;/h3&gt;
+&lt;p&gt;For more about what Fig can do, I'd suggest checking out the
+&lt;a href="http://orchardup.github.io/fig/index.html"&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Tips we've learnt along the way.&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Try to use images when you can. Each layer is pulled in parallel, resulting in a quick download. An image is also frozen. Without careful version pinning, re-building images can change over time. Try to move as many non-project specific steps out of your Dockerfiles into new base images. For example, in our web service, the python and pip installation steps.&lt;/li&gt;
+&lt;li&gt;Across teams, try to all use the same version of Docker and Fig. Both are moving fast and not insusceptible to version differences.&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="docker"></category><category term="fig"></category><category term="how-to"></category></entry><entry><title>First Monthly Challenge: Elasticsearch!</title><link href="http://engineroom.trackmaven.com/blog/first-monthly-challenge-elasticsearch/" rel="alternate"></link><updated>2014-10-20T00:00:00+02:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2014-10-20:blog/first-monthly-challenge-elasticsearch/</id><summary type="html">&lt;p&gt;TrackMaven has begun hosting a &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt;! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.&lt;/p&gt;
 &lt;p&gt;Our first topic is &lt;strong&gt;Elasticsearch&lt;/strong&gt;, an incredibly powerful search and analytics engine. Go &lt;a href="http://www.elasticsearch.org/overview/elasticsearch"&gt;here&lt;/a&gt; for a high level, buzzword-heavy overview, or just jump into &lt;a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/"&gt;the documentation&lt;/a&gt; if you're feeling bold.&lt;/p&gt;
 &lt;p&gt;Built on top of &lt;a href="http://lucene.apache.org/core/"&gt;Lucene&lt;/a&gt;, Elasticsearch is most frequently used to add full text search functionality; it comes out of the box with a rich query language that supports fuzzy matching and advanced &lt;a href="http://lucene.apache.org/core/3_0_3/queryparsersyntax.html"&gt;parsing patterns&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We'll go into the details of a sample project to get you started below. A few Elasticsearch-inspired possibilities for projects might be:&lt;/p&gt;
