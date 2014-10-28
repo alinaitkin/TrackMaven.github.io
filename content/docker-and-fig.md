@@ -8,7 +8,7 @@ Avatar: cameron-maske
 Summary: In this post, I'll be talking about how we manage our local development environments across TrackMaven's development team and cover an example of spinning up a non-trivial stack locally.
 
 Local development environments can be a nightmare.
-Have you every run into a scenario where something works on your machine, but not on your colleagues?
+Have you ever run into a scenario where something works on your machine, but not on your colleagues?
 Having to spend time debugging platform specific problems is a frustrating productivity sink.
 
 Before we explore how to set up our stress free development environment, let's consider what key elements it should have.
