@@ -14,6 +14,7 @@ SITEURL = 'http://engineroom.trackmaven.com'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/atom.xml'
+FEED_ALL_RSS = 'feeds/rss.xml'
 CATEGORY_FEED_ATOM = None
 
 DELETE_OUTPUT_DIRECTORY = True
