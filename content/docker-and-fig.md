@@ -7,8 +7,6 @@ Author: Cameron Maske
 Avatar: cameron-maske
 Summary: In this post, I'll be talking about how we manage our local development environments across TrackMaven's development team and cover an example of spinning up a non-trivial stack locally.
 
-# A Better Development Environment with Docker and Fig
-
 Local development environments can be a nightmare.
 Have you every run into a scenario where something works on your machine, but not on your colleagues?
 Having to spend time debugging platform specific problems is a frustrating productivity sink.
@@ -76,7 +74,7 @@ In less then 30 lines of yaml, I've declared our stack.
 
 With [Fig installed](http://orchardup.github.io/fig/install.html) we can start our stack by running `fig up`.
 
-<iframe src="https://gfycat.com/ifr/SlightZestyGlassfrog" frameborder="0" scrolling="no" width="1310" height="686" ></iframe>
+<iframe src="https://gfycat.com/ifr/SlightZestyGlassfrog" frameborder="0" scrolling="no" width="100%" ></iframe>
 
 Let's break down what our simple command above did into 2 stages.
 
