@@ -9,7 +9,7 @@ Summary: In this post, I'll be talking about how we manage our local development
 
 Local development environments can be a nightmare.
 Have you ever run into a scenario where something works on your machine but not on your colleagues'?
-Having to spend time debugging platform specific problems is a frustrating productivity sink.
+Having to spend time debugging platform-specific problems is a frustrating productivity sink.
 
 Before we explore how to set up our stress free development environment, let's consider what key elements it should have.
 
@@ -29,9 +29,9 @@ The missing link is Fig. Fig describes itsself as a tool to create [fast, isolat
 
 Fig moves all the configuration required to orchestra Docker into a simple clear `fig.yml` file. It handles all the work of building and running containers, forwarding their ports, sharing volumes, and linking them.
 
-Let's explore Fig by example and let's make it challenging.
+Let's explore Fig by example, and let's make it challenging.
 
-I want a project with TWO databases, `Postgres 9.1` and `ElasticSearch 1.1`. I want `Redis 2.8.3` for a caching and I'll be running my main site through a python powered Flask app.
+I want a project with TWO databases, `Postgres 9.1` and `ElasticSearch 1.1`. I want `Redis 2.8.3` for caching, and I'll be running my main site through a Python-powered Flask app.
 
 Before we set this up in Fig, imagine setting this up locally. How long would it take?
 
@@ -105,12 +105,12 @@ ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 ```
 
-In our example project, our [Dockerfile](https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile) builds on top of an Ubuntu 13.04 base. It ensures Python and pip are installed before installing our project specific python packages from requirements.txt.
+In our example project, our [Dockerfile](https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile) builds on top of an Ubuntu 13.04 base. It ensures Python and pip are installed before installing our project-specific Python packages from requirements.txt.
 
 Alternatively, you can point services towards a pre-built image.
 This can exist either locally, and be referenced by a tag or a partial image ID, or remotely, on Docker's [public registry](https://registry.hub.docker.com/).
 
-Building a container off a Dockerfile works best for a  service that is dependent on code within your project. In this case, the core logic for our python powered app is in our source control. In contrast, images work best for services that don't rely as heavily on project specific code (e.g. the datastores).
+Building a container off a Dockerfile works best for a  service that is dependent on code within your project. In this case, the core logic for our Python-powered app is in our source control. In contrast, images work best for services that don't rely as heavily on project-specific code (e.g. the datastores).
 
 Once Fig is satisfied all the required images are built or pulled, it's then time to run the services...
 
@@ -128,15 +128,15 @@ Each service has a variety of run time options, including...
 * `volumes`: Allows you to share folders between your host machine and the services' docker containers. In our example, the `web` folder is shared, so any code changes to the contained files are immediately updated on the running container.
 * `ports`: Exposes ports between the host (you) and the container (service).
 * `environment`: Allows you to set environment variables for containers. In our example, this allows us to configure the name of our database, [due to a clever run script](https://github.com/orchardup/docker-postgresql/blob/master/run).
-* `links`: [Allows inter-service communication](http://orchardup.github.io/fig/env.html). In our example, `web` needs to know the ip and ports for the `redis`, `db` and `es` services. Fig ensures those boot up first and then injects a set of environment variables to `web` which include the ip address and various ports of the linked services.
+* `links`: [Allows inter-service communication](http://orchardup.github.io/fig/env.html). In our example, `web` needs to know the ip and ports for the `redis`, `db` and `es` services. Fig ensures those boot up first and then injects a set of environment variables to `web` which include the IP address and various ports of the linked services.
 
 To stop the running services you kill them with `Ctrl+C` or run `fig stop` in another terminal window.
 
 Behind the scenes, Fig has used Docker to build and then run containers for each service. Running `fig up` again will restart the previously created containers whose volume changes (files, folders, etc) persist between boots. This means that if you have added data to one of the data stores it will still be present between restarts. You can remove the containers associated with services, and thus any volume changes, by running `fig remove [SERVICE]`.
 
-After a successful build of a service Fig won't attempt to rebuild that service on the next `up`. That means if you want to make any changes to a built service's  `Dockerfile`, you'll need to tell Fig to `rebuild` that image by using `fig build [SERVICE]`.
+After a successful build of a service Fig won't attempt to rebuild that service on the next `up`. That means if you want to make any changes to a built service's `Dockerfile`, you'll need to tell Fig to `rebuild` that image by using `fig build [SERVICE]`.
 
-Fig also gives you the ability to run one off commands in services using `fig run [SERVICE] [COMMAND]`, e.g. `fig run web python`.
+Fig also gives you the ability to run one-off commands in services using `fig run [SERVICE] [COMMAND]`, e.g. `fig run web python`.
 
 ### That's it!
 
