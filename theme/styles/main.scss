@@ -95,7 +95,7 @@ body {
 
 @media (min-width: 1200px) {
   .container {
-    width: 970px;
+    width: 1000px;
   }
 }
 
@@ -109,7 +109,7 @@ body {
   width: 70px;
   left: 60px;
 
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     left: 13px;
   }
  }
@@ -122,6 +122,44 @@ body {
     padding: 20px 0;
     overflow: hidden;
 }
+
+// We're Hiring Ribbon
+.ribbon {
+  background-color: #428bca;
+  display: inline-block;
+  padding: 7px 15px 6px 15px;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background-color: darken(#428bca, 7%);
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ribbon {
+    margin-top: 60px;
+  }
+  .mobile-placement {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ribbon {
+    margin-top: 10px;
+  }
+}
+
 
 
 
@@ -147,7 +185,7 @@ body {
     }
   }
 
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     margin-left: 70px;
 
     a {
@@ -225,7 +263,7 @@ body {
     }
   }
 
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     font-size: 32px;
   }
 }
@@ -269,7 +307,7 @@ code {
 }
 
 .col-md-3 .side-image {
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     height: 50px;
     width: 50px;
     float: left;
@@ -279,7 +317,7 @@ code {
 }
 
 .well .side-image {
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     height: 150px;
     width: 150px;
     display: block;
@@ -288,7 +326,7 @@ code {
 }
 
 .col-md-3 {
-  @media (max-width: 970px) {
+  @media (max-width: 1000px) {
     @include clearfix();
   }
 }
