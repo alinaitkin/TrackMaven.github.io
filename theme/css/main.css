@@ -2720,7 +2720,7 @@ body {
  */
 @media (min-width: 1200px) {
   .container {
-    width: 1000px; } }
+    width: 970px; } }
 /*
  * Masthead for nav
  */
@@ -2729,7 +2729,7 @@ body {
   top: 7px;
   width: 70px;
   left: 60px; }
-  @media (max-width: 1000px) {
+  @media (max-width: 970px) {
     .logo {
       left: 13px; } }
 
@@ -2741,33 +2741,6 @@ body {
   padding: 20px 0;
   overflow: hidden; }
 
-.ribbon {
-  background-color: #428bca;
-  display: inline-block;
-  padding: 7px 15px 6px 15px;
-  border-radius: 30px;
-  color: white;
-  text-decoration: none;
-  font-size: 0.9rem;
-  margin-top: 40px; }
-  .ribbon:hover {
-    color: white;
-    background-color: #3379b5;
-    text-decoration: none; }
-
-@media (max-width: 1000px) {
-  .ribbon {
-    margin-top: 60px; }
-
-  .mobile-placement {
-    position: absolute;
-    top: 0;
-    right: 5px;
-    padding-top: 0 !important;
-    margin-top: 0 !important; } }
-@media (max-width: 480px) {
-  .ribbon {
-    margin-top: 10px; } }
 /*
  * Blog name and description
  */
@@ -2785,7 +2758,7 @@ body {
     .blog-title a:hover {
       color: #dc795e;
       text-decoration: none; }
-  @media (max-width: 1000px) {
+  @media (max-width: 970px) {
     .blog-title {
       margin-left: 70px; }
       .blog-title a {
@@ -2845,7 +2818,7 @@ body {
     .blog-post-title a:hover {
       color: #9cd5cb;
       text-decoration: none; }
-  @media (max-width: 1000px) {
+  @media (max-width: 970px) {
     .blog-post-title {
       font-size: 32px; } }
 
@@ -2881,7 +2854,7 @@ code {
   border: 3px solid #bbb;
   margin-top: 15px; }
 
-@media (max-width: 1000px) {
+@media (max-width: 970px) {
   .col-md-3 .side-image {
     height: 50px;
     width: 50px;
@@ -2889,14 +2862,14 @@ code {
     margin-right: 10px;
     margin-top: 20px; } }
 
-@media (max-width: 1000px) {
+@media (max-width: 970px) {
   .well .side-image {
     height: 150px;
     width: 150px;
     display: block;
     margin: 0 auto; } }
 
-@media (max-width: 1000px) {
+@media (max-width: 970px) {
   .col-md-3:before, .col-md-3:after {
     content: " ";
     display: table; }
