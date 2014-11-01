@@ -25,7 +25,7 @@ Docker lends itself perfectly to our 3 requirements above. Docker was built to s
 
 But building, booting and managing containers can take a fair few complex shell commands.
 
-The missing link is Fig. Fig describes itsself as a tool to create [fast, isolated development environments](http://orchardup.github.io/fig/) using Docker.
+The missing link is Fig. Fig describes itsself as a tool to create [fast, isolated development environments](https://github.com/docker/fig/) using Docker.
 
 Fig moves all the configuration required to orchestra Docker into a simple clear `fig.yml` file. It handles all the work of building and running containers, forwarding their ports, sharing volumes, and linking them.
 
@@ -72,7 +72,7 @@ redis:
 ```
 In less then 30 lines of yaml, I've declared our stack.
 
-With [Fig installed](http://orchardup.github.io/fig/install.html) we can start our stack by running `fig up`.
+With [Fig installed](http://www.fig.sh/install.html) we can start our stack by running `fig up`.
 
 <iframe src="https://gfycat.com/ifr/SlightZestyGlassfrog" frameborder="0" scrolling="no" width="100%" ></iframe>
 
@@ -105,7 +105,7 @@ ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 ```
 
-In our example project, our [Dockerfile](https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile) builds on top of an Ubuntu 13.04 base. It ensures Python and pip are installed before installing our project-specific Python packages from requirements.txt.
+In our example project, our [Dockerfile](https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile) builds on top of an Ubuntu base. It ensures Python and pip are installed before installing our project-specific Python packages from requirements.txt.
 
 Alternatively, you can point services towards a pre-built image.
 This can exist either locally, and be referenced by a tag or a partial image ID, or remotely, on Docker's [public registry](https://registry.hub.docker.com/).
@@ -128,7 +128,7 @@ Each service has a variety of run time options, including...
 * `volumes`: Allows you to share folders between your host machine and the services' docker containers. In our example, the `web` folder is shared, so any code changes to the contained files are immediately updated on the running container.
 * `ports`: Exposes ports between the host (you) and the container (service).
 * `environment`: Allows you to set environment variables for containers. In our example, this allows us to configure the name of our database, [due to a clever run script](https://github.com/orchardup/docker-postgresql/blob/master/run).
-* `links`: [Allows inter-service communication](http://orchardup.github.io/fig/env.html). In our example, `web` needs to know the ip and ports for the `redis`, `db` and `es` services. Fig ensures those boot up first and then injects a set of environment variables to `web` which include the IP address and various ports of the linked services.
+* `links`: [Allows inter-service communication](http://www.fig.sh/env.html). In our example, `web` needs to know the ip and ports for the `redis`, `db` and `es` services. Fig ensures those boot up first and then injects a set of environment variables to `web` which include the IP address and various ports of the linked services.
 
 To stop the running services you kill them with `Ctrl+C` or run `fig stop` in another terminal window.
 
@@ -141,7 +141,7 @@ Fig also gives you the ability to run one-off commands in services using `fig ru
 ### That's it!
 
 For more about what Fig can do, I'd suggest checking out the
-[documentation](http://orchardup.github.io/fig/index.html).
+[documentation](http://www.fig.sh/index.html).
 
 ### Tips we've learnt along the way.
 
