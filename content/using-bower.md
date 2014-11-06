@@ -6,11 +6,11 @@ Slug: using-bower
 Author: Josh Finnie
 Avatar: josh-finnie
 
-Using [Bower](http://bower.io) can save you a lot of time installing and keeping track of your third-party javascript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.
+Using [Bower](http://bower.io) can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.
 
 ## What is Bower
 
-So what is Bower? Bower is the "package manager for the web." It allows you to install and track third-party javascript libraries easily. At TrackMaven we use it to install and keep track of all the libraries we use. Below is just a small excerpt from our `bower.json` file:
+So what is Bower? Bower is the "package manager for the web." It allows you to install and track third-party JavaScript libraries easily. At TrackMaven we use it to install and keep track of all the libraries we use. Below is just a small excerpt from our `bower.json` file:
 
 ```
 "dependencies": {
@@ -22,7 +22,7 @@ So what is Bower? Bower is the "package manager for the web." It allows you to i
 }
 ```
 
-Bower allows for us to not only keep track of what third-party javascript libraries we are using, but it also allows us to pin these libraries to certain versions. The ability to pin the versions have become invaluable to us as we grow our engineering team; it allows us to keep our development environment consistent across all our engineers. Another great feature of Bower is that it allows us to install these libraries from many different sources:
+Bower allows for us to not only keep track of what third-party JavaScript libraries we are using, but it also allows us to pin these libraries to certain versions. The ability to pin the versions have become invaluable to us as we grow our engineering team; it allows us to keep our development environment consistent across all our engineers. Another great feature of Bower is that it allows us to install these libraries from many different sources:
 
 <center>![Bower Install Examples from http://bower.io/](/images/bower-examples.png)</center>
 
@@ -36,7 +36,7 @@ $ npm install -g bower
 
 That's it! The above command installs Bower globally on your machine; this allows you to use Bower for all your projects. 
 
-If you want to use Bower to install a javascript library, all you need to do is run the following command:
+If you want to use Bower to install a JavaScript library, all you need to do is run the following command:
 
 ```
 $ bower install angular
@@ -60,17 +60,17 @@ $ bower install jasmine --save-dev
 
 ### Versioning packages
 
-You can also determine what version of a package you want to install by preceeding the package with a `#` sign. For example, if we do not want Angular 1.2.26 but instead Angular 1.2.12, we could install that version with the following command:
+You can also determine what version of a package you want to install by preceding the package with a `#` sign. For example, if we do not want Angular 1.2.26 but instead Angular 1.2.12, we could install that version with the following command:
 
 ```
 $ bower install angularjs#1.2.12
 ```
 
-This was very helpful for us at TrackMaven when starting off with Bower since we wanted to match our current setup as much as we could and we were running some older versions of javascript libraries.
+This was very helpful for us at TrackMaven when starting off with Bower since we wanted to match our current setup as much as we could, and we were running some older versions of JavaScript libraries.
 
 ### Customizations
 
-The defaults that come with Bower are pretty sane, but I always feel like the default folder `bower_components` just a bit too clunky. Luckily Bower allows for an easy way to change some defaults. This is done via the `.bowerrc` file. Here at TrackMaven, we have three lines to ease our time with Bower:
+The defaults that come with Bower are pretty sane, but I always feel like the default folder `bower_components` is just a bit too clunky. Luckily Bower allows for an easy way to change some defaults. This is done via the `.bowerrc` file. Here at TrackMaven, we have three lines to ease our time with Bower:
 
 ```
 {
@@ -80,17 +80,17 @@ The defaults that come with Bower are pretty sane, but I always feel like the de
 }
 ```
 
-Those three line do as followed:
+Those three line do the following:
 
 * **directory** - Changes the default directory in which Bower installs the libraries.
 * **json** - Tells Bowser where your init file is. This allows you to rename it something other than `bower.json`.
-* **interactive** - Makes Bower interactive, prompting whenever necessary. We turn this off since we use [Docker](http://www.docker.com/), and interactions break our install. This defaults to `null` which means `auto`, and is likely what you'd want to keep unless you run into issues like us.
+* **interactive** - Makes Bower interactive, prompting whenever necessary. We turn this off since we use [Docker](http://www.docker.com/), and interactions break our install. This defaults to `null` which means `auto`, and is likely what you'd want to keep unless you run into issues.
 
 The entire `.bowerrc` configuration options can be found [here](http://bower.io/docs/config/). There is a lot of configuration that can be done to Bower, so be sure to take a look.
 
 ## Benefits
 
-The benefits of Bower for TrackMaven were seen immediately. After setting up Bower we had a simple way to keep track of not only what third-party libraries we use for our application, but even what versions of that library. This has cut down the time it takes us to spin up our development environments and cut down on the bugs we see when using slightly different versions of third-party libraries. Bower also allowed us to easily integrate our third-party libraries into our build process which allowed us to concatenate and minify them all seamlessly.
+The benefits of Bower for TrackMaven were seen immediately. After setting up Bower we had a simple way to keep track of not only what third-party libraries we use for our application, but even what versions of those libraries. This has cut down the time it takes us to spin up our development environments and cut down on the bugs we see when using slightly different versions of third-party libraries. Bower also allowed us to easily integrate our third-party libraries into our build process which allowed us to concatenate and minify them all seamlessly.
 
 ### Searching
 
@@ -115,11 +115,11 @@ These are all the packages that are available through Bower which contain the wo
 
 ## Drawbacks
 
-The drawbacks of Bower are few and far between but one of the major issues we had in using Bower was the lack of adoption with some third-party libraries. It takes a non-trivial effort to make your library compatible with Bower and some just haven't taken the time. Adding these libraries to our automated build process took quite the effort, but in the long run it was worth it.
+The drawbacks of Bower are few and far between, but one of the major issues we had in using Bower was the lack of adoption with some third-party libraries. It takes a non-trivial effort to make your library compatible with Bower and some just haven't taken the time. Adding these libraries to our automated build process took quite the effort, but in the long run it was worth it.
 
 ### Dealing with the drawbacks
 
-One of the biggest headaches we ran into with using Bower was the lack of consistency within the bower packages themselves. This is okay if you are just using the third-party libraries directly in your HTML, but at TrackMaven we wanted to concatenate and minify our javascript libraries. At TrackMaven, we use [Gulp.js](http://gulpjs.com/) as our build system, and after some research we found a Gulp package that allowed us to deal with our Bower packages. [Gulp-Bower-Files](https://www.npmjs.org/package/gulp-bower-files) gives your Gulp process an ability to interact with your installed Bower packages. With a small addition to our `bower.json` file we can tell Gulp-Bower-Files what file should be used for what Bower package. This removes a huge headache from using Bower. Below is an excerpt from our `bower.json` file to show what I mean:
+One of the biggest headaches we ran into with using Bower was the lack of consistency within the bower packages themselves. This is okay if you are just using the third-party libraries directly in your HTML, but at TrackMaven we wanted to concatenate and minify our JavaScript libraries. At TrackMaven, we use [Gulp.js](http://gulpjs.com/) as our build system, and after some research we found a Gulp package that allowed us to deal with our Bower packages. [Gulp-Bower-Files](https://www.npmjs.org/package/gulp-bower-files) gives your Gulp process an ability to interact with your installed Bower packages. With a small addition to our `bower.json` file we can tell Gulp-Bower-Files what file should be used for what Bower package. This removes a huge headache from using Bower. Below is an excerpt from our `bower.json` file to show what I mean:
 
 ```
 "overrides": {
@@ -138,8 +138,8 @@ One of the biggest headaches we ran into with using Bower was the lack of consis
 }
 ```
 
-For those who use the other javascript build system [Grunt.js](http://gruntjs.com/), it looks like the creator of Gulp-Bower-Files has deprecated it in favor of it's updated version [Main-Bower-Files](https://www.npmjs.org/package/main-bower-files). This should have Grunt support in the future.
+For those who use the other JavaScript build system [Grunt.js](http://gruntjs.com/), it looks like the creator of Gulp-Bower-Files has deprecated it in favor of its updated version [Main-Bower-Files](https://www.npmjs.org/package/main-bower-files). This should have Grunt support in the future.
 
 ## Conclusion
 
-In conclusion, if you have not looked into using Bower I highly recommend it. Integration into our workflow took a little bit of time, but the benefits we are seeing from it are quite amazing!
+In conclusion, if you have not looked into using Bower, I highly recommend it. Integration into our workflow took a little bit of time, but the benefits we are seeing from it are quite amazing!
