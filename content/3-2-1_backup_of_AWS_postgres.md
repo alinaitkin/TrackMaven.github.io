@@ -1,18 +1,14 @@
 Title: 3-2-1 Backup of Postgres on AWS to S3 and offsite server
-Date: 2014-11-08
+Date: 2014-11-09
 Category: Backups
 Tags: ops, backups, best-practices
 Slug: 3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server
 Author: Fred Battista
 Avatar: fred-battista
 
-3-2-1 Backup of Postgres on AWS to S3 and offsite server
-======================
-
 > 3 copies, 2 different media types, 1 offsite, boom, good to go.
 > 
 > --<cite> Abraham Lincoln</cite>
-
 
 Backups should be straightforward, automatic, have few moving parts, adhere to the [3-2-1 rule](http://www.dpbestflow.org/backup/backup-overview#321), and, most importantly, facilitate easy recovery.
 
@@ -35,7 +31,6 @@ Because you created the mountpoint with `sudo` it will be owned by `root`; we ne
 `pg_dump` is the process we will use to write the backup, and it should be run by the `postgres` user so it does not have to authenticate database access (annoying and difficult to do securely within `crontab`). 
 
 We created a new group `BACKUPUSERS` and added our `ssh_user` and `postgres` to it with these commands:
-
 
 ```
 sudo groupadd BACKUPUSERS
@@ -65,6 +60,7 @@ Put the following script somewhere on your actual DB machine - uncomment the log
 This script will remove yesterday's backups, dump a current copy of the database, compress the current copy of the database, and ship it to S3.
 
 ######DB backup cron script
+
 ```
 #!/bin/bash
 
@@ -113,6 +109,7 @@ $S3CMD put -f $LOG_FILE $BUCKET
 DONE_TIME=`date +%T`
 echo $DATE,Done,$DONE_TIME >> $LOG_FILE
 ```
+
 ######Set up the crontab
 
 Become the `postgres` user so you don't have to authenticate in your crontab to access the database:
@@ -126,7 +123,6 @@ Access your crontab to edit:
 Then add this line to your crontab, which will run your script at the path you specify at 1AM every night:
 
 ``0 1 * * * /YOUR_BACKUP_POINT/YOUR_BACKUP_SCRIPT.sh`
-
 
 #### Pull the backup to remote server
 
@@ -189,11 +185,9 @@ done
 
 You can run this script as any user which has been authed for S3.
 
-
 #### Keep only 3 backups on S3
 
 It is important to not let S3 balloon with tons of backups!
-
 
 ```
 #!/bin/bash
