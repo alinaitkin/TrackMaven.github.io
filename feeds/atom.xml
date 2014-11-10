@@ -1,5 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-11-03T00:00:00+01:00</updated><entry><title>Using Bower</title><link href="http://engineroom.trackmaven.com/blog/using-bower/" rel="alternate"></link><updated>2014-11-03T00:00:00+01:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2014-11-03:blog/using-bower/</id><summary type="html">&lt;p&gt;Using &lt;a href="http://bower.io"&gt;Bower&lt;/a&gt; can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-11-09T00:00:00+01:00</updated><entry><title>3-2-1 Backup of Postgres on AWS to S3 and offsite server</title><link href="http://engineroom.trackmaven.com/blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/" rel="alternate"></link><updated>2014-11-09T00:00:00+01:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-11-09:blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/</id><summary type="html">&lt;blockquote&gt;
+&lt;p&gt;3 copies, 2 different media types, 1 offsite, boom, good to go.&lt;/p&gt;
+&lt;p&gt;--&lt;cite&gt; Abraham Lincoln&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Backups should be straightforward, automatic, have few moving parts, adhere to the &lt;a href="http://www.dpbestflow.org/backup/backup-overview#321"&gt;3-2-1 rule&lt;/a&gt;, and, most importantly, facilitate easy recovery.&lt;/p&gt;
+&lt;p&gt;TrackMaven's applications run on AWS and we've always stored several backups on S3. However, best practices suggest thaht you keep a backup offsite if it is feasible to do so.&lt;/p&gt;
+&lt;p&gt;This post details one way to keep multiple backup copies of your database both in S3 and on an offsite server.&lt;/p&gt;
+&lt;h4&gt;Preparing your database machine for backup&lt;/h4&gt;
+&lt;h6&gt;Create an additional mountpoint for your backup data&lt;/h6&gt;
+&lt;p&gt;Unless you have a significant amount of extra space on your DB machines we suggest creating and mounting an additional EBS volume to handle your backup date. &lt;/p&gt;
+&lt;p&gt;The instructions to &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;create&lt;/a&gt;, &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;attach&lt;/a&gt;, and &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"&gt;mount&lt;/a&gt; another EBS volume (hereafter referrered to as &lt;code&gt;/YOUR_BACKUP_POINT&lt;/code&gt;) are covered by Amazon in the provided links. &lt;/p&gt;
+&lt;h6&gt;Setting permissions on new volume&lt;/h6&gt;
+&lt;p&gt;Because you created the mountpoint with &lt;code&gt;sudo&lt;/code&gt; it will be owned by &lt;code&gt;root&lt;/code&gt;; we need it to be readable/writeable by other users. Which other users should have access?&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pg_dump&lt;/code&gt; is the process we will use to write the backup, and it should be run by the &lt;code&gt;postgres&lt;/code&gt; user so it does not have to authenticate database access (annoying and difficult to do securely within &lt;code&gt;crontab&lt;/code&gt;). &lt;/p&gt;
+&lt;p&gt;We created a new group &lt;code&gt;BACKUPUSERS&lt;/code&gt; and added our &lt;code&gt;ssh_user&lt;/code&gt; and &lt;code&gt;postgres&lt;/code&gt; to it with these commands:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;groupadd&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;usermod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="n"&gt;YOUR_SSH_USER&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;usermod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="n"&gt;postgres&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chgrp&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;YOUR_BACKUP_POINT&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="mi"&gt;770&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;YOUR_BACKUP_POINT&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;H/T to &lt;a href="http://superuser.com/questions/280994/give-write-permissions-to-multiple-users-on-a-folder-in-ubuntu"&gt;this superuser answer&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Initial backup&lt;/h4&gt;
+&lt;p&gt;If you haven't created an IAMS user with only S3 permissions, we suggest that you do that now because you'll need the keys for the next step.&lt;/p&gt;
+&lt;p&gt;Give the backup S3 user both read and write permissions if you feel your local machine is secure enough to warrant it.&lt;/p&gt;
+&lt;p&gt;Install and configure the S3 command line client on the DB machine:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;s3cmd&lt;/span&gt;
+&lt;span class="n"&gt;s3cmd&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Put the following script somewhere on your actual DB machine - uncomment the logging lines if you are running manually and want to debug the script behavior.&lt;/p&gt;
+&lt;p&gt;This script will remove yesterday's backups, dump a current copy of the database, compress the current copy of the database, and ship it to S3.&lt;/p&gt;
+&lt;h6&gt;DB backup cron script&lt;/h6&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="c"&gt;# Backup script to pg_dump&lt;/span&gt;
+&lt;span class="c"&gt;# &amp;#39;YOUR_DATABASE&amp;#39; db. Assumes that&lt;/span&gt;
+&lt;span class="c"&gt;# this is on the crontab of the&lt;/span&gt;
+&lt;span class="c"&gt;# postgres user so no authentication&lt;/span&gt;
+&lt;span class="c"&gt;# is necessary.&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;PGDUMP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/pg_dump
+&lt;span class="nv"&gt;DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;YOUR_DATABASE
+&lt;span class="nv"&gt;BACKUP_FOLDER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/YOUR_BACKUP_FOLDER
+&lt;span class="nv"&gt;EXPORTFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$BACKUP_FOLDER&lt;/span&gt;/pg_dump_&lt;span class="sb"&gt;`&lt;/span&gt;date +%F&lt;span class="sb"&gt;`&lt;/span&gt;.sql
+&lt;span class="nv"&gt;COMPRESSEDFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$EXPORTFILE&lt;/span&gt;.tgz
+&lt;span class="nv"&gt;BUCKET&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;s3://YOUR_S3_BUCKET/OPTIONAL_FOLDER/
+&lt;span class="nv"&gt;S3CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/s3cmd
+&lt;span class="nv"&gt;LOG_FILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$BACKUP_FOLDER&lt;/span&gt;/backup_log_file.txt
+&lt;span class="nv"&gt;DATE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%F&lt;span class="sb"&gt;`&lt;/span&gt;
+
+&lt;span class="nv"&gt;REMOVE_TIME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%T&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Time: &lt;span class="nv"&gt;$REMOVE_TIME&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Removing yesterdays...
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$DATE&lt;/span&gt;,RemovingOld,&lt;span class="nv"&gt;$REMOVE_TIME&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt;
+rm &lt;span class="nv"&gt;$BACKUP_FOLDER&lt;/span&gt;/*.sql*
+
+&lt;span class="nv"&gt;DUMP_TIME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%T&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Time: &lt;span class="nv"&gt;$DUMP_TIME&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Dumping...
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$DATE&lt;/span&gt;,DumpBegan,&lt;span class="nv"&gt;$DUMP_TIME&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt;
+&lt;span class="nv"&gt;$PGDUMP&lt;/span&gt; -c -f &lt;span class="nv"&gt;$EXPORTFILE&lt;/span&gt; &lt;span class="nv"&gt;$DATABASE&lt;/span&gt;
+
+&lt;span class="nv"&gt;TAR_TIME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%T&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Time: &lt;span class="nv"&gt;$TAR_TIME&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Taring...
+&lt;span class="nv"&gt;$DATE&lt;/span&gt;,TarBegan,&lt;span class="nv"&gt;$TAR_TIME&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt;
+tar -czf &lt;span class="nv"&gt;$COMPRESSEDFILE&lt;/span&gt; &lt;span class="nv"&gt;$EXPORTFILE&lt;/span&gt;
+
+&lt;span class="nv"&gt;S3_TIME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%T&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;Time: &lt;span class="nv"&gt;$S3_TIME&lt;/span&gt;
+&lt;span class="nb"&gt;echo &lt;/span&gt;s3cmd PUTTING...
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$DATE&lt;/span&gt;,S3Began,&lt;span class="nv"&gt;$S3_TIME&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt;
+&lt;span class="nv"&gt;$S3CMD&lt;/span&gt; put &lt;span class="nv"&gt;$COMPRESSEDFILE&lt;/span&gt; &lt;span class="nv"&gt;$BUCKET&lt;/span&gt;
+&lt;span class="nv"&gt;$S3CMD&lt;/span&gt; put -f &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt; &lt;span class="nv"&gt;$BUCKET&lt;/span&gt;
+
+&lt;span class="nv"&gt;DONE_TIME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%T&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$DATE&lt;/span&gt;,Done,&lt;span class="nv"&gt;$DONE_TIME&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$LOG_FILE&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h6&gt;Set up the crontab&lt;/h6&gt;
+&lt;p&gt;Become the &lt;code&gt;postgres&lt;/code&gt; user so you don't have to authenticate in your crontab to access the database:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;su - postgres&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Access your crontab to edit:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then add this line to your crontab, which will run your script at the path you specify at 1AM every night:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;`0 1 * * * /YOUR_BACKUP_POINT/YOUR_BACKUP_SCRIPT.sh&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;Pull the backup to remote server&lt;/h4&gt;
+&lt;p&gt;Install &lt;code&gt;s3cmd&lt;/code&gt; on your local/offsite box, configure it, and create a backup directory structure if you're game.&lt;/p&gt;
+&lt;h6&gt;Get/ifnotthenwait/tryagain&lt;/h6&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="c"&gt;# Script to test if today&amp;#39;s backup HAS&lt;/span&gt;
+&lt;span class="c"&gt;# occured, and has been pushed to the&lt;/span&gt;
+&lt;span class="c"&gt;# specified S3 bucket - if it has, gets&lt;/span&gt;
+&lt;span class="c"&gt;# the file. If not present, wait 30 min&lt;/span&gt;
+&lt;span class="c"&gt;# and try again.&lt;/span&gt;
+&lt;span class="c"&gt;# Assumptions/Notes:&lt;/span&gt;
+&lt;span class="c"&gt;#  * Only checks 10 times after&lt;/span&gt;
+&lt;span class="c"&gt;#    initial run&lt;/span&gt;
+&lt;span class="c"&gt;#  * Assumes that s3cmd has been&lt;/span&gt;
+&lt;span class="c"&gt;#    configured prior to cron init&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;BUCKET&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;s3://YOUR_BUCKET
+&lt;span class="nv"&gt;DATE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +%F&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nv"&gt;FILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;pg_dump_&lt;span class="nv"&gt;$DATE&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;.sql.tgz&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;FULLPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$BUCKET$FILE&lt;/span&gt;
+&lt;span class="nv"&gt;EXISTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="nv"&gt;WAIT_TIME_IN_SECONDS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1800
+&lt;span class="nv"&gt;RETRYS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
+&lt;span class="nv"&gt;LOCALPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;yourlocalpathhere/&lt;span class="nv"&gt;$FILE&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo &lt;/span&gt;Checking &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;$FULLPATH&lt;/span&gt;
+
+get_file_from_s3 &lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="c"&gt;#echo getting $FULLPATH&lt;/span&gt;
+  s3cmd get &lt;span class="nv"&gt;$FULLPATH&lt;/span&gt; &lt;span class="nv"&gt;$LOCALPATH&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+check_if_backup_complete &lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;
+  s3cmd info &lt;span class="nv"&gt;$FULLPATH&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; -eq 0 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;EXISTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;span class="nb"&gt;    &lt;/span&gt;get_file_from_s3
+  &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$RETRYS&lt;/span&gt; -lt 10 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;check_if_backup_complete
+  &lt;span class="k"&gt;if&lt;/span&gt; ! &lt;span class="nv"&gt;$EXISTS&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;sleep &lt;span class="nv"&gt;$WAIT_TIME_IN_SECONDS&lt;/span&gt;
+    &lt;span class="o"&gt;((&lt;/span&gt; RETRYS++ &lt;span class="o"&gt;))&lt;/span&gt;
+    &lt;span class="c"&gt;# echo $RETRYS&lt;/span&gt;
+  &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;break&lt;/span&gt;
+&lt;span class="nb"&gt;  &lt;/span&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;You can run this script as any user which has been authed for S3.&lt;/p&gt;
+&lt;h4&gt;Keep only 3 backups on S3&lt;/h4&gt;
+&lt;p&gt;It is important to not let S3 balloon with tons of backups!&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="o"&gt;=()&lt;/span&gt;
+FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s3cmd ls s3://trackmaven-prod-db/pg_dump/ | grep tgz | awk &lt;span class="s1"&gt;&amp;#39;{print $4}&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+
+&lt;span class="c"&gt;#echo $FILES&lt;/span&gt;
+
+&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;
+    &lt;span class="k"&gt;for &lt;/span&gt;el in &lt;span class="s2"&gt;&amp;quot;${FILES[@]}&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$el&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;done&lt;/span&gt; | sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0 ; i &amp;lt; &lt;span class="k"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; ; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;  if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt 2 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="c"&gt;#echo Removing ${SORTEDFILES[$i]}&lt;/span&gt;
+    s3cmd del &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h4&gt;Keep only n backups on the remote machine&lt;/h4&gt;
+&lt;p&gt;Then you need to delete the files on the local machine that you don't need anymore:&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="o"&gt;=()&lt;/span&gt;
+&lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt; /your_backup_location/* &lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;#echo $FILES&lt;/span&gt;
+
+&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;
+    &lt;span class="k"&gt;for &lt;/span&gt;el in &lt;span class="s2"&gt;&amp;quot;${FILES[@]}&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$el&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;done&lt;/span&gt; | sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0 ; i &amp;lt; &lt;span class="k"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; ; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;  if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt 2 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="c"&gt;#echo Removing ${SORTEDFILES[$i]}&lt;/span&gt;
+    s3cmd del &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Add these scripts to your &lt;code&gt;crontab&lt;/code&gt; as well and you are good to go.&lt;/p&gt;</summary><category term="ops"></category><category term="backups"></category><category term="best-practices"></category></entry><entry><title>Using Bower</title><link href="http://engineroom.trackmaven.com/blog/using-bower/" rel="alternate"></link><updated>2014-11-03T00:00:00+01:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2014-11-03:blog/using-bower/</id><summary type="html">&lt;p&gt;Using &lt;a href="http://bower.io"&gt;Bower&lt;/a&gt; can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.&lt;/p&gt;
 &lt;h2&gt;What is Bower&lt;/h2&gt;
 &lt;p&gt;So what is Bower? Bower is the "package manager for the web." It allows you to install and track third-party JavaScript libraries easily. At TrackMaven we use it to install and keep track of all the libraries we use. Below is just a small excerpt from our &lt;code&gt;bower.json&lt;/code&gt; file:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;&amp;quot;dependencies&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
