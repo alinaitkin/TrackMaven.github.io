@@ -17,6 +17,7 @@ Thanks to everyone who came out and presented at our inaugural [Monthly Challeng
 * [Cameron Maske](https://twitter.com/cameronmaske) shows off using Elasticsearch with geo spatial data! Take a look at the [GitHub repo](https://github.com/cameronmaske/geo-dc) for grabbing geospatial data from DC.
 
 Next month's topic will be *natural language processing*; [RSVP to the meetup](http://www.meetup.com/TrackMaven-Monthly-Challenge/events/218683569/) and stay tuned for a blog post with some details to get you started. Some possible options...
+
 * Sentiment analysis
 * Topic extraction
 * [WordNet](http://wordnet.princeton.edu/) relationships
