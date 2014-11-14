@@ -65,49 +65,49 @@ The Engine Room - TrackMaven
 <p>Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself. </p>
 <p>We think that everything that was previously a section of chained definitions (e.g <code>element.attr('','')..</code>) could be promoted to its own function within a service. </p>
 <p>This means that our graph's many layers and variables which were all previously defined within a single directive like this:</p>
-<div class="highlight"><pre><span class="n">svg</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">scale</span><span class="p">.</span><span class="n">linear</span><span class="p">()</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">time</span><span class="p">.</span><span class="n">scale</span><span class="p">()</span>
+<div class="highlight"><pre>svg = d3.select(element[0])
+y = d3.scale.linear()
+x = d3.time.scale()
 </pre></div>
 
 
 <p>now look like this:</p>
-<div class="highlight"><pre><span class="n">angular</span><span class="p">.</span><span class="n">module</span><span class="p">(</span><span class="err">&#39;</span><span class="n">graphing</span><span class="p">.</span><span class="n">directives</span><span class="p">.</span><span class="n">visualizer</span><span class="err">&#39;</span><span class="p">)</span>
+<div class="highlight"><pre>angular.module(&#39;graphing.directives.visualizer&#39;)
 
-<span class="p">.</span><span class="n">service</span><span class="p">(</span><span class="err">&#39;</span><span class="n">graphBase</span><span class="err">&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">dateFilter</span><span class="p">)</span> <span class="o">-&gt;</span>
-    <span class="n">class</span> <span class="n">GraphBase</span>
-        <span class="nl">generate:</span> <span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">-&gt;</span>
-            <span class="err">@</span><span class="n">generateSvg</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-            <span class="err">@</span><span class="n">generateAxises</span><span class="p">()</span>
-            <span class="p">...</span>
+.service(&#39;graphBase&#39;, (dateFilter) -&gt;
+    class GraphBase
+        generate: (element) -&gt;
+            @generateSvg(element)
+            @generateAxises()
+            ...
 
-        <span class="nl">generateSvg:</span> <span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">-&gt;</span>
-            <span class="err">@</span><span class="n">svg</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="p">...</span>
+        generateSvg: (element) -&gt;
+            @svg = d3.select(element[0])
+            ...
 
-        <span class="nl">generateAxises:</span> <span class="o">-&gt;</span>
-            <span class="err">@</span><span class="n">yAxis</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">svg</span><span class="p">.</span><span class="n">axis</span><span class="p">()</span>
-            <span class="err">@</span><span class="n">xAxis</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">svg</span><span class="p">.</span><span class="n">axis</span><span class="p">()</span>
-            <span class="p">...</span>
+        generateAxises: -&gt;
+            @yAxis = d3.svg.axis()
+            @xAxis = d3.svg.axis()
+            ...
 
-        <span class="nl">svgContainer:</span> <span class="o">-&gt;</span>
-            <span class="err">@</span><span class="n">svgContainer</span> <span class="o">=</span> <span class="err">@</span><span class="n">svg</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;svg:g&quot;</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;svg-container&quot;</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;transform&quot;</span><span class="p">,</span> <span class="s">&quot;translate(#{@sidePadding})&quot;</span><span class="p">)</span>
+        svgContainer: -&gt;
+            @svgContainer = @svg.append(&quot;svg:g&quot;)
+                .attr(&quot;class&quot;, &quot;svg-container&quot;)
+                .attr(&quot;transform&quot;, &quot;translate(#{@sidePadding})&quot;)
 
-            <span class="k">return</span> <span class="err">@</span><span class="n">svgContainer</span>
+            return @svgContainer
 
-        <span class="nl">graphContainer:</span> <span class="o">-&gt;</span>
-            <span class="err">@</span><span class="n">graphContainer</span> <span class="o">=</span> <span class="err">@</span><span class="n">svgContainer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;svg:g&quot;</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;graph-canvas&quot;</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;graph-svg&quot;</span><span class="p">)</span>
+        graphContainer: -&gt;
+            @graphContainer = @svgContainer.append(&quot;svg:g&quot;)
+                .attr(&quot;class&quot;, &quot;graph-canvas&quot;)
+                .attr(&quot;id&quot;, &quot;graph-svg&quot;)
 
-            <span class="err">@</span><span class="n">graphContainer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;svg:rect&quot;</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;width&quot;</span><span class="p">,</span> <span class="err">@</span><span class="n">width</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;height&quot;</span><span class="p">,</span> <span class="err">@</span><span class="n">height</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">style</span><span class="p">(</span><span class="s">&quot;fill&quot;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">white</span><span class="err">&#39;</span><span class="p">)</span>
+            @graphContainer.append(&quot;svg:rect&quot;)
+                .attr(&quot;width&quot;, @width)
+                .attr(&quot;height&quot;, @height)
+                .style(&quot;fill&quot;, &#39;white&#39;)
 
-            <span class="k">return</span> <span class="err">@</span><span class="n">graphContainer</span>
+            return @graphContainer
 </pre></div>
 
 
@@ -121,14 +121,14 @@ The Engine Room - TrackMaven
 <p>Testing is easier with this approach. Previously, any change in the monolithic code block had the potential ta affect every test. With the modular approach, your integration tests may fail but you unit tests have a much higher chance of survival.</p>
 <p>With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.  </p>
 <p>For instance, this is the first test of our graph tooltips:</p>
-<div class="highlight"><pre>    <span class="n">it</span> <span class="err">&#39;</span><span class="n">should</span> <span class="n">correctly</span> <span class="n">render</span> <span class="n">tooltips</span><span class="err">&#39;</span><span class="p">,</span> <span class="o">-&gt;</span>
-        <span class="n">tooltips</span><span class="p">.</span><span class="n">redraw</span><span class="p">(</span><span class="n">mockData</span><span class="p">)</span>
-        <span class="n">tips</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="n">selectAll</span><span class="p">(</span><span class="err">&#39;</span><span class="p">.</span><span class="n">graph</span><span class="o">-</span><span class="n">tooltip</span><span class="err">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">expect</span><span class="p">(</span><span class="n">tips</span><span class="p">.</span><span class="n">length</span><span class="p">).</span><span class="n">toEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">expect</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">style</span><span class="p">[</span><span class="err">&#39;</span><span class="n">left</span><span class="err">&#39;</span><span class="p">]).</span><span class="n">toEqual</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">32</span><span class="n">px</span><span class="err">&#39;</span><span class="p">)</span>
-        <span class="n">expect</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">style</span><span class="p">[</span><span class="err">&#39;</span><span class="n">top</span><span class="err">&#39;</span><span class="p">]).</span><span class="n">toEqual</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">10</span><span class="n">px</span><span class="err">&#39;</span><span class="p">)</span>
-        <span class="n">expect</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">innerText</span><span class="p">).</span><span class="n">toContain</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">100</span><span class="err">&#39;</span><span class="p">)</span>
-        <span class="n">expect</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">innerText</span><span class="p">).</span><span class="n">toContain</span><span class="p">(</span><span class="err">&#39;</span><span class="n">XXXXXX</span><span class="o">-</span><span class="n">BBBBB</span><span class="err">&#39;</span><span class="p">)</span>
+<div class="highlight"><pre>    it &#39;should correctly render tooltips&#39;, -&gt;
+        tooltips.redraw(mockData)
+        tips = d3.select(element[0]).selectAll(&#39;.graph-tooltip&#39;)[0]
+        expect(tips.length).toEqual(1)
+        expect(tips[0].style[&#39;left&#39;]).toEqual(&#39;32px&#39;)
+        expect(tips[0].style[&#39;top&#39;]).toEqual(&#39;10px&#39;)
+        expect(element[0].innerText).toContain(&#39;100&#39;)
+        expect(element[0].innerText).toContain(&#39;XXXXXX-BBBBB&#39;)
 </pre></div>
 
 

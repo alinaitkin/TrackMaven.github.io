@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-11-09T00:00:00+01:00</updated><entry><title>3-2-1 Backup of Postgres on AWS to S3 and offsite server</title><link href="http://engineroom.trackmaven.com/blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/" rel="alternate"></link><updated>2014-11-09T00:00:00+01:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-11-09:blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/</id><summary type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-11-13T00:00:00+01:00</updated><entry><title>Monthly Challenge wrap-up: Elasticsearch</title><link href="http://engineroom.trackmaven.com/blog/monthly-challenge-wrap-up-elasticsearch/" rel="alternate"></link><updated>2014-11-13T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2014-11-13:blog/monthly-challenge-wrap-up-elasticsearch/</id><summary type="html">&lt;p&gt;Thanks to everyone who came out and presented at our inaugural &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt;! We had a great variety of Elasticsearch-related projects. Here's a quick rundown from the night:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Our &lt;a href="http://engineroom.trackmaven.com/blog/first-monthly-challenge-elasticsearch/"&gt;jumpstart blog post&lt;/a&gt; introduced a basic analysis of top reddit IAMA posts using Python's &lt;a href="https://www.elasticsearch.org/guide/en/elasticsearch/client/python-api/current/"&gt;elasticsearch&lt;/a&gt; client, then visualized some trip history data from &lt;a href="http://www.capitalbikeshare.com/trip-history-data"&gt;Capital Bikeshare&lt;/a&gt; using &lt;a href="http://www.elasticsearch.org/overview/kibana/"&gt;Kibana&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/joshfinnie"&gt;Josh Finnie&lt;/a&gt; shows how to search and "recommend" beer selections with Elasticsearch. Check out the &lt;a href="https://github.com/joshfinnie/beer-rec"&gt;GitHub repo&lt;/a&gt; and &lt;a href="http://www.joshfinnie.com/talks/beer-search-and-recs-in-es/#/"&gt;slides&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/TomPanning"&gt;Tom Panning&lt;/a&gt; analyzes NIH data available through the &lt;a href="http://report.nih.gov/"&gt;RePORT portal&lt;/a&gt;. Check out the &lt;a href="https://github.com/tpanning/nih-report"&gt;GitHub repo&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/mlcamilli"&gt;Matt Camilli&lt;/a&gt; enlightens us on how to use headless browsers to scrape Steam game reviews and put them in Elasticsearch. Check out the &lt;a href="https://github.com/mlcamilli/SteamReviewParser"&gt;GitHub repo&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/wsankey"&gt;Will Sankey&lt;/a&gt; explores hospital violations using public CMS data. Check out the &lt;a href="http://slides.com/williamsankey/trackmaven-meetup-deck-11-12-2014"&gt;presentation slides&lt;/a&gt; and the &lt;a href="https://github.com/wsankey/elastic_health"&gt;GitHub repo&lt;/a&gt; of Ruby code.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/cameronmaske"&gt;Cameron Maske&lt;/a&gt; shows off using Elasticsearch with geo spatial data! Take a look at the &lt;a href="https://github.com/cameronmaske/geo-dc"&gt;GitHub repo&lt;/a&gt; for grabbing geospatial data from DC.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next month's topic will be &lt;em&gt;natural language processing&lt;/em&gt;; &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/events/218683569/"&gt;RSVP to the meetup&lt;/a&gt; and stay tuned for a blog post with some details to get you started. Some possible options...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sentiment analysis&lt;/li&gt;
+&lt;li&gt;Topic extraction&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://wordnet.princeton.edu/"&gt;WordNet&lt;/a&gt; relationships&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dariusk/NaNoGenMo-2014"&gt;NaNoGenMo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="elasticsearch"></category></entry><entry><title>3-2-1 Backup of Postgres on AWS to S3 and offsite server</title><link href="http://engineroom.trackmaven.com/blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/" rel="alternate"></link><updated>2014-11-09T00:00:00+01:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-11-09:blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/</id><summary type="html">&lt;blockquote&gt;
 &lt;p&gt;3 copies, 2 different media types, 1 offsite, boom, good to go.&lt;/p&gt;
 &lt;p&gt;--&lt;cite&gt; Abraham Lincoln&lt;/cite&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -14,11 +29,11 @@
 &lt;p&gt;Because you created the mountpoint with &lt;code&gt;sudo&lt;/code&gt; it will be owned by &lt;code&gt;root&lt;/code&gt;; we need it to be readable/writeable by other users. Which other users should have access?&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pg_dump&lt;/code&gt; is the process we will use to write the backup, and it should be run by the &lt;code&gt;postgres&lt;/code&gt; user so it does not have to authenticate database access (annoying and difficult to do securely within &lt;code&gt;crontab&lt;/code&gt;). &lt;/p&gt;
 &lt;p&gt;We created a new group &lt;code&gt;BACKUPUSERS&lt;/code&gt; and added our &lt;code&gt;ssh_user&lt;/code&gt; and &lt;code&gt;postgres&lt;/code&gt; to it with these commands:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;groupadd&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;usermod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="n"&gt;YOUR_SSH_USER&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;usermod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="n"&gt;postgres&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chgrp&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="n"&gt;BACKUPUSERS&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;YOUR_BACKUP_POINT&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="mi"&gt;770&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;YOUR_BACKUP_POINT&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo groupadd BACKUPUSERS
+sudo usermod -a -G BACKUPUSERS YOUR_SSH_USER
+sudo usermod -a -G BACKUPUSERS postgres
+sudo chgrp -R BACKUPUSERS /YOUR_BACKUP_POINT
+sudo chmod -R 770 /YOUR_BACKUP_POINT
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -27,8 +42,8 @@
 &lt;p&gt;If you haven't created an IAMS user with only S3 permissions, we suggest that you do that now because you'll need the keys for the next step.&lt;/p&gt;
 &lt;p&gt;Give the backup S3 user both read and write permissions if you feel your local machine is secure enough to warrant it.&lt;/p&gt;
 &lt;p&gt;Install and configure the S3 command line client on the DB machine:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;s3cmd&lt;/span&gt;
-&lt;span class="n"&gt;s3cmd&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install s3cmd
+s3cmd --configure
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -221,21 +236,21 @@ get_file_from_s3 &lt;span class="o"&gt;()&lt;/span&gt;
 
 check_if_backup_complete &lt;span class="o"&gt;()&lt;/span&gt;
 &lt;span class="o"&gt;{&lt;/span&gt;
-  s3cmd info &lt;span class="nv"&gt;$FULLPATH&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
-  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; -eq 0 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;EXISTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+  s3cmd info &lt;span class="nv"&gt;$FULLPATH&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;1
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; -eq &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="nv"&gt;EXISTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
 &lt;span class="nb"&gt;    &lt;/span&gt;get_file_from_s3
   &lt;span class="k"&gt;fi&lt;/span&gt;
 &lt;span class="o"&gt;}&lt;/span&gt;
 
-&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$RETRYS&lt;/span&gt; -lt 10 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;check_if_backup_complete
-  &lt;span class="k"&gt;if&lt;/span&gt; ! &lt;span class="nv"&gt;$EXISTS&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;sleep &lt;span class="nv"&gt;$WAIT_TIME_IN_SECONDS&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$RETRYS&lt;/span&gt; -lt &lt;span class="m"&gt;10&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  check_if_backup_complete
+  &lt;span class="k"&gt;if&lt;/span&gt; ! &lt;span class="nv"&gt;$EXISTS&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+    sleep &lt;span class="nv"&gt;$WAIT_TIME_IN_SECONDS&lt;/span&gt;
     &lt;span class="o"&gt;((&lt;/span&gt; RETRYS++ &lt;span class="o"&gt;))&lt;/span&gt;
     &lt;span class="c"&gt;# echo $RETRYS&lt;/span&gt;
   &lt;span class="k"&gt;else&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;break&lt;/span&gt;
+    &lt;span class="nb"&gt;break&lt;/span&gt;
 &lt;span class="nb"&gt;  &lt;/span&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
 &lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -265,20 +280,20 @@ check_if_backup_complete &lt;span class="o"&gt;()&lt;/span&gt;
 19&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="o"&gt;=()&lt;/span&gt;
-FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s3cmd ls s3://trackmaven-prod-db/pg_dump/ | grep tgz | awk &lt;span class="s1"&gt;&amp;#39;{print $4}&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s3cmd ls s3://trackmaven-prod-db/pg_dump/ &lt;span class="p"&gt;|&lt;/span&gt; grep tgz &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{print $4}&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
 
 &lt;span class="c"&gt;#echo $FILES&lt;/span&gt;
 
 &lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;
-    &lt;span class="k"&gt;for &lt;/span&gt;el in &lt;span class="s2"&gt;&amp;quot;${FILES[@]}&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; el in &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$el&amp;quot;&lt;/span&gt;
-    &lt;span class="k"&gt;done&lt;/span&gt; | sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$el&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;done&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0 ; i &amp;lt; &lt;span class="k"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; ; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;  if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt 2 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; i &amp;lt; &lt;span class="si"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
     &lt;span class="c"&gt;#echo Removing ${SORTEDFILES[$i]}&lt;/span&gt;
-    s3cmd del &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    s3cmd del &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
   &lt;span class="k"&gt;fi&lt;/span&gt;
 &lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -312,15 +327,15 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;span class="c"&gt;#echo $FILES&lt;/span&gt;
 
 &lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;
-    &lt;span class="k"&gt;for &lt;/span&gt;el in &lt;span class="s2"&gt;&amp;quot;${FILES[@]}&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; el in &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;FILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$el&amp;quot;&lt;/span&gt;
-    &lt;span class="k"&gt;done&lt;/span&gt; | sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$el&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;done&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; sort -Vr &lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0 ; i &amp;lt; &lt;span class="k"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; ; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;  if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt 2 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; i &amp;lt; &lt;span class="si"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; i++ &lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; -gt &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
     &lt;span class="c"&gt;#echo Removing ${SORTEDFILES[$i]}&lt;/span&gt;
-    s3cmd del &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    s3cmd del &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SORTEDFILES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
   &lt;span class="k"&gt;fi&lt;/span&gt;
 &lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -329,13 +344,13 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;p&gt;Add these scripts to your &lt;code&gt;crontab&lt;/code&gt; as well and you are good to go.&lt;/p&gt;</summary><category term="ops"></category><category term="backups"></category><category term="best-practices"></category></entry><entry><title>Using Bower</title><link href="http://engineroom.trackmaven.com/blog/using-bower/" rel="alternate"></link><updated>2014-11-03T00:00:00+01:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2014-11-03:blog/using-bower/</id><summary type="html">&lt;p&gt;Using &lt;a href="http://bower.io"&gt;Bower&lt;/a&gt; can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.&lt;/p&gt;
 &lt;h2&gt;What is Bower&lt;/h2&gt;
 &lt;p&gt;So what is Bower? Bower is the "package manager for the web." It allows you to install and track third-party JavaScript libraries easily. At TrackMaven we use it to install and keep track of all the libraries we use. Below is just a small excerpt from our &lt;code&gt;bower.json&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;&amp;quot;dependencies&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;jquery&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1.11.1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;angular&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1.2.26&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;angular-ui-router&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;0.2.11&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;d3&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;3.4.13&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="p"&gt;...&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;quot;dependencies&amp;quot;: {
+    &amp;quot;jquery&amp;quot;: &amp;quot;1.11.1&amp;quot;,
+    &amp;quot;angular&amp;quot;: &amp;quot;1.2.26&amp;quot;,
+    &amp;quot;angular-ui-router&amp;quot;: &amp;quot;0.2.11&amp;quot;,
+    &amp;quot;d3&amp;quot;: &amp;quot;3.4.13&amp;quot;,
+    ...
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -343,13 +358,13 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;p&gt;&lt;center&gt;&lt;img alt="Bower Install Examples from http://bower.io/" src="/images/bower-examples.png" /&gt;&lt;/center&gt;&lt;/p&gt;
 &lt;h2&gt;Initial Setup&lt;/h2&gt;
 &lt;p&gt;Next we are going to talk about how to best set up Bower. Installing Bower is simple if you already have Node.js installed. (If you do not have Node.js installed, you can simply follow the directions &lt;a href="http://nodejs.org/download/"&gt;here&lt;/a&gt;.) Once Node.js is installed on your machine, the steps required to install Bower are as followed:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;npm install -g bower
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;That's it! The above command installs Bower globally on your machine; this allows you to use Bower for all your projects. &lt;/p&gt;
 &lt;p&gt;If you want to use Bower to install a JavaScript library, all you need to do is run the following command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;angular&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bower install angular
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -357,28 +372,28 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;h3&gt;Saving packages&lt;/h3&gt;
 &lt;p&gt;This is great for a one-time installation of Angular, but if you want to create a repeatable workflow, it would be best to have a way to note this installation of Angular and it's version. You do this with your &lt;code&gt;bower.json&lt;/code&gt; file. The easiest way to create a &lt;code&gt;bower.json&lt;/code&gt; file is to run the command &lt;code&gt;bower init&lt;/code&gt;. This will prompt you with a few questions about your project and give you a way to save packages to your project.&lt;/p&gt;
 &lt;p&gt;To save a library to your project, just append a &lt;code&gt;--save&lt;/code&gt; or &lt;code&gt;--save-dev&lt;/code&gt; when installing the library.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# Installs a package and add it to bower.json dependencies&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;angular&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# Installs a package and add it to bower.json dependencies
+$ bower install angular --save
 
-&lt;span class="cp"&gt;# Install a package and add it to bower.json devDependencies&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;jasmine&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;
+# Install a package and add it to bower.json devDependencies
+$ bower install jasmine --save-dev
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Versioning packages&lt;/h3&gt;
 &lt;p&gt;You can also determine what version of a package you want to install by preceding the package with a &lt;code&gt;#&lt;/code&gt; sign. For example, if we do not want Angular 1.2.26 but instead Angular 1.2.12, we could install that version with the following command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mf"&gt;1.2.12&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bower install angularjs#1.2.12
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This was very helpful for us at TrackMaven when starting off with Bower since we wanted to match our current setup as much as we could, and we were running some older versions of JavaScript libraries.&lt;/p&gt;
 &lt;h3&gt;Customizations&lt;/h3&gt;
 &lt;p&gt;The defaults that come with Bower are pretty sane, but I always feel like the default folder &lt;code&gt;bower_components&lt;/code&gt; is just a bit too clunky. Luckily Bower allows for an easy way to change some defaults. This is done via the &lt;code&gt;.bowerrc&lt;/code&gt; file. Here at TrackMaven, we have three lines to ease our time with Bower:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;directory&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;.bower-cache&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;json&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;bower.json&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;interactive&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;{
+    &amp;quot;directory&amp;quot;: &amp;quot;.bower-cache&amp;quot;,
+    &amp;quot;json&amp;quot;: &amp;quot;bower.json&amp;quot;,
+    &amp;quot;interactive&amp;quot;: false
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -393,18 +408,18 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;p&gt;The benefits of Bower for TrackMaven were seen immediately. After setting up Bower we had a simple way to keep track of not only what third-party libraries we use for our application, but even what versions of those libraries. This has cut down the time it takes us to spin up our development environments and cut down on the bugs we see when using slightly different versions of third-party libraries. Bower also allowed us to easily integrate our third-party libraries into our build process which allowed us to concatenate and minify them all seamlessly.&lt;/p&gt;
 &lt;h3&gt;Searching&lt;/h3&gt;
 &lt;p&gt;Bower give you the ability to search for packages within its system. This is accomplished by using the &lt;code&gt;search&lt;/code&gt; parameter. Running this command, &lt;code&gt;bower search angularjs&lt;/code&gt; returns the following:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bower&lt;/span&gt; &lt;span class="n"&gt;search&lt;/span&gt; &lt;span class="n"&gt;angularjs&lt;/span&gt;
-&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bower search angularjs
+Search results:
 
-&lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;nvd3&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;directives&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/cmaurer/angularjs-nvd3-directives.git&lt;/span&gt;
-&lt;span class="n"&gt;AngularJS&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Toaster&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/jirikavi/AngularJS-Toaster.git&lt;/span&gt;
-&lt;span class="n"&gt;angularjs&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/angular/bower-angular.git&lt;/span&gt;
-&lt;span class="n"&gt;angular&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;facebook&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/Ciul/Angularjs-Facebook.git&lt;/span&gt;
-&lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/danialfarid/angular-file-upload-bower.git&lt;/span&gt;
-&lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rails&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/FineLinePrototyping/dist-angularjs-rails-resource&lt;/span&gt;
-&lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;geolocation&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/arunisrael/angularjs-geolocation.git&lt;/span&gt;
-&lt;span class="n"&gt;angularjs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utilities&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/realcrowd/angularjs-utilities.git&lt;/span&gt;
-&lt;span class="p"&gt;...&lt;/span&gt;
+angularjs-nvd3-directives git://github.com/cmaurer/angularjs-nvd3-directives.git
+AngularJS-Toaster git://github.com/jirikavi/AngularJS-Toaster.git
+angularjs git://github.com/angular/bower-angular.git
+angular-facebook git://github.com/Ciul/Angularjs-Facebook.git
+angularjs-file-upload git://github.com/danialfarid/angular-file-upload-bower.git
+angularjs-rails-resource git://github.com/FineLinePrototyping/dist-angularjs-rails-resource
+angularjs-geolocation git://github.com/arunisrael/angularjs-geolocation.git
+angularjs-utilities git://github.com/realcrowd/angularjs-utilities.git
+...
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -413,20 +428,20 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;p&gt;The drawbacks of Bower are few and far between, but one of the major issues we had in using Bower was the lack of adoption with some third-party libraries. It takes a non-trivial effort to make your library compatible with Bower and some just haven't taken the time. Adding these libraries to our automated build process took quite the effort, but in the long run it was worth it.&lt;/p&gt;
 &lt;h3&gt;Dealing with the drawbacks&lt;/h3&gt;
 &lt;p&gt;One of the biggest headaches we ran into with using Bower was the lack of consistency within the bower packages themselves. This is okay if you are just using the third-party libraries directly in your HTML, but at TrackMaven we wanted to concatenate and minify our JavaScript libraries. At TrackMaven, we use &lt;a href="http://gulpjs.com/"&gt;Gulp.js&lt;/a&gt; as our build system, and after some research we found a Gulp package that allowed us to deal with our Bower packages. &lt;a href="https://www.npmjs.org/package/gulp-bower-files"&gt;Gulp-Bower-Files&lt;/a&gt; gives your Gulp process an ability to interact with your installed Bower packages. With a small addition to our &lt;code&gt;bower.json&lt;/code&gt; file we can tell Gulp-Bower-Files what file should be used for what Bower package. This removes a huge headache from using Bower. Below is an excerpt from our &lt;code&gt;bower.json&lt;/code&gt; file to show what I mean:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;&amp;quot;overrides&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;canvg&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;canvg.js&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;},&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;underscore&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;underscore.js&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;},&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;moment&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;moment.js&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;},&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;jspdf&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;dist/jspdf.debug.js&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;quot;overrides&amp;quot;: {
+  &amp;quot;canvg&amp;quot;: {
+    &amp;quot;main&amp;quot;: &amp;quot;canvg.js&amp;quot;
+  },
+  &amp;quot;underscore&amp;quot;: {
+    &amp;quot;main&amp;quot;: &amp;quot;underscore.js&amp;quot;
+  },
+  &amp;quot;moment&amp;quot;: {
+    &amp;quot;main&amp;quot;: &amp;quot;moment.js&amp;quot;
+  },
+  &amp;quot;jspdf&amp;quot;: {
+    &amp;quot;main&amp;quot;: &amp;quot;dist/jspdf.debug.js&amp;quot;
+  }
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -490,26 +505,26 @@ Having to spend time debugging platform-specific problems is a frustrating produ
 
 &lt;p&gt;Let's break down what our simple command above did into 2 stages.&lt;/p&gt;
 &lt;h4&gt;Building stage.&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;demo_web&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;True&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull orchardup/postgres
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull trackmaven/redis
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull dockerfile/elasticsearch
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker build -t demo_web -rm&lt;span class="o"&gt;=&lt;/span&gt;True web
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;strong&gt;Equivalent docker commands preformed by Fig&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Fig goes through each service, then, if needed, builds an image.&lt;/p&gt;
 &lt;p&gt;Building is based off a &lt;a href="http://docs.docker.com/reference/builder/"&gt;Dockerfile&lt;/a&gt; that contains all the required steps to produce our desired image.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# Our base image is Ubuntu 13.04&lt;/span&gt;
-&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;stackbrew&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ubuntu&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;raring&lt;/span&gt;
-&lt;span class="cp"&gt;# Install any updates&lt;/span&gt;
-&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
-&lt;span class="cp"&gt;# Ensure python is installed and postgres drivers.&lt;/span&gt;
-&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;psycopg2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# Our base image is Ubuntu 13.04
+FROM stackbrew/ubuntu:raring
+# Install any updates
+RUN apt-get -y update
+# Ensure python is installed and postgres drivers.
+RUN apt-get install -y python python-pip python-psycopg2
 
-&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;
-&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
-&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+WORKDIR /code
+ADD requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -519,10 +534,10 @@ This can exist either locally, and be referenced by a tag or a partial image ID,
 &lt;p&gt;Building a container off a Dockerfile works best for a  service that is dependent on code within your project. In this case, the core logic for our Python-powered app is in our source control. In contrast, images work best for services that don't rely as heavily on project-specific code (e.g. the datastores).&lt;/p&gt;
 &lt;p&gt;Once Fig is satisfied all the required images are built or pulled, it's then time to run the services...&lt;/p&gt;
 &lt;h4&gt;Running stage.&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_es_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;elasticsearch:/data&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_db_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;POSTGRESQL_DB:test_db&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_redis_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;docker&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;demo_web_1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;web:/code&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;es&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_es_1&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_db_1&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;demo_redis_1&lt;/span&gt; &lt;span class="n"&gt;demo_web&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_es_1 -v &lt;span class="s2"&gt;&amp;quot;elasticsearch:/data&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt; dockerfile/elasticsearch
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_db_1 -p &lt;span class="s2"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;quot;POSTGRESQL_DB:test_db&amp;quot;&lt;/span&gt; orchardup/postgres
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_redis_1 -p &lt;span class="s2"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt; trackmaven/redis
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_web_1 -v &lt;span class="s2"&gt;&amp;quot;web:/code&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt; --link es:demo_es_1 --link db:demo_db_1 --link redis:demo_redis_1 demo_web python app.py
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -563,23 +578,23 @@ This can exist either locally, and be referenced by a tag or a partial image ID,
 &lt;p&gt;By default, Elasticsearch sits on port 9200. Once it's booted up, you can visit:
 http://localhost:9200/&lt;/p&gt;
 &lt;p&gt;in your browser and see something like:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;status&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;name&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Some Really Weird Name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;number&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1.3.4&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;build_hash&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;a70f3ccb52200f8f2c87e9c370c6597448eb3e45&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;build_timestamp&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2014-11-01T09:07:17Z&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;build_snapshot&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;lucene_version&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;4.9&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;},&lt;/span&gt;
-  &lt;span class="s"&gt;&amp;quot;tagline&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;You Know, for Search&amp;quot;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;{
+  &amp;quot;status&amp;quot; : 200,
+  &amp;quot;name&amp;quot; : &amp;quot;Some Really Weird Name&amp;quot;,
+  &amp;quot;version&amp;quot; : {
+    &amp;quot;number&amp;quot; : &amp;quot;1.3.4&amp;quot;,
+    &amp;quot;build_hash&amp;quot; : &amp;quot;a70f3ccb52200f8f2c87e9c370c6597448eb3e45&amp;quot;,
+    &amp;quot;build_timestamp&amp;quot; : &amp;quot;2014-11-01T09:07:17Z&amp;quot;,
+    &amp;quot;build_snapshot&amp;quot; : false,
+    &amp;quot;lucene_version&amp;quot; : &amp;quot;4.9&amp;quot;
+  },
+  &amp;quot;tagline&amp;quot; : &amp;quot;You Know, for Search&amp;quot;
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now let's put some data in! Install the libraries &lt;code&gt;elasticsearch&lt;/code&gt; and &lt;code&gt;requests&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;elasticsearch&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install elasticsearch requests
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -615,8 +630,8 @@ http://localhost:9200/&lt;/p&gt;
 
 &lt;p&gt;and stored &lt;em&gt;all&lt;/em&gt; the returned fields, we would have run into a parsing error. This is because Elasticsearch tries to guess at the data types best suited for storing on the fly, but it doesn't always guess correctly. This is one reason why it's a good idea to create a new index using an explicit &lt;a href="http://www.elasticsearch.org/guide/reference/mapping/"&gt;mapping&lt;/a&gt; to define how you want each field stored ahead of time.&lt;/p&gt;
 &lt;p&gt;Now that the index is populated with data, you can run search queries against Elasticsearch through cURL or directly in your browser. Try these out:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:9200/reddit/iama/_search?pretty=true&amp;amp;size=3&lt;/span&gt;
-&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:9200/reddit/iama/_search?pretty=true&amp;amp;q=title:almost&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http://localhost:9200/reddit/iama/_search?pretty=true&amp;amp;size=3
+http://localhost:9200/reddit/iama/_search?pretty=true&amp;amp;q=title:almost
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -702,18 +717,18 @@ http://localhost:9200/&lt;/p&gt;
 
 
 &lt;p&gt;Run a couple queries to make sure data stored as expected:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:9200/bikeshare/trip/_search?size=3&amp;amp;pretty=true&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http://localhost:9200/bikeshare/trip/_search?size=3&amp;amp;pretty=true
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now let's graph some results with Kibana! A browser-based analytics dashboard built for adding visualization to Elasticsearch, Kibana is usually used for analyzing data over time (ie, tracking log events as a time series). In this case, we haven't collected timestamps, but &lt;/p&gt;
 &lt;p&gt;Start by &lt;a href="http://www.elasticsearch.org/overview/kibana/installation/"&gt;downloading Kibana&lt;/a&gt;. While Elasticsearch is still up and running, you can separately visit Kibana's directory and run:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;SimpleHTTPServer&lt;/span&gt; &lt;span class="mi"&gt;9201&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;python -m SimpleHTTPServer 9201
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;If you now visit:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:9201/&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http://localhost:9201/
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -734,24 +749,24 @@ http://localhost:9200/&lt;/p&gt;
 &lt;li&gt;Create a user in AWS IAM to have Put access to the S3 bucket&lt;/li&gt;
 &lt;li&gt;Give the user read/put access, but NOT delete access. If, for some reason, our database server is compromised and an attacker gets our AWS credentials for this user, they will be able to overwrite our files but not delete them. Thanks to versioning, overwriting of our files is a non-issue. If the name of our bucket is db-backup, a policy like this will do:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="s2"&gt;&amp;quot;Version&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;2014-05-14&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
-  &lt;span class="s2"&gt;&amp;quot;Statement&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
-    &lt;span class="p"&gt;{&lt;/span&gt;
-      &lt;span class="s2"&gt;&amp;quot;Sid&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Stmt1399394132000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-      &lt;span class="s2"&gt;&amp;quot;Effect&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Allow&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-      &lt;span class="s2"&gt;&amp;quot;Action&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;[&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;s3:GetObject&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;s3:ListBucket&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;s3:PutObject&amp;quot;&lt;/span&gt;
-      &lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
-      &lt;span class="s2"&gt;&amp;quot;Resource&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::db-backup&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::db-backup/*&amp;quot;&lt;/span&gt;
-      &lt;span class="cp"&gt;]&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-  &lt;span class="o"&gt;]&lt;/span&gt;
-&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;{
+  &amp;quot;Version&amp;quot;: &amp;quot;2014-05-14&amp;quot;,
+  &amp;quot;Statement&amp;quot;: [
+    {
+      &amp;quot;Sid&amp;quot;: &amp;quot;Stmt1399394132000&amp;quot;,
+      &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;,
+      &amp;quot;Action&amp;quot;: [
+        &amp;quot;s3:GetObject&amp;quot;,
+        &amp;quot;s3:ListBucket&amp;quot;,
+        &amp;quot;s3:PutObject&amp;quot;
+      ],
+      &amp;quot;Resource&amp;quot;: [
+        &amp;quot;arn:aws:s3:::db-backup&amp;quot;,
+        &amp;quot;arn:aws:s3:::db-backup/*&amp;quot;
+      ]
+    }
+  ]
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -766,22 +781,22 @@ http://localhost:9200/&lt;/p&gt;
 &lt;li&gt;&lt;code&gt;sudo pip install wal-e&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Set up WAL-E:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;umask&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;rwx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;rx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;
-&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;AWS SECRET KEY&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;
-&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;AWS ACCESS KEY&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;
-&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//db-backup/&amp;#39; | sudo tee /etc/wal-e.d/env/WALE_S3_PREFIX&lt;/span&gt;
-&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chown&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;umask u=rwx,g=rx,o=
+sudo mkdir -p /etc/wal-e.d/env
+echo &amp;quot;&amp;lt;AWS SECRET KEY&amp;gt;&amp;quot; | sudo tee /etc/wal-e.d/env/AWS_SECRET_ACCESS_KEY
+echo &amp;quot;&amp;lt;AWS ACCESS KEY&amp;gt;&amp;quot; | sudo tee /etc/wal-e.d/env/AWS_ACCESS_KEY_ID
+echo &amp;#39;s3://db-backup/&amp;#39; | sudo tee /etc/wal-e.d/env/WALE_S3_PREFIX
+sudo chown -R root:postgres /etc/wal-e.d
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ul&gt;
 &lt;li&gt;That's all there is to it when it comes to setting up WAL-E. Ensure that the following options are set correctly in /etc/postgresql/9.3/main/postgresql.conf:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;wal_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;archive_mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
-&lt;span class="n"&gt;archive_command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;envdir&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;archive_timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;60&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;wal_level = &amp;#39;hot_standby&amp;#39;
+archive_mode = on
+archive_command = &amp;#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-push %p&amp;#39;
+archive_timeout = 60
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -814,49 +829,49 @@ http://localhost:9200/&lt;/p&gt;
 &lt;p&gt;Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself. &lt;/p&gt;
 &lt;p&gt;We think that everything that was previously a section of chained definitions (e.g &lt;code&gt;element.attr('','')..&lt;/code&gt;) could be promoted to its own function within a service. &lt;/p&gt;
 &lt;p&gt;This means that our graph's many layers and variables which were all previously defined within a single directive like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;svg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linear&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;svg = d3.select(element[0])
+y = d3.scale.linear()
+x = d3.time.scale()
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;now look like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;angular&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;graphing&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;directives&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;visualizer&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;angular.module(&amp;#39;graphing.directives.visualizer&amp;#39;)
 
-&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;service&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;graphBase&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dateFilter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;GraphBase&lt;/span&gt;
-        &lt;span class="nl"&gt;generate:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;generateSvg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;generateAxises&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-            &lt;span class="p"&gt;...&lt;/span&gt;
+.service(&amp;#39;graphBase&amp;#39;, (dateFilter) -&amp;gt;
+    class GraphBase
+        generate: (element) -&amp;gt;
+            @generateSvg(element)
+            @generateAxises()
+            ...
 
-        &lt;span class="nl"&gt;generateSvg:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;svg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-            &lt;span class="p"&gt;...&lt;/span&gt;
+        generateSvg: (element) -&amp;gt;
+            @svg = d3.select(element[0])
+            ...
 
-        &lt;span class="nl"&gt;generateAxises:&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;yAxis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;svg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;xAxis&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;svg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-            &lt;span class="p"&gt;...&lt;/span&gt;
+        generateAxises: -&amp;gt;
+            @yAxis = d3.svg.axis()
+            @xAxis = d3.svg.axis()
+            ...
 
-        &lt;span class="nl"&gt;svgContainer:&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;svgContainer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;svg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;svg:g&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;class&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;svg-container&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;transform&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;translate(#{@sidePadding})&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        svgContainer: -&amp;gt;
+            @svgContainer = @svg.append(&amp;quot;svg:g&amp;quot;)
+                .attr(&amp;quot;class&amp;quot;, &amp;quot;svg-container&amp;quot;)
+                .attr(&amp;quot;transform&amp;quot;, &amp;quot;translate(#{@sidePadding})&amp;quot;)
 
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;svgContainer&lt;/span&gt;
+            return @svgContainer
 
-        &lt;span class="nl"&gt;graphContainer:&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;graphContainer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;svgContainer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;svg:g&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;class&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;graph-canvas&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;graph-svg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        graphContainer: -&amp;gt;
+            @graphContainer = @svgContainer.append(&amp;quot;svg:g&amp;quot;)
+                .attr(&amp;quot;class&amp;quot;, &amp;quot;graph-canvas&amp;quot;)
+                .attr(&amp;quot;id&amp;quot;, &amp;quot;graph-svg&amp;quot;)
 
-            &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;graphContainer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;svg:rect&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;width&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;height&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fill&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;white&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            @graphContainer.append(&amp;quot;svg:rect&amp;quot;)
+                .attr(&amp;quot;width&amp;quot;, @width)
+                .attr(&amp;quot;height&amp;quot;, @height)
+                .style(&amp;quot;fill&amp;quot;, &amp;#39;white&amp;#39;)
 
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;graphContainer&lt;/span&gt;
+            return @graphContainer
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -870,14 +885,14 @@ http://localhost:9200/&lt;/p&gt;
 &lt;p&gt;Testing is easier with this approach. Previously, any change in the monolithic code block had the potential ta affect every test. With the modular approach, your integration tests may fail but you unit tests have a much higher chance of survival.&lt;/p&gt;
 &lt;p&gt;With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.  &lt;/p&gt;
 &lt;p&gt;For instance, this is the first test of our graph tooltips:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;correctly&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt; &lt;span class="n"&gt;tooltips&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
-        &lt;span class="n"&gt;tooltips&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;redraw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mockData&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;tips&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]).&lt;/span&gt;&lt;span class="n"&gt;selectAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;graph&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tooltip&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-        &lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tips&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;toEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tips&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]).&lt;/span&gt;&lt;span class="n"&gt;toEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tips&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]).&lt;/span&gt;&lt;span class="n"&gt;toEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;innerText&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;toContain&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;innerText&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;toContain&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;XXXXXX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;BBBBB&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    it &amp;#39;should correctly render tooltips&amp;#39;, -&amp;gt;
+        tooltips.redraw(mockData)
+        tips = d3.select(element[0]).selectAll(&amp;#39;.graph-tooltip&amp;#39;)[0]
+        expect(tips.length).toEqual(1)
+        expect(tips[0].style[&amp;#39;left&amp;#39;]).toEqual(&amp;#39;32px&amp;#39;)
+        expect(tips[0].style[&amp;#39;top&amp;#39;]).toEqual(&amp;#39;10px&amp;#39;)
+        expect(element[0].innerText).toContain(&amp;#39;100&amp;#39;)
+        expect(element[0].innerText).toContain(&amp;#39;XXXXXX-BBBBB&amp;#39;)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -908,15 +923,15 @@ http://localhost:9200/&lt;/p&gt;
 
 
 &lt;p&gt;You'll then need to save these functions to use them again later in other terminal sessions:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;funcsave&lt;/span&gt; &lt;span class="n"&gt;hubpr&lt;/span&gt;
-    &lt;span class="n"&gt;funcsave&lt;/span&gt; &lt;span class="n"&gt;pr&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    funcsave hubpr
+    funcsave pr
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;(You can also use &lt;code&gt;funced&lt;/code&gt; to edit the function corresponding to the passed-in name interactively if you need to make changes.)&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;pr&lt;/code&gt; function above will return the current git branch name, which gets passed into the &lt;code&gt;hubpr&lt;/code&gt; function as the first argument. &lt;code&gt;hubpr&lt;/code&gt; then sets the base and head branches based on the GitHub organization or username you've entered. You could of course replace &lt;code&gt;master&lt;/code&gt; with &lt;code&gt;staging&lt;/code&gt; or, depending on your workflow, include a separate argument to specify for determining the base branch, although this starts to undo some of the point of creating a shortcut.&lt;/p&gt;
 &lt;p&gt;The second argument, the actual issue number, is supplied when actually using the function; for instance, to make a pull request out of the newly pushed current branch &lt;code&gt;fix-everything&lt;/code&gt; that will close out issue number 123, you can now do:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pr&lt;/span&gt; &lt;span class="mi"&gt;123&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pr 123
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -979,13 +994,13 @@ http://localhost:9200/&lt;/p&gt;
 &lt;li&gt;Edit /etc/postgresql/9.3/main/pg_hba.conf: Add &lt;code&gt;host replication replicator &amp;lt;IP_OF_REPLICA&amp;gt;/32 md5&lt;/code&gt; to the bottom of the file.&lt;/li&gt;
 &lt;li&gt;Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options &lt;strong&gt;(ensure they are not set anywhere else in the config file already)&lt;/strong&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;max_wal_senders&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
-&lt;span class="n"&gt;wal_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;archive_mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;archive_command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;envdir&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="n"&gt;wal&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;archive_timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;60&lt;/span&gt;
-&lt;span class="n"&gt;listen_addresses&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;*&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;hot_standby = &amp;#39;on&amp;#39;
+max_wal_senders = 5
+wal_level = &amp;#39;hot_standby&amp;#39;
+archive_mode = &amp;#39;on&amp;#39;
+archive_command = &amp;#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-push %p&amp;#39;
+archive_timeout = 60
+listen_addresses = &amp;#39;*&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -998,9 +1013,9 @@ http://localhost:9200/&lt;/p&gt;
 &lt;li&gt;Stop the server: &lt;code&gt;service postgresql stop&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options &lt;strong&gt;(ensure they are not set anywhere else in the config file already)&lt;/strong&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;max_wal_senders&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
-&lt;span class="n"&gt;wal_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hot_standby&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;hot_standby = &amp;#39;on&amp;#39;
+max_wal_senders = 5
+wal_level = &amp;#39;hot_standby&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1011,19 +1026,19 @@ http://localhost:9200/&lt;/p&gt;
 service postgresql stop
 
 echo Cleaning up old cluster directory
-rm &lt;span class="o"&gt;-&lt;/span&gt;rf &lt;span class="o"&gt;/&lt;/span&gt;var&lt;span class="o"&gt;/&lt;/span&gt;lib&lt;span class="o"&gt;/&lt;/span&gt;postgresql&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;9.3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;main
+rm -rf /var/lib/postgresql/9.3/main
 
 echo Starting base backup as replicator
-pg_basebackup &lt;span class="o"&gt;-&lt;/span&gt;h &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;IP_OF_PRIMARY&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;D &lt;span class="o"&gt;/&lt;/span&gt;var&lt;span class="o"&gt;/&lt;/span&gt;lib&lt;span class="o"&gt;/&lt;/span&gt;postgresql&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;9.3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;main &lt;span class="o"&gt;-&lt;/span&gt;U replicator &lt;span class="o"&gt;-&lt;/span&gt;v &lt;span class="o"&gt;-&lt;/span&gt;P
+pg_basebackup -h &amp;lt;IP_OF_PRIMARY&amp;gt; -D /var/lib/postgresql/9.3/main -U replicator -v -P
 
 echo Writing recovery.conf file
-bash &lt;span class="o"&gt;-&lt;/span&gt;c &lt;span class="s"&gt;&amp;quot;cat &amp;gt; /var/lib/postgresql/9.3/main/recovery.conf &amp;lt;&amp;lt;- EOF&lt;/span&gt;
-&lt;span class="s"&gt;  standby_mode = &amp;#39;on&amp;#39;&lt;/span&gt;
-&lt;span class="s"&gt;  primary_conninfo = &amp;#39;host=&amp;lt;IP_OF_PRIMARY&amp;gt; port=5432 user=replicator password=&amp;lt;PASSWORD&amp;gt;&amp;#39;&lt;/span&gt;
-&lt;span class="s"&gt;  trigger_file = &amp;#39;/tmp/postgresql.trigger&amp;#39;&lt;/span&gt;
-&lt;span class="s"&gt;  restore_command = &amp;#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;%f&amp;quot; &amp;quot;%&lt;/span&gt;p&lt;span class="s"&gt;&amp;quot;&amp;#39;&lt;/span&gt;
-&lt;span class="s"&gt;EOF&lt;/span&gt;
-&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;
+bash -c &amp;quot;cat &amp;gt; /var/lib/postgresql/9.3/main/recovery.conf &amp;lt;&amp;lt;- EOF
+  standby_mode = &amp;#39;on&amp;#39;
+  primary_conninfo = &amp;#39;host=&amp;lt;IP_OF_PRIMARY&amp;gt; port=5432 user=replicator password=&amp;lt;PASSWORD&amp;gt;&amp;#39;
+  trigger_file = &amp;#39;/tmp/postgresql.trigger&amp;#39;
+  restore_command = &amp;#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch &amp;quot;%f&amp;quot; &amp;quot;%p&amp;quot;&amp;#39;
+EOF
+&amp;quot;
 
 echo Starting PostgreSQL
 service postgresql start
@@ -1035,9 +1050,9 @@ service postgresql start
 &lt;li&gt;Run the script: &lt;code&gt;./replication_setup&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Verify that your replica is working. Check the log at /var/log/postgresql/postgresql-9.3-main.log. You should see output similar to the following.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;05&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;21&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="n"&gt;UTC&lt;/span&gt; &lt;span class="n"&gt;LOG&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;span class="n"&gt;consistent&lt;/span&gt; &lt;span class="n"&gt;recovery&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt; &lt;span class="n"&gt;reached&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;450006&lt;/span&gt;&lt;span class="n"&gt;C8&lt;/span&gt;
-&lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;05&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;21&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="n"&gt;UTC&lt;/span&gt; &lt;span class="n"&gt;LOG&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;span class="n"&gt;database&lt;/span&gt; &lt;span class="n"&gt;system&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;ready&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;accept&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;connections&lt;/span&gt;
-&lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;05&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;21&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="n"&gt;UTC&lt;/span&gt; &lt;span class="n"&gt;LOG&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;span class="n"&gt;started&lt;/span&gt; &lt;span class="n"&gt;streaming&lt;/span&gt; &lt;span class="n"&gt;WAL&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;primary&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;45000000&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;timeline&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;2014-05-02 21:12:25 UTC LOG:  consistent recovery state reached at 0/450006C8
+2014-05-02 21:12:25 UTC LOG:  database system is ready to accept read only connections
+2014-05-02 21:12:25 UTC LOG:  started streaming WAL from primary at 0/45000000 on timeline 1
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1050,7 +1065,7 @@ service postgresql start
 &lt;ul&gt;
 &lt;li&gt;Finally, add the IP addresses of your EC2 instances so that they can see your fancy new databases: &lt;code&gt;vim /etc/postgresql/9.3/main/pg_hba.conf&lt;/code&gt; and add this line to the bottom.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;host&lt;/span&gt;    &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;user_name&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;       &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;db_name&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;     &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;IP_ADDRESS&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;/&lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt;           &lt;span class="nx"&gt;md5&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;host    &amp;lt;user_name&amp;gt;       &amp;lt;db_name&amp;gt;     &amp;lt;IP_ADDRESS&amp;gt;/32           md5
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1077,7 +1092,7 @@ service postgresql start
 &lt;li&gt;&lt;a href="http://www.digicert.com/ev-multi-domain-ssl.htm"&gt;DigiCert Extended Validation Multi-Domain Certificate&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To continue with the process of securing your web application, you will need to purchase a SSL certificate from a reputable vendor. Shop around; prices do vary. Once you have purchased an SSL certificate you will need to create a Certificate Signing Request (CSR). The below command will generate both a server key and CSR:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;openssl&lt;/span&gt; &lt;span class="n"&gt;req&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;newkey&lt;/span&gt; &lt;span class="n"&gt;rsa&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;2048&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keyout&lt;/span&gt; &lt;span class="n"&gt;your_server_name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="n"&gt;your_server_name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;csr&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;openssl req -new -newkey rsa:2048 -keyout your_server_name.key -out your_server_name.csr
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1113,21 +1128,21 @@ ssl_certificate_key /etc/ngin/ssl/your_server_name.key&lt;/p&gt;
 &lt;p&gt;Now that we have set up a secure connection on your server of choice, it is important to make sure that you are using HTTPS to the best of its abilities. There are a few steps that one should take to make sure their server is hardened as best as possible when using HTTPS.&lt;/p&gt;
 &lt;h3&gt;Hardening Apache&lt;/h3&gt;
 &lt;p&gt;Adding the below lines to your &lt;code&gt;VirtualHost&lt;/code&gt; will give you all the benefits of the most up-to-date ciphers while disallowing some of the known-to-be-weaker ones:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;SSLProtocol&lt;/span&gt; &lt;span class="n"&gt;ALL&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;SSLv2&lt;/span&gt;
-&lt;span class="n"&gt;SSLHonorCipherOrder&lt;/span&gt; &lt;span class="n"&gt;On&lt;/span&gt;
-&lt;span class="n"&gt;SSLCipherSuite&lt;/span&gt; &lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES256&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES256&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES128&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;aNULL&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;DSS&lt;/span&gt;
-&lt;span class="n"&gt;SSLCompression&lt;/span&gt; &lt;span class="n"&gt;Off&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;SSLProtocol ALL -SSLv2
+SSLHonorCipherOrder On
+SSLCipherSuite ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
+SSLCompression Off
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Hardening Nginx&lt;/h3&gt;
 &lt;p&gt;Adding the below lines to your &lt;code&gt;server&lt;/code&gt; virtual host will give you all the benefits of the most up-to-date ciphers while disallowing some of the known-to-be-weaker ones:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ssl_protocols&lt;/span&gt; &lt;span class="n"&gt;SSLv3&lt;/span&gt; &lt;span class="n"&gt;TLSv1&lt;/span&gt; &lt;span class="n"&gt;TLSv1&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt; &lt;span class="n"&gt;TLSv1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ssl_ciphers&lt;/span&gt; &lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES256&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES256&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES128&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AESGCM&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;AES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;aNULL&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;DSS&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="n"&gt;AES256&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ssl_session_cache&lt;/span&gt; &lt;span class="n"&gt;shared&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;SSL&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ssl_session_timeout&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ssl_stapling&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_protocols&lt;/span&gt; &lt;span class="nt"&gt;SSLv3&lt;/span&gt; &lt;span class="nt"&gt;TLSv1&lt;/span&gt; &lt;span class="nt"&gt;TLSv1&lt;/span&gt;&lt;span class="nc"&gt;.1&lt;/span&gt; &lt;span class="nt"&gt;TLSv1&lt;/span&gt;&lt;span class="nc"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_ciphers&lt;/span&gt; &lt;span class="nt"&gt;ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="nd"&gt;:DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="nd"&gt;:ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AES256&lt;/span&gt;&lt;span class="nd"&gt;:DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AES256&lt;/span&gt;&lt;span class="nd"&gt;:ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AES128&lt;/span&gt;&lt;span class="nd"&gt;:DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AES&lt;/span&gt;&lt;span class="nd"&gt;:ECDH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;3DES&lt;/span&gt;&lt;span class="nd"&gt;:DH&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;3DES&lt;/span&gt;&lt;span class="nd"&gt;:RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="nd"&gt;:RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AES&lt;/span&gt;&lt;span class="nd"&gt;:RSA&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;3DES&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;aNULL&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;DSS&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;AES256&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_session_cache&lt;/span&gt; &lt;span class="nt"&gt;shared&lt;/span&gt;&lt;span class="nd"&gt;:SSL:10m&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_session_timeout&lt;/span&gt; &lt;span class="nt"&gt;10m&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_stapling&lt;/span&gt; &lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

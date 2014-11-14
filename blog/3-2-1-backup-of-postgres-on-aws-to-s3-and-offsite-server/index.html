@@ -61,11 +61,11 @@ The Engine Room - TrackMaven
 <p>Because you created the mountpoint with <code>sudo</code> it will be owned by <code>root</code>; we need it to be readable/writeable by other users. Which other users should have access?</p>
 <p><code>pg_dump</code> is the process we will use to write the backup, and it should be run by the <code>postgres</code> user so it does not have to authenticate database access (annoying and difficult to do securely within <code>crontab</code>). </p>
 <p>We created a new group <code>BACKUPUSERS</code> and added our <code>ssh_user</code> and <code>postgres</code> to it with these commands:</p>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">groupadd</span> <span class="n">BACKUPUSERS</span>
-<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">G</span> <span class="n">BACKUPUSERS</span> <span class="n">YOUR_SSH_USER</span>
-<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">G</span> <span class="n">BACKUPUSERS</span> <span class="n">postgres</span>
-<span class="n">sudo</span> <span class="n">chgrp</span> <span class="o">-</span><span class="n">R</span> <span class="n">BACKUPUSERS</span> <span class="o">/</span><span class="n">YOUR_BACKUP_POINT</span>
-<span class="n">sudo</span> <span class="n">chmod</span> <span class="o">-</span><span class="n">R</span> <span class="mi">770</span> <span class="o">/</span><span class="n">YOUR_BACKUP_POINT</span>
+<div class="highlight"><pre>sudo groupadd BACKUPUSERS
+sudo usermod -a -G BACKUPUSERS YOUR_SSH_USER
+sudo usermod -a -G BACKUPUSERS postgres
+sudo chgrp -R BACKUPUSERS /YOUR_BACKUP_POINT
+sudo chmod -R 770 /YOUR_BACKUP_POINT
 </pre></div>
 
 
@@ -74,8 +74,8 @@ The Engine Room - TrackMaven
 <p>If you haven't created an IAMS user with only S3 permissions, we suggest that you do that now because you'll need the keys for the next step.</p>
 <p>Give the backup S3 user both read and write permissions if you feel your local machine is secure enough to warrant it.</p>
 <p>Install and configure the S3 command line client on the DB machine:</p>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">s3cmd</span>
-<span class="n">s3cmd</span> <span class="o">--</span><span class="n">configure</span>
+<div class="highlight"><pre>sudo apt-get install s3cmd
+s3cmd --configure
 </pre></div>
 
 
@@ -268,21 +268,21 @@ get_file_from_s3 <span class="o">()</span>
 
 check_if_backup_complete <span class="o">()</span>
 <span class="o">{</span>
-  s3cmd info <span class="nv">$FULLPATH</span> &gt;/dev/null 2&gt;&amp;1
-  <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq 0 <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nv">EXISTS</span><span class="o">=</span><span class="nb">true</span>
+  s3cmd info <span class="nv">$FULLPATH</span> &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
+  <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">EXISTS</span><span class="o">=</span><span class="nb">true</span>
 <span class="nb">    </span>get_file_from_s3
   <span class="k">fi</span>
 <span class="o">}</span>
 
-<span class="k">while</span> <span class="o">[</span> <span class="nv">$RETRYS</span> -lt 10 <span class="o">]</span>; <span class="k">do</span>
-<span class="k">  </span>check_if_backup_complete
-  <span class="k">if</span> ! <span class="nv">$EXISTS</span>; <span class="k">then</span>
-<span class="k">    </span>sleep <span class="nv">$WAIT_TIME_IN_SECONDS</span>
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$RETRYS</span> -lt <span class="m">10</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+  check_if_backup_complete
+  <span class="k">if</span> ! <span class="nv">$EXISTS</span><span class="p">;</span> <span class="k">then</span>
+    sleep <span class="nv">$WAIT_TIME_IN_SECONDS</span>
     <span class="o">((</span> RETRYS++ <span class="o">))</span>
     <span class="c"># echo $RETRYS</span>
   <span class="k">else</span>
-<span class="k">    </span><span class="nb">break</span>
+    <span class="nb">break</span>
 <span class="nb">  </span><span class="k">fi</span>
 <span class="k">done</span>
 </pre></div>
@@ -312,20 +312,20 @@ check_if_backup_complete <span class="o">()</span>
 19</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
 
 <span class="nv">FILES</span><span class="o">=()</span>
-FILES+<span class="o">=</span><span class="sb">`</span>s3cmd ls s3://trackmaven-prod-db/pg_dump/ | grep tgz | awk <span class="s1">&#39;{print $4}&#39;</span><span class="sb">`</span>
+FILES+<span class="o">=</span><span class="sb">`</span>s3cmd ls s3://trackmaven-prod-db/pg_dump/ <span class="p">|</span> grep tgz <span class="p">|</span> awk <span class="s1">&#39;{print $4}&#39;</span><span class="sb">`</span>
 
 <span class="c">#echo $FILES</span>
 
 <span class="nv">SORTEDFILES</span><span class="o">=(</span> <span class="k">$(</span>
-    <span class="k">for </span>el in <span class="s2">&quot;${FILES[@]}&quot;</span>
+    <span class="k">for</span> el in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FILES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">do</span>
-<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$el&quot;</span>
-    <span class="k">done</span> | sort -Vr <span class="k">)</span> <span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$el</span><span class="s2">&quot;</span>
+    <span class="k">done</span> <span class="p">|</span> sort -Vr <span class="k">)</span> <span class="o">)</span>
 
-<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> 0 ; i &lt; <span class="k">${#</span><span class="nv">SORTEDFILES</span><span class="p">[@]</span><span class="k">}</span> ; i++ <span class="o">))</span> <span class="k">do</span>
-<span class="k">  if</span> <span class="o">[</span> <span class="nv">$i</span> -gt 2 <span class="o">]</span>; <span class="k">then</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; <span class="si">${#</span><span class="nv">SORTEDFILES</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> i++ <span class="o">))</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="nv">$i</span> -gt <span class="m">2</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="c">#echo Removing ${SORTEDFILES[$i]}</span>
-    s3cmd del <span class="k">${</span><span class="nv">SORTEDFILES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span>
+    s3cmd del <span class="si">${</span><span class="nv">SORTEDFILES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
   <span class="k">fi</span>
 <span class="k">done</span>
 </pre></div>
@@ -359,15 +359,15 @@ FILES+<span class="o">=</span><span class="sb">`</span>s3cmd ls s3://trackmaven-
 <span class="c">#echo $FILES</span>
 
 <span class="nv">SORTEDFILES</span><span class="o">=(</span> <span class="k">$(</span>
-    <span class="k">for </span>el in <span class="s2">&quot;${FILES[@]}&quot;</span>
+    <span class="k">for</span> el in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FILES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">do</span>
-<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$el&quot;</span>
-    <span class="k">done</span> | sort -Vr <span class="k">)</span> <span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$el</span><span class="s2">&quot;</span>
+    <span class="k">done</span> <span class="p">|</span> sort -Vr <span class="k">)</span> <span class="o">)</span>
 
-<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> 0 ; i &lt; <span class="k">${#</span><span class="nv">SORTEDFILES</span><span class="p">[@]</span><span class="k">}</span> ; i++ <span class="o">))</span> <span class="k">do</span>
-<span class="k">  if</span> <span class="o">[</span> <span class="nv">$i</span> -gt 2 <span class="o">]</span>; <span class="k">then</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; <span class="si">${#</span><span class="nv">SORTEDFILES</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> i++ <span class="o">))</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="nv">$i</span> -gt <span class="m">2</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="c">#echo Removing ${SORTEDFILES[$i]}</span>
-    s3cmd del <span class="k">${</span><span class="nv">SORTEDFILES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span>
+    s3cmd del <span class="si">${</span><span class="nv">SORTEDFILES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
   <span class="k">fi</span>
 <span class="k">done</span>
 </pre></div>

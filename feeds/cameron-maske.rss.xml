@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Engine Room</title><link>http://engineroom.trackmaven.com/</link><description></description><atom:link href="http://engineroom.trackmaven.com/feeds/cameron-maske.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 28 Oct 2014 00:00:00 +0100</lastBuildDate><item><title>A Better Development Environment with Docker and Fig</title><link>http://engineroom.trackmaven.com/blog/a-better-development-environment-with-docker-and-fig/</link><description>&lt;p&gt;Local development environments can be a nightmare.
+Have you ever run into a scenario where something works on your machine but not on your colleagues'?
+Having to spend time debugging platform-specific problems is a frustrating productivity sink.&lt;/p&gt;
+&lt;p&gt;Before we explore how to set up our stress free development environment, let's consider what key elements it should have.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Isolated. No other project should affect it and it shouldn't affect any other projects. For example, if one project uses Python 2.7, that shouldn't affect another project which uses Python 3.4.&lt;/li&gt;
+&lt;li&gt;Repeatable. Write it once and have it work each time. I don't want to have to spend time tweaking it for each user.&lt;/li&gt;
+&lt;li&gt;Be as close to production as possible.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All that sounds great. But how do we achieve this?&lt;/p&gt;
+&lt;p&gt;Enter Docker. If you are unfamiliar with what Docker is, Solomon Hykes (founder and CTO of Docker) gives a great &lt;a href="http://youtu.be/Q5POuMHxW-0?t=2m18s"&gt;introduction talk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Docker lends itself perfectly to our 3 requirements above. Docker was built to solve the problem of "run it once, run it everywhere". Docker containers are isolated, portable and repeatable.&lt;/p&gt;
+&lt;p&gt;But building, booting and managing containers can take a fair few complex shell commands.&lt;/p&gt;
+&lt;p&gt;The missing link is Fig. Fig describes itsself as a tool to create &lt;a href="https://github.com/docker/fig/"&gt;fast, isolated development environments&lt;/a&gt; using Docker.&lt;/p&gt;
+&lt;p&gt;Fig moves all the configuration required to orchestra Docker into a simple clear &lt;code&gt;fig.yml&lt;/code&gt; file. It handles all the work of building and running containers, forwarding their ports, sharing volumes, and linking them.&lt;/p&gt;
+&lt;p&gt;Let's explore Fig by example, and let's make it challenging.&lt;/p&gt;
+&lt;p&gt;I want a project with TWO databases, &lt;code&gt;Postgres 9.1&lt;/code&gt; and &lt;code&gt;ElasticSearch 1.1&lt;/code&gt;. I want &lt;code&gt;Redis 2.8.3&lt;/code&gt; for caching, and I'll be running my main site through a Python-powered Flask app.&lt;/p&gt;
+&lt;p&gt;Before we set this up in Fig, imagine setting this up locally. How long would it take?&lt;/p&gt;
+&lt;p&gt;Thought experiment over; let's dive into an example. All code featured is available in this &lt;a href="https://github.com/TrackMaven/using-fig"&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;An example&lt;/h3&gt;
+&lt;p&gt;Let's start with the &lt;code&gt;fig.yml&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;
+    &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;py&lt;/span&gt;
+    &lt;span class="n"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;./&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;links&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;es&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;
+&lt;span class="n"&gt;es&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;dockerfile&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;elasticsearch&lt;/span&gt;
+    &lt;span class="n"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;elasticsearch&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;orchardup&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;postgres&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;environment&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;POSTGRESQL_DB&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;test_db&lt;/span&gt;
+&lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;trackmaven&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+    &lt;span class="n"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In less then 30 lines of yaml, I've declared our stack.&lt;/p&gt;
+&lt;p&gt;With &lt;a href="http://www.fig.sh/install.html"&gt;Fig installed&lt;/a&gt; we can start our stack by running &lt;code&gt;fig up&lt;/code&gt;.&lt;/p&gt;
+&lt;iframe src="https://gfycat.com/ifr/SlightZestyGlassfrog" frameborder="0" scrolling="no" width="100%" &gt;&lt;/iframe&gt;
+
+&lt;p&gt;Let's break down what our simple command above did into 2 stages.&lt;/p&gt;
+&lt;h4&gt;Building stage.&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull orchardup/postgres
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull trackmaven/redis
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull dockerfile/elasticsearch
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker build -t demo_web -rm&lt;span class="o"&gt;=&lt;/span&gt;True web
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Equivalent docker commands preformed by Fig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Fig goes through each service, then, if needed, builds an image.&lt;/p&gt;
+&lt;p&gt;Building is based off a &lt;a href="http://docs.docker.com/reference/builder/"&gt;Dockerfile&lt;/a&gt; that contains all the required steps to produce our desired image.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# Our base image is Ubuntu 13.04
+FROM stackbrew/ubuntu:raring
+# Install any updates
+RUN apt-get -y update
+# Ensure python is installed and postgres drivers.
+RUN apt-get install -y python python-pip python-psycopg2
+
+WORKDIR /code
+ADD requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In our example project, our &lt;a href="https://github.com/TrackMaven/using-fig/blob/master/web/Dockerfile"&gt;Dockerfile&lt;/a&gt; builds on top of an Ubuntu base. It ensures Python and pip are installed before installing our project-specific Python packages from requirements.txt.&lt;/p&gt;
+&lt;p&gt;Alternatively, you can point services towards a pre-built image.
+This can exist either locally, and be referenced by a tag or a partial image ID, or remotely, on Docker's &lt;a href="https://registry.hub.docker.com/"&gt;public registry&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Building a container off a Dockerfile works best for a  service that is dependent on code within your project. In this case, the core logic for our Python-powered app is in our source control. In contrast, images work best for services that don't rely as heavily on project-specific code (e.g. the datastores).&lt;/p&gt;
+&lt;p&gt;Once Fig is satisfied all the required images are built or pulled, it's then time to run the services...&lt;/p&gt;
+&lt;h4&gt;Running stage.&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_es_1 -v &lt;span class="s2"&gt;&amp;quot;elasticsearch:/data&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;9200:9200&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;9300:9300&amp;quot;&lt;/span&gt; dockerfile/elasticsearch
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_db_1 -p &lt;span class="s2"&gt;&amp;quot;5432:5432&amp;quot;&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;quot;POSTGRESQL_DB:test_db&amp;quot;&lt;/span&gt; orchardup/postgres
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_redis_1 -p &lt;span class="s2"&gt;&amp;quot;6379:6379&amp;quot;&lt;/span&gt; trackmaven/redis
+&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --rm --name demo_web_1 -v &lt;span class="s2"&gt;&amp;quot;web:/code&amp;quot;&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;5000:5000&amp;quot;&lt;/span&gt; --link es:demo_es_1 --link db:demo_db_1 --link redis:demo_redis_1 demo_web python app.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Equivalent docker commands preformed by Fig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Each service has a variety of run time options, including...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;volumes&lt;/code&gt;: Allows you to share folders between your host machine and the services' docker containers. In our example, the &lt;code&gt;web&lt;/code&gt; folder is shared, so any code changes to the contained files are immediately updated on the running container.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ports&lt;/code&gt;: Exposes ports between the host (you) and the container (service).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment&lt;/code&gt;: Allows you to set environment variables for containers. In our example, this allows us to configure the name of our database, &lt;a href="https://github.com/orchardup/docker-postgresql/blob/master/run"&gt;due to a clever run script&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;links&lt;/code&gt;: &lt;a href="http://www.fig.sh/env.html"&gt;Allows inter-service communication&lt;/a&gt;. In our example, &lt;code&gt;web&lt;/code&gt; needs to know the ip and ports for the &lt;code&gt;redis&lt;/code&gt;, &lt;code&gt;db&lt;/code&gt; and &lt;code&gt;es&lt;/code&gt; services. Fig ensures those boot up first and then injects a set of environment variables to &lt;code&gt;web&lt;/code&gt; which include the IP address and various ports of the linked services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To stop the running services you kill them with &lt;code&gt;Ctrl+C&lt;/code&gt; or run &lt;code&gt;fig stop&lt;/code&gt; in another terminal window.&lt;/p&gt;
+&lt;p&gt;Behind the scenes, Fig has used Docker to build and then run containers for each service. Running &lt;code&gt;fig up&lt;/code&gt; again will restart the previously created containers whose volume changes (files, folders, etc) persist between boots. This means that if you have added data to one of the data stores it will still be present between restarts. You can remove the containers associated with services, and thus any volume changes, by running &lt;code&gt;fig remove [SERVICE]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After a successful build of a service Fig won't attempt to rebuild that service on the next &lt;code&gt;up&lt;/code&gt;. That means if you want to make any changes to a built service's &lt;code&gt;Dockerfile&lt;/code&gt;, you'll need to tell Fig to &lt;code&gt;rebuild&lt;/code&gt; that image by using &lt;code&gt;fig build [SERVICE]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Fig also gives you the ability to run one-off commands in services using &lt;code&gt;fig run [SERVICE] [COMMAND]&lt;/code&gt;, e.g. &lt;code&gt;fig run web python&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;That's it!&lt;/h3&gt;
+&lt;p&gt;For more about what Fig can do, I'd suggest checking out the
+&lt;a href="http://www.fig.sh/index.html"&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Tips we've learnt along the way.&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Try to use images when you can. Each layer is pulled in parallel, resulting in a quick download. An image is also frozen. Without careful version pinning, re-building images can change over time. Try to move as many non-project specific steps out of your Dockerfiles into new base images. For example, in our web service, the python and pip installation steps are good canditates to be contained in base images.&lt;/li&gt;
+&lt;li&gt;Across teams, try to all use the same version of Docker and Fig. Both are moving fast and not insusceptible to version differences.&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Cameron Maske</dc:creator><pubDate>Tue, 28 Oct 2014 00:00:00 +0100</pubDate><guid>tag:engineroom.trackmaven.com,2014-10-28:blog/a-better-development-environment-with-docker-and-fig/</guid><category>docker</category><category>fig</category><category>how-to</category></item></channel></rss>

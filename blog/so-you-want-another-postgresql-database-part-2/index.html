@@ -57,24 +57,24 @@ The Engine Room - TrackMaven
 <li>Create a user in AWS IAM to have Put access to the S3 bucket</li>
 <li>Give the user read/put access, but NOT delete access. If, for some reason, our database server is compromised and an attacker gets our AWS credentials for this user, they will be able to overwrite our files but not delete them. Thanks to versioning, overwriting of our files is a non-issue. If the name of our bucket is db-backup, a policy like this will do:</li>
 </ul>
-<div class="highlight"><pre><span class="p">{</span>
-  <span class="s2">&quot;Version&quot;</span><span class="o">:</span> <span class="s2">&quot;2014-05-14&quot;</span><span class="o">,</span>
-  <span class="s2">&quot;Statement&quot;</span><span class="o">:</span> <span class="cp">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;Sid&quot;</span><span class="p">:</span> <span class="s2">&quot;Stmt1399394132000&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;Action&quot;</span><span class="p">:</span> <span class="err">[</span>
-        <span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;s3:PutObject&quot;</span>
-      <span class="cp">]</span><span class="o">,</span>
-      <span class="s2">&quot;Resource&quot;</span><span class="o">:</span> <span class="cp">[</span>
-        <span class="s2">&quot;arn:aws:s3:::db-backup&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;arn:aws:s3:::db-backup/*&quot;</span>
-      <span class="cp">]</span>
-    <span class="p">}</span>
-  <span class="o">]</span>
-<span class="err">}</span>
+<div class="highlight"><pre>{
+  &quot;Version&quot;: &quot;2014-05-14&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Sid&quot;: &quot;Stmt1399394132000&quot;,
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;s3:GetObject&quot;,
+        &quot;s3:ListBucket&quot;,
+        &quot;s3:PutObject&quot;
+      ],
+      &quot;Resource&quot;: [
+        &quot;arn:aws:s3:::db-backup&quot;,
+        &quot;arn:aws:s3:::db-backup/*&quot;
+      ]
+    }
+  ]
+}
 </pre></div>
 
 
@@ -89,22 +89,22 @@ The Engine Room - TrackMaven
 <li><code>sudo pip install wal-e</code></li>
 <li>Set up WAL-E:</li>
 </ul>
-<div class="highlight"><pre><span class="n">umask</span> <span class="n">u</span><span class="o">=</span><span class="n">rwx</span><span class="p">,</span><span class="n">g</span><span class="o">=</span><span class="n">rx</span><span class="p">,</span><span class="n">o</span><span class="o">=</span>
-<span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">env</span>
-<span class="n">echo</span> <span class="s">&quot;&lt;AWS SECRET KEY&gt;&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">env</span><span class="o">/</span><span class="n">AWS_SECRET_ACCESS_KEY</span>
-<span class="n">echo</span> <span class="s">&quot;&lt;AWS ACCESS KEY&gt;&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">env</span><span class="o">/</span><span class="n">AWS_ACCESS_KEY_ID</span>
-<span class="n">echo</span> <span class="err">&#39;</span><span class="n">s3</span><span class="o">:</span><span class="c1">//db-backup/&#39; | sudo tee /etc/wal-e.d/env/WALE_S3_PREFIX</span>
-<span class="n">sudo</span> <span class="n">chown</span> <span class="o">-</span><span class="n">R</span> <span class="n">root</span><span class="o">:</span><span class="n">postgres</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span>
+<div class="highlight"><pre>umask u=rwx,g=rx,o=
+sudo mkdir -p /etc/wal-e.d/env
+echo &quot;&lt;AWS SECRET KEY&gt;&quot; | sudo tee /etc/wal-e.d/env/AWS_SECRET_ACCESS_KEY
+echo &quot;&lt;AWS ACCESS KEY&gt;&quot; | sudo tee /etc/wal-e.d/env/AWS_ACCESS_KEY_ID
+echo &#39;s3://db-backup/&#39; | sudo tee /etc/wal-e.d/env/WALE_S3_PREFIX
+sudo chown -R root:postgres /etc/wal-e.d
 </pre></div>
 
 
 <ul>
 <li>That's all there is to it when it comes to setting up WAL-E. Ensure that the following options are set correctly in /etc/postgresql/9.3/main/postgresql.conf:</li>
 </ul>
-<div class="highlight"><pre><span class="n">wal_level</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">hot_standby</span><span class="err">&#39;</span>
-<span class="n">archive_mode</span> <span class="o">=</span> <span class="n">on</span>
-<span class="n">archive_command</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">envdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">env</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span> <span class="n">wal</span><span class="o">-</span><span class="n">push</span> <span class="o">%</span><span class="n">p</span><span class="err">&#39;</span>
-<span class="n">archive_timeout</span> <span class="o">=</span> <span class="mi">60</span>
+<div class="highlight"><pre>wal_level = &#39;hot_standby&#39;
+archive_mode = on
+archive_command = &#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-push %p&#39;
+archive_timeout = 60
 </pre></div>
 
 

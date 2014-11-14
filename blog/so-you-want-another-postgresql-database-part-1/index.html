@@ -90,13 +90,13 @@ The Engine Room - TrackMaven
 <li>Edit /etc/postgresql/9.3/main/pg_hba.conf: Add <code>host replication replicator &lt;IP_OF_REPLICA&gt;/32 md5</code> to the bottom of the file.</li>
 <li>Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options <strong>(ensure they are not set anywhere else in the config file already)</strong>:</li>
 </ul>
-<div class="highlight"><pre><span class="n">hot_standby</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">on</span><span class="err">&#39;</span>
-<span class="n">max_wal_senders</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">wal_level</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">hot_standby</span><span class="err">&#39;</span>
-<span class="n">archive_mode</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">on</span><span class="err">&#39;</span>
-<span class="n">archive_command</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">envdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">env</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">wal</span><span class="o">-</span><span class="n">e</span> <span class="n">wal</span><span class="o">-</span><span class="n">push</span> <span class="o">%</span><span class="n">p</span><span class="err">&#39;</span>
-<span class="n">archive_timeout</span> <span class="o">=</span> <span class="mi">60</span>
-<span class="n">listen_addresses</span> <span class="o">=</span> <span class="sc">&#39;*&#39;</span>
+<div class="highlight"><pre>hot_standby = &#39;on&#39;
+max_wal_senders = 5
+wal_level = &#39;hot_standby&#39;
+archive_mode = &#39;on&#39;
+archive_command = &#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-push %p&#39;
+archive_timeout = 60
+listen_addresses = &#39;*&#39;
 </pre></div>
 
 
@@ -109,9 +109,9 @@ The Engine Room - TrackMaven
 <li>Stop the server: <code>service postgresql stop</code></li>
 <li>Edit /etc/postgresql/9.3/main/postgresql.conf and add the following options <strong>(ensure they are not set anywhere else in the config file already)</strong>:</li>
 </ul>
-<div class="highlight"><pre><span class="n">hot_standby</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">on</span><span class="err">&#39;</span>
-<span class="n">max_wal_senders</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">wal_level</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">hot_standby</span><span class="err">&#39;</span>
+<div class="highlight"><pre>hot_standby = &#39;on&#39;
+max_wal_senders = 5
+wal_level = &#39;hot_standby&#39;
 </pre></div>
 
 
@@ -122,19 +122,19 @@ The Engine Room - TrackMaven
 service postgresql stop
 
 echo Cleaning up old cluster directory
-rm <span class="o">-</span>rf <span class="o">/</span>var<span class="o">/</span>lib<span class="o">/</span>postgresql<span class="o">/</span><span class="m">9.3</span><span class="o">/</span>main
+rm -rf /var/lib/postgresql/9.3/main
 
 echo Starting base backup as replicator
-pg_basebackup <span class="o">-</span>h <span class="o">&lt;</span>IP_OF_PRIMARY<span class="o">&gt;</span> <span class="o">-</span>D <span class="o">/</span>var<span class="o">/</span>lib<span class="o">/</span>postgresql<span class="o">/</span><span class="m">9.3</span><span class="o">/</span>main <span class="o">-</span>U replicator <span class="o">-</span>v <span class="o">-</span>P
+pg_basebackup -h &lt;IP_OF_PRIMARY&gt; -D /var/lib/postgresql/9.3/main -U replicator -v -P
 
 echo Writing recovery.conf file
-bash <span class="o">-</span>c <span class="s">&quot;cat &gt; /var/lib/postgresql/9.3/main/recovery.conf &lt;&lt;- EOF</span>
-<span class="s">  standby_mode = &#39;on&#39;</span>
-<span class="s">  primary_conninfo = &#39;host=&lt;IP_OF_PRIMARY&gt; port=5432 user=replicator password=&lt;PASSWORD&gt;&#39;</span>
-<span class="s">  trigger_file = &#39;/tmp/postgresql.trigger&#39;</span>
-<span class="s">  restore_command = &#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch &quot;</span><span class="o">%f&quot; &quot;%</span>p<span class="s">&quot;&#39;</span>
-<span class="s">EOF</span>
-<span class="s">&quot;</span>
+bash -c &quot;cat &gt; /var/lib/postgresql/9.3/main/recovery.conf &lt;&lt;- EOF
+  standby_mode = &#39;on&#39;
+  primary_conninfo = &#39;host=&lt;IP_OF_PRIMARY&gt; port=5432 user=replicator password=&lt;PASSWORD&gt;&#39;
+  trigger_file = &#39;/tmp/postgresql.trigger&#39;
+  restore_command = &#39;envdir /etc/wal-e.d/env /usr/local/bin/wal-e wal-fetch &quot;%f&quot; &quot;%p&quot;&#39;
+EOF
+&quot;
 
 echo Starting PostgreSQL
 service postgresql start
@@ -146,9 +146,9 @@ service postgresql start
 <li>Run the script: <code>./replication_setup</code></li>
 <li>Verify that your replica is working. Check the log at /var/log/postgresql/postgresql-9.3-main.log. You should see output similar to the following.</li>
 </ul>
-<div class="highlight"><pre><span class="mi">2014</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mo">02</span> <span class="mi">21</span><span class="o">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">25</span> <span class="n">UTC</span> <span class="n">LOG</span><span class="o">:</span>  <span class="n">consistent</span> <span class="n">recovery</span> <span class="n">state</span> <span class="n">reached</span> <span class="n">at</span> <span class="mi">0</span><span class="o">/</span><span class="mi">450006</span><span class="n">C8</span>
-<span class="mi">2014</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mo">02</span> <span class="mi">21</span><span class="o">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">25</span> <span class="n">UTC</span> <span class="n">LOG</span><span class="o">:</span>  <span class="n">database</span> <span class="n">system</span> <span class="n">is</span> <span class="n">ready</span> <span class="n">to</span> <span class="n">accept</span> <span class="n">read</span> <span class="n">only</span> <span class="n">connections</span>
-<span class="mi">2014</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mo">02</span> <span class="mi">21</span><span class="o">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">25</span> <span class="n">UTC</span> <span class="n">LOG</span><span class="o">:</span>  <span class="n">started</span> <span class="n">streaming</span> <span class="n">WAL</span> <span class="n">from</span> <span class="n">primary</span> <span class="n">at</span> <span class="mi">0</span><span class="o">/</span><span class="mi">45000000</span> <span class="n">on</span> <span class="n">timeline</span> <span class="mi">1</span>
+<div class="highlight"><pre>2014-05-02 21:12:25 UTC LOG:  consistent recovery state reached at 0/450006C8
+2014-05-02 21:12:25 UTC LOG:  database system is ready to accept read only connections
+2014-05-02 21:12:25 UTC LOG:  started streaming WAL from primary at 0/45000000 on timeline 1
 </pre></div>
 
 
@@ -161,7 +161,7 @@ service postgresql start
 <ul>
 <li>Finally, add the IP addresses of your EC2 instances so that they can see your fancy new databases: <code>vim /etc/postgresql/9.3/main/pg_hba.conf</code> and add this line to the bottom.</li>
 </ul>
-<div class="highlight"><pre><span class="nb">host</span>    <span class="o">&lt;</span><span class="nx">user_name</span><span class="o">&gt;</span>       <span class="o">&lt;</span><span class="nx">db_name</span><span class="o">&gt;</span>     <span class="o">&lt;</span><span class="nx">IP_ADDRESS</span><span class="o">&gt;/</span><span class="mi">32</span>           <span class="nx">md5</span>
+<div class="highlight"><pre>host    &lt;user_name&gt;       &lt;db_name&gt;     &lt;IP_ADDRESS&gt;/32           md5
 </pre></div>
 
 

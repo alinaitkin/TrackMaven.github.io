@@ -63,15 +63,15 @@ The Engine Room - TrackMaven
 
 
 <p>You'll then need to save these functions to use them again later in other terminal sessions:</p>
-<div class="highlight"><pre>    <span class="n">funcsave</span> <span class="n">hubpr</span>
-    <span class="n">funcsave</span> <span class="n">pr</span>
+<div class="highlight"><pre>    funcsave hubpr
+    funcsave pr
 </pre></div>
 
 
 <p>(You can also use <code>funced</code> to edit the function corresponding to the passed-in name interactively if you need to make changes.)</p>
 <p>The <code>pr</code> function above will return the current git branch name, which gets passed into the <code>hubpr</code> function as the first argument. <code>hubpr</code> then sets the base and head branches based on the GitHub organization or username you've entered. You could of course replace <code>master</code> with <code>staging</code> or, depending on your workflow, include a separate argument to specify for determining the base branch, although this starts to undo some of the point of creating a shortcut.</p>
 <p>The second argument, the actual issue number, is supplied when actually using the function; for instance, to make a pull request out of the newly pushed current branch <code>fix-everything</code> that will close out issue number 123, you can now do:</p>
-<div class="highlight"><pre><span class="n">pr</span> <span class="mi">123</span>
+<div class="highlight"><pre>pr 123
 </pre></div>
 
 
