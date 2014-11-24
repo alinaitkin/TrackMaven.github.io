@@ -1,5 +1,5 @@
 Title: Monthly Challenge: Natural Language Processing
-Date: 2014-10-12
+Date: 2014-11-24
 Category: Monthly Challenge
 Tags: nlp, elasticsearch
 Slug: monthly-challenge-natural-language-processing
@@ -21,7 +21,7 @@ There are endless possibilities for an NLP-inspired project:
 
 Let's get started with the example project! First off, we'll need some data. Prepare an archive of *only* your Gmail data (this will include what's currently in your spam and trash folders) here:
 
-https://www.google.com/settings/takeout
+[https://www.google.com/settings/takeout](https://www.google.com/settings/takeout)
 
 Now go take a walk. With a 5.1G inbox, my 2.8G archive took a little over an hour to send.
 
