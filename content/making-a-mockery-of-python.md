@@ -30,6 +30,7 @@ def multiply(x, y):
 # test.py
 import unittest
 
+
 class MyTestCase(unittest.TestCase):
     def test_add_and_multiply(self):
 
@@ -75,7 +76,7 @@ F
 FAIL: test_add_and_multiply (__main__.MyTestCase)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "test.py", line 26, in test_add_and_multiply
+  File "test.py", line 13, in test_add_and_multiply
     self.assertEqual(15, multiple)
 AssertionError: 15 != 18
 
@@ -107,7 +108,6 @@ Let's rewrite our unit test, using the power of mock. Then we'll discuss what's 
 
 ```python
 # test.py
-
 import mock
 import unittest
 
@@ -150,15 +150,15 @@ We've used the `mock.patch` decorator to **replace** `multiply` with a mock obje
 Cries of terror - "How can we be replacing a function with an object!?" Don't worry! This is Python, so functions **are** objects. Normally, when we call `multiply()`, we are using the `__call__` method of the `multiply` function object. With our mock in place, however, our `multiply()` call instead calls the `__call__` method of our mock object.
 
 ```python
-    mock_multiply.return_value = 15
+mock_multiply.return_value = 15
 ```
 
 In order to get our mock function to return anything, we need to specify the `return_value` attribute. This tells our mock object what to give back when it is called.
 
 ```python
-    sum, multiple = add_and_multiply(x, y)
+addition, multiple = add_and_multiply(x, y)
 
-    mock_multiply.assert_called_once_with(3, 5)
+mock_multiply.assert_called_once_with(3, 5)
 ```
 
 In the test, we then called our outer function, `add_and_multiply`. This will call our nested `multiply` function, and if we've mocked it correctly, the call will be received by our mock object instead. To check that this has happened, we can rely on a smart feature of mock objects - they store any arguments that they were called with. The `assert_called_once_with` method of the mock object is a nice shortcut to check, as the name suggests, if the object was called once with a specific set of arguments. If it was, we are happy and the test passes. If it wasn't, `assert_called_once_with` will let us know by raising an `AssertionError`.
