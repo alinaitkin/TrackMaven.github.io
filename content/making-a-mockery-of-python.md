@@ -46,7 +46,7 @@ if __name__ == "__main__":
 ```
 
 ```
-python test.py
+$ python test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 0.001s
@@ -69,7 +69,7 @@ def multiply(x, y):
 Now we encounter a problem. Our test code hasn't changed. The function we are supposedly testing hasn't changed. However, the `test_add_and_multiply` test will now fail:
 
 ```
-python test.py
+$ python test.py
 F
 ======================================================================
 FAIL: test_add_and_multiply (__main__.MyTestCase)
