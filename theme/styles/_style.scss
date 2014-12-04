@@ -197,11 +197,30 @@ img {
  * Blog posts
  */
 .blog-post {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
     word-wrap: break-word;
+
+    &.summary {
+      padding-top: 25px;
+
+      &:after {
+        content: '';
+        background: $gray-alto;
+        height: 1px;
+        display: block;
+        text-align: center;
+        color: $tan;
+        margin: 0 auto;
+        width: 45px;
+      }
+    }
 
     @media (max-width: 870px) {
       margin-bottom: 50px;
+
+      &.summary {
+        padding-top: 0;
+      }
     }
 }
 .blog-post-title {
