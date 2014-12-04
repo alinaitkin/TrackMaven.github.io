@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% block indextitle %}{% endblock %}
 {% block content %}
-<div class="blog-post">
-  <h2 class="blog-post-title">{{ article.title }}</h2>
-  <p class="blog-post-meta">Posted on {{ article.locale_date }} by <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>{% if article.category %}<br>Category: <a href="/{{ article.category.url }}">{{ article.category }}</a> | {% endif %}<a href="{{ SITEURL }}/{{ article.url }}#disqus_thread"></a></p>
-  <div class="blog-post-content">{{ article.content }}</div>
-  {% if article.tags %}<p class="blog-post-meta">Tags: {% for tag in article.tags %}<a href="/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">{{ article.title }}</h2>
+  <p class="blog-post-meta single">Posted on <strong>{{ article.locale_date }}</strong> by <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>{% if article.category %}<br>Category: <a href="/{{ article.category.url }}">{{ article.category }}</a> | {% endif %}<a href="{{ SITEURL }}/{{ article.url }}#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    {{ article.content }}
+
+    {% if article.tags %}<p class="blog-post-meta footer-meta">Tags: {% for tag in article.tags %}<a href="/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+  </div>
   <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image {{ article.avatar }}-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image {{ article.avatar }}-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>{{ article.author }}</h3>
         {% include "bios/"+article.avatar+".html"%}
       </div>
