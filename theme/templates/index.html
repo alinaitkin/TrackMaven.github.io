@@ -4,12 +4,12 @@
 {% if articles %}
 {% for article in (articles_page.object_list if articles_page else articles) %}
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-2">
 
     <div class="side-image {{ article.avatar }}-avatar"> </div>
     <p class="blog-post-meta">{{ article.locale_date }}<br>By <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></p>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-10">
     <div class="blog-post summary">
       <h2 class="blog-post-title summary">
       	<a href="{{ SITEURL }}/{{ article.url }}">
