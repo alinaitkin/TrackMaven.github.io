@@ -197,7 +197,7 @@ img {
  * Blog posts
  */
 .blog-post {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     word-wrap: break-word;
 
     &.summary {
@@ -220,6 +220,7 @@ img {
 
       &.summary {
         padding-top: 0;
+        margin-bottom: 30px;
       }
     }
 }
