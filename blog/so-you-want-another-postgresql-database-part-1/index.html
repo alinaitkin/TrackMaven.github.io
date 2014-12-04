@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,25 +31,24 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">So You Want Another PostgreSQL Database? (Part 1)</h2>
-  <p class="blog-post-meta">Posted on September 20, 2014 by <a href="http://engineroom.trackmaven.com/author/john-young/">John Young</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-1/#disqus_thread"></a></p>
-  <div class="blog-post-content"><h2>Streaming replication with PostgreSQL 9.3 on Amazon EC2</h2>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">So You Want Another PostgreSQL Database? (Part 1)</h2>
+  <p class="blog-post-meta single">Posted on <strong>September 20, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/john-young/">John Young</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-1/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <h2>Streaming replication with PostgreSQL 9.3 on Amazon EC2</h2>
 <p>They grow up so fast, don't they? It seems like just yesterday you were setting up your PostgreSQL server and tweaking settings you barely understood to try to get the most out of your database. But now, you've got a lot more data and your traffic continues to rise, and you've decided it's time your database had a few companions to help it out. Fortunately, PostgreSQL 9 makes it rather simple to set up a primary database that can handle writes, and any number of replica databases which are read-only, stay in sync with the primary, and can be promoted to the primary in the event of failure on your primary database.</p>
 <p>There are a lot of factors that come into play when you decide to scale your database infrastructure and they vary wildly from project to project. These are outside the scope of this post, and I'm is going to assume you have already decided on a primary/replica database setup. </p>
 <h2>So what are we going to do?</h2>
@@ -173,13 +175,15 @@ service postgresql start
 <p>Celebrate</p>
 </li>
 </ul>
-<p><strong> Continue onto <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/">Part 2</a></strong></p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/postgres/">postgres</a>, <a href="/tag/double-database/">double-database</a>, <a href="/tag/how-to/">how-to</a></p>  <div class="well">
+<p><strong> Continue onto <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/">Part 2</a></strong></p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/postgres/">postgres</a>, <a href="/tag/double-database/">double-database</a>, <a href="/tag/how-to/">how-to</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image john-young-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image john-young-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>John Young</h3>
 <p class="well-content">I am a Software Maven at <a href="http://trackmaven.com/">TrackMaven</a>.</p>
 <p class="well-content">Follow me on <a href="https://twitter.com/johnyoungdev">Twitter</a>.</p>      </div>

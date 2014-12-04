@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,25 +31,24 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">Using Bower</h2>
-  <p class="blog-post-meta">Posted on November 03, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/javascript/">javascript</a> | <a href="http://engineroom.trackmaven.com/blog/using-bower/#disqus_thread"></a></p>
-  <div class="blog-post-content"><p>Using <a href="http://bower.io">Bower</a> can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.</p>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">Using Bower</h2>
+  <p class="blog-post-meta single">Posted on <strong>November 03, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/javascript/">javascript</a> | <a href="http://engineroom.trackmaven.com/blog/using-bower/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <p>Using <a href="http://bower.io">Bower</a> can save you a lot of time installing and keeping track of your third-party JavaScript libraries. It can be difficult to keep track of which version of what library you or your team uses, that's why we use it here at TrackMaven. Below I will go into how and why we use it.</p>
 <h2>What is Bower</h2>
 <p>So what is Bower? Bower is the "package manager for the web." It allows you to install and track third-party JavaScript libraries easily. At TrackMaven we use it to install and keep track of all the libraries we use. Below is just a small excerpt from our <code>bower.json</code> file:</p>
 <div class="highlight"><pre>&quot;dependencies&quot;: {
@@ -152,13 +154,15 @@ angularjs-utilities git://github.com/realcrowd/angularjs-utilities.git
 
 <p>For those who use the other JavaScript build system <a href="http://gruntjs.com/">Grunt.js</a>, it looks like the creator of Gulp-Bower-Files has deprecated it in favor of its updated version <a href="https://www.npmjs.org/package/main-bower-files">Main-Bower-Files</a>. This should have Grunt support in the future.</p>
 <h2>Conclusion</h2>
-<p>In conclusion, if you have not looked into using Bower, I highly recommend it. Integration into our workflow took a little bit of time, but the benefits we are seeing from it are quite amazing!</p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/javascript/">javascript</a>, <a href="/tag/bower/">bower</a>, <a href="/tag/how-to/">how-to</a></p>  <div class="well">
+<p>In conclusion, if you have not looked into using Bower, I highly recommend it. Integration into our workflow took a little bit of time, but the benefits we are seeing from it are quite amazing!</p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/javascript/">javascript</a>, <a href="/tag/bower/">bower</a>, <a href="/tag/how-to/">how-to</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image josh-finnie-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image josh-finnie-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>Josh Finnie</h3>
 <p class="well-content">I am a Software Maven at <a href="http://trackmaven.com/">TrackMaven</a>.</p>
 <p class="well-content">You can follow me on <a href="https://twitter.com/joshfinnie">Twitter</a>, find my open-source projects on <a href="https://github.com/joshfinnie">Github</a> or read more of my writtings on <a href="http://www.joshfinnie.com/blog/">my personal website</a>.</p>      </div>

@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,38 +31,37 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">3-2-1 Backup of Postgres on AWS to S3 and offsite server</h2>
-  <p class="blog-post-meta">Posted on November 09, 2014 by <a href="http://engineroom.trackmaven.com/author/fred-battista/">Fred Battista</a><br>Category: <a href="/category/backups/">Backups</a> | <a href="http://engineroom.trackmaven.com/blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/#disqus_thread"></a></p>
-  <div class="blog-post-content"><blockquote>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">3-2-1 Backup of Postgres on AWS to S3 and offsite server</h2>
+  <p class="blog-post-meta single">Posted on <strong>November 09, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/fred-battista/">Fred Battista</a><br>Category: <a href="/category/backups/">Backups</a> | <a href="http://engineroom.trackmaven.com/blog/3-2-1-backup-of-postgres-on-aws-to-s3-and-offsite-server/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <blockquote>
 <p>3 copies, 2 different media types, 1 offsite, boom, good to go.</p>
 <p>--<cite> Abraham Lincoln</cite></p>
 </blockquote>
 <p>Backups should be straightforward, automatic, have few moving parts, adhere to the <a href="http://www.dpbestflow.org/backup/backup-overview#321">3-2-1 rule</a>, and, most importantly, facilitate easy recovery.</p>
 <p>TrackMaven's applications run on AWS and we've always stored several backups on S3. However, best practices suggest thaht you keep a backup offsite if it is feasible to do so.</p>
 <p>This post details one way to keep multiple backup copies of your database both in S3 and on an offsite server.</p>
-<h4>Preparing your database machine for backup</h4>
-<h6>Create an additional mountpoint for your backup data</h6>
-<p>Unless you have a significant amount of extra space on your DB machines we suggest creating and mounting an additional EBS volume to handle your backup date. </p>
-<p>The instructions to <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html">create</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html">attach</a>, and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html">mount</a> another EBS volume (hereafter referrered to as <code>/YOUR_BACKUP_POINT</code>) are covered by Amazon in the provided links. </p>
-<h6>Setting permissions on new volume</h6>
+<h2>Preparing your database machine for backup</h2>
+<h3>Create an additional mountpoint for your backup data</h3>
+<p>Unless you have a significant amount of extra space on your DB machines we suggest creating and mounting an additional EBS volume to handle your backup date.</p>
+<p>The instructions to <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html">create</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html">attach</a>, and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html">mount</a> another EBS volume (hereafter referrered to as <code>/YOUR_BACKUP_POINT</code>) are covered by Amazon in the provided links.</p>
+<h3>Setting permissions on new volume</h3>
 <p>Because you created the mountpoint with <code>sudo</code> it will be owned by <code>root</code>; we need it to be readable/writeable by other users. Which other users should have access?</p>
-<p><code>pg_dump</code> is the process we will use to write the backup, and it should be run by the <code>postgres</code> user so it does not have to authenticate database access (annoying and difficult to do securely within <code>crontab</code>). </p>
+<p><code>pg_dump</code> is the process we will use to write the backup, and it should be run by the <code>postgres</code> user so it does not have to authenticate database access (annoying and difficult to do securely within <code>crontab</code>).</p>
 <p>We created a new group <code>BACKUPUSERS</code> and added our <code>ssh_user</code> and <code>postgres</code> to it with these commands:</p>
 <div class="highlight"><pre>sudo groupadd BACKUPUSERS
 sudo usermod -a -G BACKUPUSERS YOUR_SSH_USER
@@ -70,7 +72,7 @@ sudo chmod -R 770 /YOUR_BACKUP_POINT
 
 
 <p>H/T to <a href="http://superuser.com/questions/280994/give-write-permissions-to-multiple-users-on-a-folder-in-ubuntu">this superuser answer</a>.</p>
-<h4>Initial backup</h4>
+<h2>Initial backup</h2>
 <p>If you haven't created an IAMS user with only S3 permissions, we suggest that you do that now because you'll need the keys for the next step.</p>
 <p>Give the backup S3 user both read and write permissions if you feel your local machine is secure enough to warrant it.</p>
 <p>Install and configure the S3 command line client on the DB machine:</p>
@@ -81,7 +83,7 @@ s3cmd --configure
 
 <p>Put the following script somewhere on your actual DB machine - uncomment the logging lines if you are running manually and want to debug the script behavior.</p>
 <p>This script will remove yesterday's backups, dump a current copy of the database, compress the current copy of the database, and ship it to S3.</p>
-<h6>DB backup cron script</h6>
+<h3>DB backup cron script</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -176,16 +178,16 @@ tar -czf <span class="nv">$COMPRESSEDFILE</span> <span class="nv">$EXPORTFILE</s
 </pre></div>
 </td></tr></table>
 
-<h6>Set up the crontab</h6>
+<h3>Set up the crontab</h3>
 <p>Become the <code>postgres</code> user so you don't have to authenticate in your crontab to access the database:</p>
 <p><code>su - postgres</code></p>
 <p>Access your crontab to edit:</p>
 <p><code>crontab -e</code></p>
 <p>Then add this line to your crontab, which will run your script at the path you specify at 1AM every night:</p>
 <p><code>`0 1 * * * /YOUR_BACKUP_POINT/YOUR_BACKUP_SCRIPT.sh</code></p>
-<h4>Pull the backup to remote server</h4>
+<h2>Pull the backup to remote server</h2>
 <p>Install <code>s3cmd</code> on your local/offsite box, configure it, and create a backup directory structure if you're game.</p>
-<h6>Get/ifnotthenwait/tryagain</h6>
+<h3>Get/ifnotthenwait/tryagain</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -289,7 +291,7 @@ check_if_backup_complete <span class="o">()</span>
 </td></tr></table>
 
 <p>You can run this script as any user which has been authed for S3.</p>
-<h4>Keep only 3 backups on S3</h4>
+<h2>Keep only 3 backups on S3</h2>
 <p>It is important to not let S3 balloon with tons of backups!</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -331,7 +333,7 @@ FILES+<span class="o">=</span><span class="sb">`</span>s3cmd ls s3://trackmaven-
 </pre></div>
 </td></tr></table>
 
-<h4>Keep only n backups on the remote machine</h4>
+<h2>Keep only n backups on the remote machine</h2>
 <p>Then you need to delete the files on the local machine that you don't need anymore:</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -373,13 +375,15 @@ FILES+<span class="o">=</span><span class="sb">`</span>s3cmd ls s3://trackmaven-
 </pre></div>
 </td></tr></table>
 
-<p>Add these scripts to your <code>crontab</code> as well and you are good to go.</p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/ops/">ops</a>, <a href="/tag/backups/">backups</a>, <a href="/tag/best-practices/">best-practices</a></p>  <div class="well">
+<p>Add these scripts to your <code>crontab</code> as well and you are good to go.</p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/ops/">ops</a>, <a href="/tag/backups/">backups</a>, <a href="/tag/best-practices/">best-practices</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image fred-battista-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image fred-battista-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>Fred Battista</h3>
 <p class="well-content">I am a Software Maven at <a href="http://trackmaven.com/">TrackMaven</a>.</p>
 <p class="well-content">Follow me on <a href="https://twitter.com/nowfred">Twitter</a></p>      </div>

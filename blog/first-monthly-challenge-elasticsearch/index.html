@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,25 +31,24 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">First Monthly Challenge: Elasticsearch!</h2>
-  <p class="blog-post-meta">Posted on October 20, 2014 by <a href="http://engineroom.trackmaven.com/author/fletcher-heisler/">Fletcher Heisler</a><br>Category: <a href="/category/monthly-challenge/">Monthly Challenge</a> | <a href="http://engineroom.trackmaven.com/blog/first-monthly-challenge-elasticsearch/#disqus_thread"></a></p>
-  <div class="blog-post-content"><p>TrackMaven has begun hosting a <a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/">Monthly Challenge meetup</a>! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.</p>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">First Monthly Challenge: Elasticsearch!</h2>
+  <p class="blog-post-meta single">Posted on <strong>October 20, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/fletcher-heisler/">Fletcher Heisler</a><br>Category: <a href="/category/monthly-challenge/">Monthly Challenge</a> | <a href="http://engineroom.trackmaven.com/blog/first-monthly-challenge-elasticsearch/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <p>TrackMaven has begun hosting a <a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/">Monthly Challenge meetup</a>! Each month, we will name a general topic, a new technology, or something in between. We'll collect a few resources and examples to get everyone started (hence this post), then we'll meet up in a month to share short presentations on everyone's new projects.</p>
 <p>Our first topic is <strong>Elasticsearch</strong>, an incredibly powerful search and analytics engine. Go <a href="http://www.elasticsearch.org/overview/elasticsearch">here</a> for a high level, buzzword-heavy overview, or just jump into <a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/">the documentation</a> if you're feeling bold.</p>
 <p>Built on top of <a href="http://lucene.apache.org/core/">Lucene</a>, Elasticsearch is most frequently used to add full text search functionality; it comes out of the box with a rich query language that supports fuzzy matching and advanced <a href="http://lucene.apache.org/core/3_0_3/queryparsersyntax.html">parsing patterns</a>.</p>
 <p>We'll go into the details of a sample project to get you started below. A few Elasticsearch-inspired possibilities for projects might be:</p>
@@ -224,13 +226,15 @@ http://localhost:9200/reddit/iama/_search?pretty=true&amp;q=title:almost
 <p>Try taking a look at the distribution of top ending stations, <code>end_station</code>, in a similar way:
 <center><img alt="" src="/images/ESchart2.png" /></center></p>
 <p>Now we can run search queries and get real-time updates on these charts; try searching for <code>start_station:"Lincoln Memorial"</code> to see where riders end their journey when they start at the Lincoln Memorial.</p>
-<p>Next steps: examine results across time, analyze the total duration of trips, add geocoding and map the results, find the bikes that have traveled the farthest total distance... Even if you aren't attending the meetup, please let us know if you try out any interesting side projects using Elasticsearch - bonus points if you include an open-source repo that we could share here!</p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/elasticsearch/">elasticsearch</a></p>  <div class="well">
+<p>Next steps: examine results across time, analyze the total duration of trips, add geocoding and map the results, find the bikes that have traveled the farthest total distance... Even if you aren't attending the meetup, please let us know if you try out any interesting side projects using Elasticsearch - bonus points if you include an open-source repo that we could share here!</p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/elasticsearch/">elasticsearch</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image fletcher-heisler-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image fletcher-heisler-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>Fletcher Heisler</h3>
 <p class="well-content">I am the VP of Engineering at <a href="http://trackmaven.com/">TrackMaven</a> and founder of <a href="https://realpython.com/">Real Python</a>.</p>
 <p class="well-content">You can follow me on <a href="https://twitter.com/fheisler">Twitter</a> and find a few of my open-source projects on <a href="https://github.com/fheisler">GitHub</a>.</p>      </div>

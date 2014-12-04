@@ -6,13 +6,13 @@
 &lt;p&gt;Backups should be straightforward, automatic, have few moving parts, adhere to the &lt;a href="http://www.dpbestflow.org/backup/backup-overview#321"&gt;3-2-1 rule&lt;/a&gt;, and, most importantly, facilitate easy recovery.&lt;/p&gt;
 &lt;p&gt;TrackMaven's applications run on AWS and we've always stored several backups on S3. However, best practices suggest thaht you keep a backup offsite if it is feasible to do so.&lt;/p&gt;
 &lt;p&gt;This post details one way to keep multiple backup copies of your database both in S3 and on an offsite server.&lt;/p&gt;
-&lt;h4&gt;Preparing your database machine for backup&lt;/h4&gt;
-&lt;h6&gt;Create an additional mountpoint for your backup data&lt;/h6&gt;
-&lt;p&gt;Unless you have a significant amount of extra space on your DB machines we suggest creating and mounting an additional EBS volume to handle your backup date. &lt;/p&gt;
-&lt;p&gt;The instructions to &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;create&lt;/a&gt;, &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;attach&lt;/a&gt;, and &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"&gt;mount&lt;/a&gt; another EBS volume (hereafter referrered to as &lt;code&gt;/YOUR_BACKUP_POINT&lt;/code&gt;) are covered by Amazon in the provided links. &lt;/p&gt;
-&lt;h6&gt;Setting permissions on new volume&lt;/h6&gt;
+&lt;h2&gt;Preparing your database machine for backup&lt;/h2&gt;
+&lt;h3&gt;Create an additional mountpoint for your backup data&lt;/h3&gt;
+&lt;p&gt;Unless you have a significant amount of extra space on your DB machines we suggest creating and mounting an additional EBS volume to handle your backup date.&lt;/p&gt;
+&lt;p&gt;The instructions to &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;create&lt;/a&gt;, &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"&gt;attach&lt;/a&gt;, and &lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"&gt;mount&lt;/a&gt; another EBS volume (hereafter referrered to as &lt;code&gt;/YOUR_BACKUP_POINT&lt;/code&gt;) are covered by Amazon in the provided links.&lt;/p&gt;
+&lt;h3&gt;Setting permissions on new volume&lt;/h3&gt;
 &lt;p&gt;Because you created the mountpoint with &lt;code&gt;sudo&lt;/code&gt; it will be owned by &lt;code&gt;root&lt;/code&gt;; we need it to be readable/writeable by other users. Which other users should have access?&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;pg_dump&lt;/code&gt; is the process we will use to write the backup, and it should be run by the &lt;code&gt;postgres&lt;/code&gt; user so it does not have to authenticate database access (annoying and difficult to do securely within &lt;code&gt;crontab&lt;/code&gt;). &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pg_dump&lt;/code&gt; is the process we will use to write the backup, and it should be run by the &lt;code&gt;postgres&lt;/code&gt; user so it does not have to authenticate database access (annoying and difficult to do securely within &lt;code&gt;crontab&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;We created a new group &lt;code&gt;BACKUPUSERS&lt;/code&gt; and added our &lt;code&gt;ssh_user&lt;/code&gt; and &lt;code&gt;postgres&lt;/code&gt; to it with these commands:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo groupadd BACKUPUSERS
 sudo usermod -a -G BACKUPUSERS YOUR_SSH_USER
@@ -23,7 +23,7 @@ sudo chmod -R 770 /YOUR_BACKUP_POINT
 
 
 &lt;p&gt;H/T to &lt;a href="http://superuser.com/questions/280994/give-write-permissions-to-multiple-users-on-a-folder-in-ubuntu"&gt;this superuser answer&lt;/a&gt;.&lt;/p&gt;
-&lt;h4&gt;Initial backup&lt;/h4&gt;
+&lt;h2&gt;Initial backup&lt;/h2&gt;
 &lt;p&gt;If you haven't created an IAMS user with only S3 permissions, we suggest that you do that now because you'll need the keys for the next step.&lt;/p&gt;
 &lt;p&gt;Give the backup S3 user both read and write permissions if you feel your local machine is secure enough to warrant it.&lt;/p&gt;
 &lt;p&gt;Install and configure the S3 command line client on the DB machine:&lt;/p&gt;
@@ -34,7 +34,7 @@ s3cmd --configure
 
 &lt;p&gt;Put the following script somewhere on your actual DB machine - uncomment the logging lines if you are running manually and want to debug the script behavior.&lt;/p&gt;
 &lt;p&gt;This script will remove yesterday's backups, dump a current copy of the database, compress the current copy of the database, and ship it to S3.&lt;/p&gt;
-&lt;h6&gt;DB backup cron script&lt;/h6&gt;
+&lt;h3&gt;DB backup cron script&lt;/h3&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
@@ -129,16 +129,16 @@ tar -czf &lt;span class="nv"&gt;$COMPRESSEDFILE&lt;/span&gt; &lt;span class="nv"
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;h6&gt;Set up the crontab&lt;/h6&gt;
+&lt;h3&gt;Set up the crontab&lt;/h3&gt;
 &lt;p&gt;Become the &lt;code&gt;postgres&lt;/code&gt; user so you don't have to authenticate in your crontab to access the database:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;su - postgres&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Access your crontab to edit:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Then add this line to your crontab, which will run your script at the path you specify at 1AM every night:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;`0 1 * * * /YOUR_BACKUP_POINT/YOUR_BACKUP_SCRIPT.sh&lt;/code&gt;&lt;/p&gt;
-&lt;h4&gt;Pull the backup to remote server&lt;/h4&gt;
+&lt;h2&gt;Pull the backup to remote server&lt;/h2&gt;
 &lt;p&gt;Install &lt;code&gt;s3cmd&lt;/code&gt; on your local/offsite box, configure it, and create a backup directory structure if you're game.&lt;/p&gt;
-&lt;h6&gt;Get/ifnotthenwait/tryagain&lt;/h6&gt;
+&lt;h3&gt;Get/ifnotthenwait/tryagain&lt;/h3&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
@@ -242,7 +242,7 @@ check_if_backup_complete &lt;span class="o"&gt;()&lt;/span&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
 &lt;p&gt;You can run this script as any user which has been authed for S3.&lt;/p&gt;
-&lt;h4&gt;Keep only 3 backups on S3&lt;/h4&gt;
+&lt;h2&gt;Keep only 3 backups on S3&lt;/h2&gt;
 &lt;p&gt;It is important to not let S3 balloon with tons of backups!&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
@@ -284,7 +284,7 @@ FILES+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;s
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;h4&gt;Keep only n backups on the remote machine&lt;/h4&gt;
+&lt;h2&gt;Keep only n backups on the remote machine&lt;/h2&gt;
 &lt;p&gt;Then you need to delete the files on the local machine that you don't need anymore:&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2

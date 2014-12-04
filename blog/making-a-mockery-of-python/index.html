@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,25 +31,24 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">Making a Mockery of Python</h2>
-  <p class="blog-post-meta">Posted on December 01, 2014 by <a href="http://engineroom.trackmaven.com/author/jon-evans/">Jon Evans</a><br>Category: <a href="/category/testing/">Testing</a> | <a href="http://engineroom.trackmaven.com/blog/making-a-mockery-of-python/#disqus_thread"></a></p>
-  <div class="blog-post-content"><p>Today we will be talking about mocking. No, not the joke at someone else's expense kind. Mocking is a technique to temporarily replace <strong>real</strong> parts of our code with <strong>fake</strong>, simpler parts, so that we can check that the rest of the parts are working as we intend. Here we'll consider some simple use cases for mocking in Python tests, and try to show how this extremely useful technique can make us better at testing.</p>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">Making a Mockery of Python</h2>
+  <p class="blog-post-meta single">Posted on <strong>December 01, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/jon-evans/">Jon Evans</a><br>Category: <a href="/category/testing/">Testing</a> | <a href="http://engineroom.trackmaven.com/blog/making-a-mockery-of-python/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <p>Today we will be talking about mocking. No, not the joke at someone else's expense kind. Mocking is a technique to temporarily replace <strong>real</strong> parts of our code with <strong>fake</strong>, simpler parts, so that we can check that the rest of the parts are working as we intend. Here we'll consider some simple use cases for mocking in Python tests, and try to show how this extremely useful technique can make us better at testing.</p>
 <h2>Why do we mock?</h2>
 <p>When we carry out unit testing, our goal is to test a small section of code - for example a function or class method - in isolation. In other words, we should only be testing the code that is contained in said function. If we rely on calls to other pieces of code in our test, then we find ourselves in an unfortunate situation where changes to the nested code can break the test, despite the code of the function being tested remaining the same. This is best illustrated by example:</p>
 <div class="highlight"><pre><span class="c"># function.py</span>
@@ -184,13 +186,15 @@ FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=
 <p>Secondly, we can now control the outputs of our nested function to make sure our outer function handles different cases. For example, our <code>add_and_multiply</code> function might have conditional logic based on the result of <code>multiply</code>: say, we only want to return a value if the multiple is greater than 10. We could easily test that our logic works by generating contrived outputs from <code>multiply</code> to mimic the case where the multiple is less than 10, and the case where the multiple is greater. This feature of mock objects is great for testing control flow.</p>
 <p>Finally, we can now make sure that our mocked function is being called the correct number of times, with the correct arguments. Since our mock object is sitting where our <code>multiply</code> function normally sits, we know that any calls made to it would normally go to <code>multiply</code>. When testing a complex function, it is extremely reassuring to make sure that each step is being called correctly.</p>
 <hr />
-<p>The example given above only scratches the surface of what <code>mock</code> can do. In an upcoming post, we'll look at some more in-depth examples of using the library, as well as identifying some pitfalls to avoid. Meanwhile, questions are welcome in the comments, or on Twitter!</p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/testing/">testing</a>, <a href="/tag/mock/">mock</a></p>  <div class="well">
+<p>The example given above only scratches the surface of what <code>mock</code> can do. In an upcoming post, we'll look at some more in-depth examples of using the library, as well as identifying some pitfalls to avoid. Meanwhile, questions are welcome in the comments, or on Twitter!</p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/testing/">testing</a>, <a href="/tag/mock/">mock</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image jonathan-evans-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image jonathan-evans-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>Jon Evans</h3>
 <p class="well-content">I am a Visiting Maven at <a href="http://trackmaven.com/">TrackMaven</a>.</p>
 <p class="well-content">Enjoys making things with Python and Coffeescript. Can be found on <a href="https://twitter.com/jwpe">Twitter</a> and <a href="https://github.com/jwpe">Github</a>.</p>      </div>

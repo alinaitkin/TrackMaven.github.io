@@ -20,6 +20,9 @@ The Engine Room - TrackMaven
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script src="//use.typekit.net/mgb7pvk.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
     <link href="http://engineroom.trackmaven.com/theme/css/github.css" rel="stylesheet">
     <link href="http://engineroom.trackmaven.com/theme/css/main.css" rel="stylesheet">
   </head>
@@ -28,25 +31,24 @@ The Engine Room - TrackMaven
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ >
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+              <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
               </h1>
             </div>
-            <div class="col-md-2 mobile-placement">
+            <div class="col-md-6 mobile-placement">
               <a class="ribbon float-right" href="http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html">We're Hiring!</a>
             </div>
           </div>
         </div>
       </div>
        <div class="container">
-<div class="blog-post">
-  <h2 class="blog-post-title">Setting Up HTTPS Security</h2>
-  <p class="blog-post-meta">Posted on September 13, 2014 by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/setting-up-https-security/#disqus_thread"></a></p>
-  <div class="blog-post-content"><p>Here at <a href="http://trackmaven.com">TrackMaven</a>, we have made it our goal to provide our customers with the most secure access to our application as possible. And in light of the recent news emerging in web security, most concerning <a href="http://heartbleed.com/">Heartbleed</a>, we rethought our best practices and now limit access to our application to only secured HTTPS and making sure that we have the full range of coverage based off of SSL Lab's standards for security. It is often thought that securing your site through TSL/SSL is hard, but hopefully this post will show you just how easy it can be.</p>
+<div class="blog-post single">
+  <h2 class="blog-post-title centered">Setting Up HTTPS Security</h2>
+  <p class="blog-post-meta single">Posted on <strong>September 13, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/josh-finnie/">Josh Finnie</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/setting-up-https-security/#disqus_thread"></a></p>
+  <div class="blog-post-content">
+    <p>Here at <a href="http://trackmaven.com">TrackMaven</a>, we have made it our goal to provide our customers with the most secure access to our application as possible. And in light of the recent news emerging in web security, most concerning <a href="http://heartbleed.com/">Heartbleed</a>, we rethought our best practices and now limit access to our application to only secured HTTPS and making sure that we have the full range of coverage based off of SSL Lab's standards for security. It is often thought that securing your site through TSL/SSL is hard, but hopefully this post will show you just how easy it can be.</p>
 <h2>What is HTTPS?</h2>
 <p>Hypertext Transfer Protocol Secure (HTTPS) is a way in which computers can securely communicate over the internet. The secure communication is done either the through the newer  Transport Layer Security (TLS) encryption protocol or its predecessor the SSL Secure Sockets Layer (SLS) encryption protocol. Each uses asymmetric cryptography involving private and public certificates to make sure the communication is secure; the creation of these certificates is commonly believed to be the difficult part of implementing HTTPS on your own servers.</p>
 <h2>Setting up HTTPS on your server</h2>
@@ -119,13 +121,15 @@ SSLCompression Off
 <p>With this article, I hope I cleared some of the air around setting up HTTPS on your server. Setting up HTTPS isn't too scary, for a small time investment you'll gain a huge security boost for your application and your users.</p>
 <h2>Further Reading and Resources</h2>
 <p><a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>
-<a href="http://en.wikipedia.org/wiki/Transport_Layer_Security">TLS/SSL</a></p></div>
-<p class="blog-post-meta">Tags: <a href="/tag/security/">security</a>, <a href="/tag/how-to/">how-to</a></p>  <div class="well">
+<a href="http://en.wikipedia.org/wiki/Transport_Layer_Security">TLS/SSL</a></p>
+
+<p class="blog-post-meta footer-meta">Tags: <a href="/tag/security/">security</a>, <a href="/tag/how-to/">how-to</a></p>  </div>
+  <div class="well">
     <div class="row">
-      <div class="col-md-3"> 
-        <span class="side-image josh-finnie-avatar col-sm-3"></span>
+      <div class="col-md-3">
+        <span class="side-image well-image josh-finnie-avatar col-sm-3"></span>
       </div>
-      <div class="col-md-9"> 
+      <div class="col-md-9">
         <h3>Josh Finnie</h3>
 <p class="well-content">I am a Software Maven at <a href="http://trackmaven.com/">TrackMaven</a>.</p>
 <p class="well-content">You can follow me on <a href="https://twitter.com/joshfinnie">Twitter</a>, find my open-source projects on <a href="https://github.com/joshfinnie">Github</a> or read more of my writtings on <a href="http://www.joshfinnie.com/blog/">my personal website</a>.</p>      </div>
