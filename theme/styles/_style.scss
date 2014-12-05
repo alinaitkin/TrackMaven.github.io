@@ -260,9 +260,10 @@ img {
 }
 
 code {
-  background-color: $ice;
-  color: darken($ice, 45%);
-  font-weight: 300 !important;
+  background-color: lighten($blue, 22%);
+  color: darken($blue, 40%);
+  font-weight: 400 !important;
+  padding: 3px 5px;
 }
 
 .blog-post-meta {
