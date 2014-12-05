@@ -1,8 +1,13 @@
+web:
+  image: nginx
+  ports:
+    - 8080:80
+  volumes:
+    - output:/usr/share/nginx/html:ro
 builder:
   build: .
   command: "gulp --require coffee-script/register"
   ports:
-    - "8080:8080"
     - "35729:35729"
   volumes:
     - .:/code
