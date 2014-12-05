@@ -86,10 +86,10 @@ img {
   font-size: 1em;
   margin-top: 25px;
   float: right;
-  font-weight: 400;
+  font-weight: 600;
 
   &:hover {
-    color: white;
+    color: $maven-orange;
     background: $tan;
     text-decoration: none;
   }
