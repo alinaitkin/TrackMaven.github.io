@@ -314,6 +314,7 @@ a {
     font-size: 1.65em;
     border-bottom: 2px solid $gray-gallery;
     line-height: 2.0em;
+    margin-bottom: 12px;
 
     @media (max-width: 870px) {
       font-size: 1.4em;
@@ -452,6 +453,16 @@ pre {
   border: 1px solid $gray-gate;
   padding: 15px;
   margin-bottom: 20px;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 auto;
+
+  td.linenos {
+    display: none;
+  }
 }
 
 .col-md-2 {
