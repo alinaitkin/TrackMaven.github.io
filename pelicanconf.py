@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Maven'
-SITENAME = u'The Engine Room'
+SITENAME = u'The Engine Room - TrackMaven'
 SITEURL = ''
 ABOUT = u'This is the home of the Engineering blog for TrackMaven.'
 
