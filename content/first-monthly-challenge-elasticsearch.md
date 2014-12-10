@@ -203,10 +203,10 @@ http://localhost:9201/
 you should be able to see Kibana's default interface. Click "Blank Dashboard" at the bottom to get started, or let Kibana fill in some default panels. Add a row of query results using a "table" panel and try searching for `subscriber:registered` at the top instead of the default `*` to see the results limit. (To add a panel to a new row, click the green "+" on the far left.)
 
 Let's see the proportion of registered users in a chart. Add a new row to the dashboard, then add a **terms** type panel to that row. Give it a title "Subscriber types" and take the **count** of the **field** "subscribers" for a *style** of "bar" or "pie". This should create a chart of the registered versus casual bikeshare users:
-<center>![](/images/ESchart1.png)</center>
+<center>![ElasticSearch Chart 1](/images/ESchart1.png)</center>
 
 Try taking a look at the distribution of top ending stations, `end_station`, in a similar way:
-<center>![](/images/ESchart2.png)</center>
+<center>![ElasticSearch Chart 2](/images/ESchart2.png)</center>
 
 Now we can run search queries and get real-time updates on these charts; try searching for `start_station:"Lincoln Memorial"` to see where riders end their journey when they start at the Lincoln Memorial.
 
