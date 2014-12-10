@@ -3,22 +3,24 @@
 It will probably come as no surprise that the settings that are best for your PostgreSQL cluster are heavily dependent on your data and how you're using it. No one can say what will work best for you in every single use case, and it's up to you to profile your database to determine what does and does not work for you. With that being said, a great starting point for general use cases can be found in Christophe Pettus' talk [PostgreSQL when it's not your job](http://thebuild.com/presentations/not-your-job.pdf). If you're completely new to tuning your Postgres instances, I highly recommend using these settings as an initial profile point.
 
 Here's a quick summary of his suggestions:
-### Memory settings
+```
+Memory settings
 * shared_buffers: Set to 25% of total system RAM (or 8GB if RAM > 32GB)
 * work_mem: Start at 32-64MB.
   * Look for `temporary file` lines in logs then set it to 2-3x the size of the largest temp file you see
 * maintenance_work_mem: 10% of RAM, up to 1GB
 * effective_cache_size: 50-75% of total RAM
 
-### Checkpoint settings
+Checkpoint settings
 * wal_buffers: 16MB
 * checkpoint_completion_target: 0.9
 * checkpoint_timeout: 10min
 * checkpoint_segments: 32
   * Check logs for checkpoint entries. Adjust checkpoint_segments so that checkpoints happen due to timeouts rather than filling segments
 
-### Planner settings
+Planner settings
 * random_page_cost: 1.1 for Amazon EBS
+```
 
 Some of these settings will naturally be somewhat confusing, and even a bit intimidating to change. My advice? Don't afraid to experiment, even if you're going outside of the 'norm' of what others say your settings should be.
 
@@ -54,11 +56,13 @@ This script will tell show us the top 10 tables being stored in our cache, ranke
 We decided to increase the power of our database by bumping our EC2 instance to an `r3.4xlarge`, giving us 16 cores and 122GB of memory. To fully utilize this much more powerful machine, we needed to tweak our settings far beyond the 'recommended' levels.
 
 Here is what we settled on:
+```
 ### MEMORY SETTINGS
 shared_buffers = 25GB
 work_mem = 32MB
 maintenance_work_mem = 1GB
 effective_cache_size = 100GB
+```
 
 And here is an action shot, using `htop`:
 <center>![](/images/db-usage.png)</center>
