@@ -1,0 +1,117 @@
+
+// Useful tool for naming colors: http://chir.ag/projects/name-that-color/#9F9F9F
+
+// Primary branding colors.
+//
+// .maven-orange     - $maven-orange
+// .maven-red        - $maven-red
+//
+// Styleguide 4.0
+
+// Primary colors.
+$maven-orange: #d8765d;
+$maven-red: #bc5e47;
+
+$primary-colors: maven-orange $maven-orange, maven-red $maven-red;
+
+@each $color in $primary-colors {
+  $key: nth($color, 1);
+  $value: nth($color, 2);
+
+  .#{$key} {
+    background: $value;
+  }
+}
+
+
+// Secondary branding colors. Submit your favorite to Jon.
+//
+// .orange           - $orange
+// .tan              - $tan
+// .green            - $green
+// .olive            - $olive (used in the Add a Brand link)
+// .blue             - $blue
+// .purple           - $purple
+// .ice              - $ice
+// .pink             - $pink
+// .morning          - $morning
+// .green-selected   - $green-selected
+//
+// Styleguide 4.1
+
+// Secondary colors.
+$orange: #e19d4e;
+$peach: #feded8;
+$wewak: #f2a896;
+$tan: #fad399;
+$green: #b0c870;
+$olive: #a6af8c;
+$blue: #97cad9;
+$purple: #a186be;
+$ice: #c1ebe3;
+$pink: #f299b0;
+$morning: #9cddd1;
+$brown: #986924;
+$terracotta: #E0765E;
+$tonys-pink: #e79f8e;
+$green-selected: #7d8f4d;
+$green-selected-bg: #e7eed4;
+$green-selected-bg-light: #f3f7ea;
+$green-selected-border: #ced8ad;
+
+// All the whites used across the site currently.
+//
+// .white-pure       - $white-pure
+// .white-paper      - $white-paper (Used in the site background.)
+// .white-hint       - $white-hint (Dropdown highlights)
+// .white-pampas     - $white-pampas
+// .white-cloud      - $white-cloud (used in url preview background)
+// .white-salt       - $white-salt (used in selected menu)
+// .white-napkin     - $white-napkin (used in the table divider)
+//
+// Styleguide 4.2
+
+// Whites.
+$white-pure: rgb(255, 255, 255);
+$white-paper: rgb(255, 254, 251);
+$white-hint: rgb(252, 251, 251);
+$white-pampas: rgb(245, 243, 240);
+$white-cloud: rgb(245, 245, 245); // - #f5f5f5
+$white-salt: rgb(235, 244, 235);
+$white-napkin: rgb(250, 250, 248);
+
+
+// The Grey(s) (starring Liam Neeson) used across the site currently.
+// Please choose your favorite and keep it secret.
+//
+// .gray-black        - $gray-black (used on the stream creation title for graphing)
+// .gray-bold         - $gray-bold (used on feed item's bold metrics, used in menu text color)
+// .gray-dove         - $gray-dove (used in headers, used in body of text ad)
+// .gray-bold         - $gray-smog (used in company info in feed content items)
+// .gray              - $gray (used in feed item's headers, table body cell )
+// .gray-chalice      - $gray-chalice (used in lighter headers, used in text ad link)
+// .gray-pipe         - $gray-pipe (used in the dropdown footer's text color)
+// .gray-tide         - $gray-cloud (used in the date of feed item's, used in type for text ad)
+// .gray-cloud        - $gray-cloud
+// .gray-slate        - $gray-slate (used on the outline of feed items.)
+// .gray-alto         - $gray-alto (used in outline of url previews, menu border, used on input border)
+// .gray-gallery      - $gray-gallery (used as the border between feed body and aside, use on image-preview/thumbnail border)
+// .gray-gate         - $gray-gate (used on the inner border on icon circles)
+// .gray-pampas       - $gray-pampas (used as feed item's title background)
+//
+// Styleguide 4.3
+
+$gray-black: rgb(55, 55, 55);
+$gray-bold: rgb(85, 85, 85);
+$gray-dove: rgb(108, 108, 108);
+$gray-smog: rgb(119, 119, 119);
+$gray: rgb(128, 128, 128);
+$gray-chalice: rgb(159, 159, 159);
+$gray-pipe: rgb(170, 170, 170); // - #aaaaaa
+$gray-tide:   rgb(182, 180, 175);
+$gray-cloud: rgb(201, 197, 192);
+$gray-slate:  rgb(202, 202, 202); // - #cacaca
+$gray-alto: rgb(217, 217, 217); // - #d9d9d9
+$gray-gallery: rgb(234, 234, 234);
+$gray-gate: rgb(239, 239, 239);
+$gray-pampas: rgb(240, 237, 233);

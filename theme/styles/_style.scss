@@ -1,0 +1,513 @@
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: $gray-bold;
+  padding: 0;
+  margin: 0;
+  font-family: $default-font;
+  line-height: 1;
+  position: relative;
+  cursor: default;
+  min-width: 850px;
+
+  @media (max-width: 870px) {
+    min-width: 90%;
+  }
+}
+
+// Reset images
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Wrapper for page content to push down footer */
+.wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -$footer-height;
+  /* Pad bottom by footer height */
+  padding: 0 0 $footer-height;
+}
+
+/*
+ * Override Bootstrap's default container.
+ */
+.container {
+  width: 850px;
+
+  @media (max-width: 870px) {
+    width: 90%;
+  }
+}
+
+
+/*
+ * Masthead for nav
+ */
+ .logo {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  margin-top: -34px;
+
+  @media (max-width: 870px) {
+    width: 40px;
+    margin-top: -9px;
+  }
+ }
+
+.blog-masthead {
+    background: $maven-orange;
+    margin-bottom: 50px;
+    height: 85px;
+    padding: 20px 0;
+    overflow: hidden;
+
+    @media (max-width: 870px) {
+      height: 60px;
+      margin-bottom: 30px;
+    }
+}
+
+// We're Hiring Ribbon
+.ribbon {
+  border: 2px solid $tan;
+  display: inline-block;
+  padding: 7px 15px 6px 15px;
+  border-radius: 30px;
+  color: $tan;
+  text-decoration: none;
+  font-size: 1em;
+  margin-top: 25px;
+  float: right;
+  font-weight: 600;
+
+  &:hover {
+    color: $maven-orange;
+    background: $tan;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 870px) {
+  .ribbon {
+    margin-top: 10px;
+    font-size: 0.8em;
+    padding: 5px 12px 4px 12px;
+  }
+  .mobile-placement {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ribbon {
+    margin-top: 10px;
+  }
+}
+
+
+
+
+/*
+ * Blog name and description
+ */
+
+.blog-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.blog-title {
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: inline-block;
+
+  a {
+    font-size: 24px;
+    font-weight: 300;
+    color: $white-pure;
+    &:hover {
+      color: $white-pure;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 870px) {
+    margin-left: 0;
+    margin-top: -5px;
+
+    a {
+      font-size: 16px;
+    }
+  }
+}
+
+.blog-description {
+    font-size: 20px;
+    color: #999;
+}
+
+/*
+ * Main column and sidebar layout
+ */
+
+/* Sidebar modules for boxing content */
+.sidebar-module {
+    padding: 15px;
+    margin: 0 -15px 15px;
+}
+
+.sidebar-module-inset {
+    padding: 15px;
+    background-color: $white-cloud;
+    border-radius: 4px;
+    p,
+    ul,
+    ol {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+/* Pagination */
+.pager {
+    margin-bottom: 60px;
+    text-align: left;
+    > li > a {
+        width: 140px;
+        padding: 10px 20px;
+        text-align: center;
+        border-radius: 30px;
+    }
+}
+
+/*
+ * Blog posts
+ */
+.blog-post {
+    margin-bottom: 40px;
+    word-wrap: break-word;
+
+    &.summary {
+      padding-top: 25px;
+
+      &:after {
+        content: '';
+        background: $gray-alto;
+        height: 1px;
+        display: block;
+        text-align: center;
+        color: $tan;
+        margin: 0 auto;
+        width: 45px;
+      }
+    }
+
+    @media (max-width: 870px) {
+      margin-bottom: 50px;
+
+      &.summary {
+        padding-top: 0;
+        margin-bottom: 30px;
+      }
+    }
+}
+.blog-post-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 2.75em;
+  font-weight: 800;
+  color: $gray-bold;
+  font-family: $default-font;
+
+  &.centered {
+    text-align: center;
+    padding: 0 75px;
+  }
+
+  &.summary {
+    font-size: 2em;
+    margin-top: 0;
+  }
+
+  a {
+    color: $gray-bold;
+    transition: color 0.1s ease-in;
+
+    &:hover {
+      color: $gray-black;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 870px) {
+    font-size: 2.25em;
+    padding: 0 !important;
+  }
+}
+
+code {
+  background-color: lighten($blue, 22%);
+  color: darken($blue, 40%);
+  font-weight: 400 !important;
+  padding: 3px 5px;
+}
+
+.blog-post-meta {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: $gray-bold;
+  line-height: 1.4;
+  font-size: 0.9em !important;
+  text-align: center;
+
+  &.single {
+    margin-bottom: 40px;
+    text-align: center !important;
+  }
+
+  @media (max-width: 950px) {
+    text-align: left;
+  }
+
+  &.footer-meta {
+    margin: 50px 0 0 0;
+  }
+}
+a {
+  color: $maven-orange;
+  &:hover {
+    color:$maven-red;
+    text-decoration: none;
+  }
+}
+.blog-post-content {
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 50px;
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-weight: 800;
+    font-size: 2.25em;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 1.65em;
+    border-bottom: 2px solid $gray-gallery;
+    line-height: 2.0em;
+    margin-bottom: 12px;
+
+    @media (max-width: 870px) {
+      font-size: 1.4em;
+      line-height: 1.3em;
+      padding-bottom: 8px;
+    }
+  }
+
+  h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    color: $gray-chalice;
+    margin-top: 35px;
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 1em;
+    color: $gray-bold;
+    margin-top: 35px;
+    line-height: 1;
+  }
+
+  p {
+    font-size: 1em;
+    line-height: 1.6em;
+    margin-bottom: 15px;
+
+    &.intro-p:first-letter {
+      font-size: 50px;
+      float: left;
+      position: relative;
+      margin: 15px 5px 0 0;
+    }
+  }
+
+  blockquote {
+    color: $gray-chalice;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  &.summary {
+    blockquote {
+      display: none;
+    }
+
+    h2 {
+      border: none;
+      font-size: 1.2em;
+      line-height: 1.2;
+    }
+  }
+
+  // Links
+  a {
+    color: $maven-orange;
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: $maven-red;
+    text-decoration: none;
+  }
+}
+
+ul li {
+  margin-bottom: 15px;
+
+  &:last-of-type {
+    margin: 0;
+  }
+}
+
+.well {
+  background: $white-pure;
+  box-shadow: 0;
+  border: none;
+  border-top: 2px solid $gray-gate;
+  border-bottom: 2px solid $gray-gate;
+  border-radius: 0;
+  margin: 25px 0;
+
+  h3 {
+    font-weight: 600;
+    color: $gray-black;
+  }
+}
+
+.well-content {
+    line-height: 1.45;
+}
+.side-image {
+  display: block;
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  border: 2px solid $gray-alto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 15px auto 0 auto;
+
+  &.well-image {
+    float: none !important;
+    margin: 0 auto;
+  }
+}
+
+.col-md-2 .side-image {
+  @media (max-width: 950px) {
+    height: 50px;
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+.well .side-image {
+  height: 150px !important;
+  width: 150px !important;
+  display: block;
+  margin: 0 auto;
+
+  @media (max-width: 950px) {
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+pre {
+  background: lighten($gray-gallery, 5%);
+  border: 1px solid $gray-gate;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 auto;
+
+  td.linenos {
+    display: none;
+  }
+}
+
+.col-md-2 {
+  @media (max-width: 950px) {
+    @include clearfix();
+  }
+}
+
+.cameron-maske-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/cam_large.png');
+}
+
+.jonathan-evans-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/jon_large.png');
+}
+
+.matt-camilli-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/matt_large.png');
+}
+
+.fred-battista-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/fred_large.png');
+}
+
+.john-young-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/john_large.png');
+}
+
+.fletcher-heisler-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/01/fletcher_large.png');
+}
+
+.josh-finnie-avatar {
+  background-image: url('http://trackmaven.com/wp-content/uploads/2014/04/joshf_large1.png');
+}
+
+// Footer
+.blog-footer {
+    padding: $footer-height/2 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+    p:last-child {
+        margin-bottom: 0;
+    }
+}

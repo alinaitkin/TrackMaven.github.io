@@ -14,6 +14,9 @@ RUN apt-get install -y libgemplugin-ruby ruby
 # Need to supress the logs due to https://github.com/orchardup/fig/issues/212
 RUN npm install -g gulp@3.5.2 > /dev/null 2>&1
 
+# Install Node Sass
+RUN npm install node-sass@1.2.3 > /dev/null 2>&1
+
 # Install SASS
 RUN gem install sass -v 3.2
 
