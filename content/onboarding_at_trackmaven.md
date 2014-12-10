@@ -70,25 +70,27 @@ I was completely blown away at the level of automation that I was introduced to 
 
 Because of the of how well documented and autmated our process was for shipping code I was able to push code out within the first couple of days. It was just a great way for me to feel that I was contributing to a team very quicly. I didn't understand how the entire application worked but being able to have such a streamlined and automated process really helped me feel confident.
 
+Grade: A 
 
 ### Autonomy
 ---
 
-Onboarding checklist was such a great resource to have. Intead being waiting ot be told what the tod I was given progressivly more autonmy to cross things off my list and in wthin my first month, i've done pretty much everything. 
+TrackMaven had an Onboarding checklist it was such a great resource to have. Instead being waiting to be told what the tod I was given progressivly more autonmy to cross things off my list and in wthin my first month, i've done pretty much everything. 
 
 
 
 ### Confidence
 ---
-**Pair programing** is something that we just do at trackmaven. In my first month I paired with 6/7 of the engineers on our team.
+**Pair programing** is something that we just do at trackmaven. In my first month I paired with 6/7 of the engineers on our team. This was such a great way to see a ton of awesome tools that my co workers were using, understand their process for buuilding features. Along the way I become familar with important styles and conventions that we adhere to.
 
-which was just a great way to see a ton of awesome tools that my co workers were using (everybody loves to be more productive at work ..... right?), and to really understand to see how features are built out, where things are located, what are the important styles and conventions that we adhere to.
-
-
+I mentioned this in the other section but thes test suit really help me build my confidence. I was able to really easily determine if I had borken anything. 
 
 ### Other Awesomeness
 
-I have 1 on 1 with the VP of engineer and it was probably the single greatest thing I have expereinced as an engineer. It was a great space to get feedback on things I could improve upon, but how the process coudl be better handled since I had just gone into this. And goal setting is really important.
+I have 1 on 1 with the VP of engineer and it was probably the single greatest thing I have expereinced as an engineer. It was a great space to get feedback on things I could improve upon, but how the process could be better handled since I had just gone into this.
+
+
+Overall I would say that the onboarding in TrackMaven is pretty top class. The only things I would improve in the process is have more theme oriented pair programing followed up with a small bug fix that could reinforce the parts of the application I was learning.
 
 
 
