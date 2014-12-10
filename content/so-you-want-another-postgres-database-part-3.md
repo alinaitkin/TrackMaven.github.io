@@ -64,5 +64,5 @@ maintenance_work_mem = 1GB
 effective_cache_size = 100GB
 ```
 
-And here is an action shot, using `htop`:
+And here is an action shot, using `htop`, with the yellow coloring denoting memory reserved for our cache:
 <center>![](/images/db-usage.png)</center>
