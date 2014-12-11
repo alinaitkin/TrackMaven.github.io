@@ -1,4 +1,12 @@
-# So you want another PostgreSQL database? (part 3)
+Title: So you want another PostgreSQL database? (part 3)
+Date: 2014-12-11
+Category: DevOps
+Tags: postgres, how-to
+Slug: so-you-want-another-postgresql-database-part-3
+Author: John Young
+Avatar: john-young
+Summary: Tuning your PostgreSQL cluster for performance
+
 ## Tuning your PostgreSQL servers on Amazon EC2
 It will probably come as no surprise that the settings that are best for your PostgreSQL cluster are heavily dependent on your data and how you're using it. No one can say what will work best for you in every single use case, and it's up to you to profile your database to determine what does and does not work for you. With that being said, a great starting point for general use cases can be found in Christophe Pettus' talk [PostgreSQL when it's not your job](http://thebuild.com/presentations/not-your-job.pdf). If you're completely new to tuning your Postgres instances, I highly recommend using these settings as an initial profile point.
 
@@ -65,4 +73,4 @@ effective_cache_size = 100GB
 ```
 
 And here is an action shot, using `htop`, with the yellow coloring denoting memory reserved for our cache:
-<center>![](/images/db-usage.png)</center>
+<center>![Database resource usage as seen by htop](/images/db-usage.png)</center>
