@@ -66,7 +66,7 @@ Now that we have gotten that out of the way. It's time to share my exeriences at
 
 ### Productivity
 
-I was completely blown away at the level of automation that I was introduced to during my first week at trackmaven. My local dev environment took a mere hour and half. So much of that is due to the awesome tooling we have. **Docker** and + **Fig** makes setting up isolated services a breeze, not to mention having a hand-rolled CLi for all stages of the application life cyce(start, update, destroy). Another thing that impressed was the amount of testing that has been written for the applcaiton. There is seriously no way to better onboard someone then to have a grea suite of tests to help an engineer know when he broke something. Lastly out deoployment starget was just as impressive. We use **Ansible** and **Fabri** to deploy to our different environments.
+I was completely blown away at the level of automation that I was introduced to during my first week at trackmaven. My local dev environment took a mere hour and half. So much of that is due to the awesome tooling we have. **Docker** and + **Fig** makes setting up isolated services a breeze, not to mention having a hand-rolled CLi for all stages of the application life cyce(start, update, destroy). Another thing that impressed was the amount of testing that has been written for the applcaiton. There is seriously no way to better onboard someone then to have a grea suite of tests to help an engineer know when he broke something. Lastly out deoployment starget was just as impressive. We use **Ansible** and **Fabri** to deploy to our different environments. Yes, we love python!
 
 Because of the of how well documented and autmated our process was for shipping code I was able to push code out within the first couple of days. It was just a great way for me to feel that I was contributing to a team very quicly. I didn't understand how the entire application worked but being able to have such a streamlined and automated process really helped me feel confident.
 
@@ -75,22 +75,31 @@ Grade: A
 ### Autonomy
 ---
 
-TrackMaven had an Onboarding checklist it was such a great resource to have. Instead being waiting to be told what the tod I was given progressivly more autonmy to cross things off my list and in wthin my first month, i've done pretty much everything. 
+TrackMaven has a Onboarding checklist that really grounded me when I first started. Instead being waiting to be told what the tod I was given progressivly more autonmy to cross things off my list and in wthin my first month, I have a only a few tasks left (one of them being write a blog post). The checklist items ranged form local devops to, scaling boxes on production. 
 
 
 
 ### Confidence
 ---
-**Pair programing** is something that we just do at trackmaven. In my first month I paired with 6/7 of the engineers on our team. This was such a great way to see a ton of awesome tools that my co workers were using, understand their process for buuilding features. Along the way I become familar with important styles and conventions that we adhere to.
+I had the ability to push code on day two and by the end of my third week, I had developed a feature, pushed it through all the steps of our process (git stragety, QA, PR, envionrment deploy), and merged into master! It was exciting to be able to fee like I was part of the team in a mere 72 hours. How was I able to do this so quickly?
 
-I mentioned this in the other section but thes test suit really help me build my confidence. I was able to really easily determine if I had borken anything. 
+**Pair programing**. In my first week I paired with 6/7 of the engineers on our team. This was great oppurtunity not only to see a ton of awesome tools that my co workers were using, but to also understand how the codebase was architected. 
 
-### Other Awesomeness
-
-I have 1 on 1 with the VP of engineer and it was probably the single greatest thing I have expereinced as an engineer. It was a great space to get feedback on things I could improve upon, but how the process could be better handled since I had just gone into this.
+**Testing**. I am a bit of a testing nerd myself, and the tooling around testing at TrackMaven is really impressive. Great use of mocks, great sepeartion of tests (unit, api, integration). I was able to know if I broke something , in my opinion there is no way better way understand how  "it "works other then just reading the tests.
 
 
-Overall I would say that the onboarding in TrackMaven is pretty top class. The only things I would improve in the process is have more theme oriented pair programing followed up with a small bug fix that could reinforce the parts of the application I was learning.
+### TrackMaven Culture
+
+>
+Using data, we iterate and work to improve. In order to do that, we focus on opportunities to learn. This means learning internally and also externally through events and participation in our community. It also means being willing to try things that fail in order to succeed.
+
+After expereincing this first hand I can say that is most definlty true. There are tons of great feedback mechanism built into the team that allows use to try things out, experiement and fail quickly. The team is extemely flat,and everyone is encouraged to improve process and not shy away form haing open communitcaiton with in regards to uncommon expreinces.
+
+###  Great pLace to work
+
+Overall I would say that the onboarding in TrackMaven is pretty impressive. I have some ideas of on own to make the onboarding process even better. So far its been great and I am looking forward to take on harder problems, and building an awesome product. Did I mention that we are [hiring](http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html)?
+
+
 
 
 
