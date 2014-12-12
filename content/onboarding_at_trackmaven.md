@@ -5,59 +5,69 @@ Tags: Docker, Pair Programing
 Slug: onboarding-at-trackmaven
 Author: Farhan Syed
 Avatar: farhan-syed
-Summary: In this post, I'll talk why Onboarding a new engineer is so important, and how it went during my first month at TrackMaven
+Summary: In this post, I'll talk about why onboarding a new engineer is so important and discuss my first month at TrackMaven
 
 
-Today I will be talking about Onboarding! Things we are going to cover are what the heck does onboarding mean anyway, why its important, and then **gasp** i'll attempt to grade how well my new coworkers onboraded me with my first month. Keep in mind that this will be engineer focused.
+Today I will be talking about onboarding! We will cover what the heck does onboarding mean anyway, why it is important, and then **gasp** I'll attempt to grade how well my new coworkers onboarded me in my first month. Bear in mind that this will be focused on engineering only.
 
-And with that lets start....
+With that, let us begin!
 
 
-## What is Onboarding?
+## What is onboarding?
+
+---
 
 >
-Onboarding is the mechanism in which you take new employees and turn them into **autonomous**, **confident** and **productive** members of the company. 
-
-Let's dive a little deeper into these three tenants and how they specifically apply to engineering onboarding.
-
-### Productivity
-This is the measure on how quickly you can get someone ramped up and into productive member of the team. 
-
-Key factors include: setup local dev environment, how easy it to deploy code, run tests, and basically any other ways in which an engineer can possibly contribute to a codebase. 
-
-What really shines in this department is how automated are all the processes, documentation not on just the codebase but on convention, and how quickly is it to get access to this information.
-
-### Autonomy
-
-This tenant is not really specific to engineer at all but exist as a human universal. We are people and to have some form of autonomy goes a long way for keeping engineers satisfied.
-
-Key Factors in this category include: how much supervision do they need, are they able to choose what types of problems they want to take on
-
-### Confidence
-
-This is probably the most important metric of them all is it ties into the other two. Its all about creating engineers who believe they are valuable and feel that they can actually enact change. Also confident engineers are more likely to learn and pick up new skills that are required for the job. It's important to note that this measure is only important for the individual but for the entire team as it helps create the space for emergent leaders.
+Onboarding is the mechanism with which you take new employees and turn them into **autonomous**, **confident**, and **productive** members of the company. 
 
 
 
-## Teams should onboard together!
+#### Autonomy
 
-I think we all can agree that software is not written by single person ([...Well sometimes it is....](http://motherboard.vice.com/read/gods-lonely-programmer)), but in teams. And teams matter, teams are responsible for building great features throughout history, and onboarding is no different. Onboarding is a team endeavor, and team onboarding spread some of the builtin institutional knowledge that is inherent in engineering.
-
-
+As people, having autonomy goes a long way towards being professionaly satisfied. Two critical measures of autonomy are how much supervision is necessary and is one able to choose which types of problems they want to work on.
 
 
-## Knowledge Transfer!
+#### Confidence
 
-There are 3 kinds of things that people need learn when onboarding.
-
-- Technical Knowledge: This is one the most obvious, this is just how the application architected, how parts of the application work, and ops.
-
-- Company Knowledge & Process: This includes the companies history, what is the point of the company, how product ideation happens and all the process tools(Bug-tracking, user stories, etc)
-
-- Personal Development: Again this is pretty obvious, this how the new engineer see what areas they would be interested in pursuing, what concepts, and expertise do they really want to develop
+Is your onboarding process creating engineers who believe they are valuable and feel that they can actually enact change? Confident engineers are more likely to learn and pick up new skills that are required for the job because they are willing to fail in the short term. Confidence is important not only for the individual but also the entire team as it helps to create the space for emergent leaders.
 
 
-Those are generally the basics when it comes to onboarding. In the current tech landscape, getting an engineer produdctive cost the company some serious $$, and helps establish a companies culutre. And with that, tt's time to share my experiences at TrackMaven.
+#### Productivity
+How quickly can you take a stranger and turn them into a productive member of the team?
+
+Time to productivity can be measured by gauging how long it takes to setup a local development environment, how easy it to deploy code and run tests, and basically any other ways in which an engineer can possibly contribute to a codebase. 
+
+At TrackMaven, I was impress with the automation of these processes, the documentation not on just the codebase but on convention, and how easy it is to access to this information.
+
+## Why is it important?
+
+---
+
+>
+Onboarding is important because it encourages **team bonding** and **knowledge transfer**.
+
+
+
+### Team bonding!
+
+The best software is not written by single person but by teams. Given that teams have been responsible for building great features throughout history, onboarding should be a team endeavor with the goal of disseminating the institutional knowledge of a company's engineers.
+
+
+
+### Knowledge transfer!
+
+In my opinion there are three primary areas of knowledge that should be conveyed when onboarding: technical knowlege, company & process knowlegde, and personal development process knowledge.
+
+
+- Technical knowledge: How is the application architected? How do the pieces of the application work? How are devops handled?
+- 
+- Company knowledge & process: What is the history of the company? What is the point of the company? How is the how product ideation process handled? What process tools do we use (bug-tracking, user stories, etc)?
+
+- Personal development: How should the new engineer figure out which capabilities they might be interested in pursuing, i.e. is there an area of expertise or the product they want to focus on?
+
+Those are the onboarding basics. While they may seem simple, because in today's technology landscape getting an engineer to be productive is not cheap and establishing a company culture is difficult, the basics should be taken seriously
+
+With that, it is time to share my TrackMaven onboarding experience.
 
 
 ## My experience at TrackMaven
@@ -66,43 +76,40 @@ Those are generally the basics when it comes to onboarding. In the current tech 
 
 ### Productivity
 
-I was completely blown away at the level of automation that I was introduced to during my first week at TrackMaven. My local dev environment took a mere hour and half. So much of that is due to the awesome tooling we have. **Docker** and + **Fig** makes setting up isolated services a breeze, not to mention having a hand-rolled cli for all stages of the application life cycle(start, update, destroy). Another thing that impressed was the amount of testing that has been written for the application. Lastly the deployment strategy was just as impressive. We use **Ansible** and **Fabric** to deploy to our different environments. Yes, we love python!
+I was completely blown away at the level of automation that I was introduced to during my first week at TrackMaven. Setting up my local development environment took an hour and half. So much of that is due to the awesome tooling we have: **Docker** and **Fig** make setting up isolated services a breeze and TrackMaven has a hand-rolled cli for all stages of the application life cycle (start, update, destroy). I was also impressed by the amount of testing code that has been written for the application. Finally, our deployment strategy was straightforward: we use **Ansible** and **Fabric** to deploy to our different environments. Yes, we love python!
 
-Because of the of how well documented and automated our process was for shipping code I was able to push code out within the first couple of days. It was just a great way for me to feel that I was contributing to a team very quickly. I didn't understand how the entire application worked but being able to have such a streamlined and automated process really helped me feel confident.
+Because of how well documented and automated our process is for shipping code I was able to push code out on the second day and it was great to feel that I was contributing to a team so quickly. While I did not immediately understand how the entire application worked, being able to operate within a streamlined and automated process helped me to feel confident.
 
 
 ### Autonomy
----
 
-TrackMaven has a Onboarding checklist that really grounded me when I first started. Instead of taking a passive stance, I played an active role on what thigns I wanted to learn that day. Not only did it satisfied my curousity, but it made me feel like I was acutally learning. Also there is just somehting magical about crossing things off a large list. And by the end of the month I had a only a few tasks left (one of them being write a blog post). The checklist items ranged form local devops to scaling boxes on production. The full gamut of full-stack.
 
+One of the most helpful aspects of TrackMaven's onboarding was their  onboarding checklist, which covers everything from local devops to scaling production boxes. Instead of having to wait passively for the next person with free time to come and show me something I was able to play an active role and decide what I wanted to learn that day. Not only did this give me an outlet for my curousity but it also gave me that warm fuzzy feeling that only self-directed learing can elicit. Also, there is just something magical about crossing things off a large list. By the end of the month I had only a few tasks left (one of them being write a/this blog post). 
 
 
 ### Confidence
----
-I had the ability to push code on day two and by the end of my fourth day, I had developed a feature, pushed it through all the steps of our process (git strategy, QA, PR, environment deploy), and merged into master! It was exciting to be able to fee like I was part of the team in a mere 96 hours. How was I able to do this so quickly?
 
-**Pair programing**. In my first week I paired with 5/7 of the engineers on our team. This was great opportunity not only to see a ton of awesome tools(chrome extensions, keyboard shortcuts, shell-scripts) that my co workers were using, but to also understand how the codebase was architected.
+I was able to push code on day two and by the end of my fourth day I had developed a feature, pushed it through all the steps of our process (git strategy, QA, PR, testing environment deploy), and merged into master! It was exciting to to feel like part of the team in less than 96 hours. I would not have been able to do this without:
 
-**Testing**. I am a bit of a testing nerd myself, and the tooling around testing at TrackMaven is really impressive. Great use of mocks, great separation of tests (unit, api, integration). I was able to know if I broke something , in my opinion there is no way better way understand how "it "works other then just reading the tests.
+**Pair programing**. In my first week I paired with five of the seven engineers on our team. This was great opportunity not only to see many awesome tools (chrome extensions, keyboard shortcuts, scripts) that my co workers were using but to also understand the codebase architecture.
 
+**Testing**. The tooling around testing (great use of mocks and separation of unit, api, and integration tests) at TrackMaven is impressive even to a testing nerd like me. In my opinion there is no way better way understand how "it" works than by reading well-written tests.
 
-**Monitoring**
-
-Much of these won't be a surpise but we use Sentry, New Relic and librato for alot of our monitoring. Again, it was really easy for me to get the information I needed to solve problems that were happening anywhere in the stack. 
+**Monitoring**. We (unsurprisingly) use Sentry, New Relic and Librato for the majority of our monitoring. Such exensive logs, combined with testing, enabled me to get the information I needed to solve problems that were happening anywhere in the stack. 
 
 
-
-### TrackMaven Culture
+### TrackMaven culture
 
 >
 Using data, we iterate and work to improve. In order to do that, we focus on opportunities to learn. This means learning internally and also externally through events and participation in our community. It also means being willing to try things that fail in order to succeed.
 
-After experiencing this first hand I can say that is most defiantly true. There are tons of great feedback mechanism built into the team that allows use to try things out, experiment and fail quickly. The team strucutre is flat, and everyone is encouraged to improve the process and not shy away form having open communication with in regards to uncommon experiences.
+After my firsthand experience I will attest that is true. Our team's  feedback mechanisms allow us to… try things out, experiment, and fail quickly. Our team structure is flat and everyone is encouraged to improve the process and not shy away from open communication.
 
-###  Great pLace to work
+###  Great place to work
 
-Overall I would say that the onboarding in TrackMaven is pretty impressive. I have some ideas of on own to make the onboarding process even better. So far its been great and I am looking forward to take on harder problems, and building an awesome product. Did I mention that we are [hiring](http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html)?
+Overall, I was impressed with the TrackMaven onboarding. I have ideas of my own to make the onboarding process even better. So far it has been great and I am looking forward to tackling even harder problems and improving an awesome product. 
+
+Did I mention that we are [hiring](http://trackmaven.theresumator.com/apply/EzkTn4/Software-Maven.html)?
 
 
 
