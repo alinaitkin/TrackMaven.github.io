@@ -37,7 +37,7 @@ How quickly can you take a stranger and turn them into a productive member of th
 
 Time to productivity can be measured by gauging how long it takes to setup a local development environment, how easy it to deploy code and run tests, and basically any other ways in which an engineer can possibly contribute to a codebase. 
 
-At TrackMaven, I was impress with the automation of these processes, the documentation not on just the codebase but on convention, and how easy it is to access to this information.
+At TrackMaven, I was impressed with the automation of these processes, the documentation not on just the codebase but on convention, and how easy it is to access to this information.
 
 ## Why is it important?
 
@@ -91,11 +91,11 @@ One of the most helpful aspects of TrackMaven's onboarding was their  onboarding
 
 I was able to push code on day two and by the end of my fourth day I had developed a feature, pushed it through all the steps of our process (git strategy, QA, PR, testing environment deploy), and merged into master! It was exciting to to feel like part of the team in less than 96 hours. I would not have been able to do this without:
 
-**Pair programing**. In my first week I paired with five of the seven engineers on our team. This was great opportunity not only to see many awesome tools (chrome extensions, keyboard shortcuts, scripts) that my co workers were using but to also understand the codebase architecture.
+**Pair programing**. In my first week I paired with five of the seven engineers on our team. This was great opportunity not only to see many awesome tools ([chrome extensions](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc?hl=en-US), keyboard shortcuts, scripts) that my co workers were using but to also understand the codebase architecture.
 
 **Testing**. The tooling around testing (great use of mocks and separation of unit, api, and integration tests) at TrackMaven is impressive even to a testing nerd like me. In my opinion there is no way better way understand how "it" works than by reading well-written tests.
 
-**Monitoring**. We (unsurprisingly) use Sentry, New Relic and Librato for the majority of our monitoring. Such exensive logs, combined with testing, enabled me to get the information I needed to solve problems that were happening anywhere in the stack. 
+**Monitoring**. We (unsurprisingly) use Sentry, New Relic and Librato for the majority of our monitoring. Such extensive logs, combined with testing, enabled me to get the information I needed to solve problems that were happening anywhere in the stack. 
 
 
 ### TrackMaven culture
