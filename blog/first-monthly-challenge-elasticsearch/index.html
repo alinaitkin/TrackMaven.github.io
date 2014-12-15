@@ -9,7 +9,7 @@
     <link rel="icon" href="https://s3.amazonaws.com/awstrackmaven/img/favicon.ico">
 
     <title>
-The Engine Room - TrackMaven
+First Monthly Challenge: Elasticsearch! - The Engine Room - TrackMaven
     </title>
     <script type="text/javascript">
       (function(d) {
@@ -222,9 +222,9 @@ http://localhost:9200/reddit/iama/_search?pretty=true&amp;q=title:almost
 
 <p>you should be able to see Kibana's default interface. Click "Blank Dashboard" at the bottom to get started, or let Kibana fill in some default panels. Add a row of query results using a "table" panel and try searching for <code>subscriber:registered</code> at the top instead of the default <code>*</code> to see the results limit. (To add a panel to a new row, click the green "+" on the far left.)</p>
 <p>Let's see the proportion of registered users in a chart. Add a new row to the dashboard, then add a <strong>terms</strong> type panel to that row. Give it a title "Subscriber types" and take the <strong>count</strong> of the <strong>field</strong> "subscribers" for a <em>style</em>* of "bar" or "pie". This should create a chart of the registered versus casual bikeshare users:
-<center><img alt="" src="/images/ESchart1.png" /></center></p>
+<center><img alt="ElasticSearch Chart 1" src="/images/ESchart1.png" /></center></p>
 <p>Try taking a look at the distribution of top ending stations, <code>end_station</code>, in a similar way:
-<center><img alt="" src="/images/ESchart2.png" /></center></p>
+<center><img alt="ElasticSearch Chart 2" src="/images/ESchart2.png" /></center></p>
 <p>Now we can run search queries and get real-time updates on these charts; try searching for <code>start_station:"Lincoln Memorial"</code> to see where riders end their journey when they start at the Lincoln Memorial.</p>
 <p>Next steps: examine results across time, analyze the total duration of trips, add geocoding and map the results, find the bikes that have traveled the farthest total distance... Even if you aren't attending the meetup, please let us know if you try out any interesting side projects using Elasticsearch - bonus points if you include an open-source repo that we could share here!</p>
 
