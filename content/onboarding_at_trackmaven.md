@@ -1,7 +1,7 @@
 Title: Onboarding at TrackMaven
 Date: 2014-12-16
 Category: Training
-Tags: docker
+Tags: training, onboarding, docker
 Slug: onboarding-at-trackmaven
 Author: Farhan Syed
 Avatar: farhan-syed
