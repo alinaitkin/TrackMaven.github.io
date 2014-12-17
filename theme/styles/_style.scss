@@ -19,6 +19,10 @@ body {
   }
 }
 
+a {
+  transition: all 0.3s ease-in-out;
+}
+
 // Reset images
 img {
   display: block;
@@ -46,6 +50,18 @@ img {
   }
 }
 
+.masthead {
+  background: $gray-black;
+  padding: 10px 0;
+
+  a {
+    color: $gray-dove;
+
+    &:hover {
+      color: $gray-gate;
+    }
+  }
+}
 
 /*
  * Masthead for nav
@@ -95,7 +111,7 @@ img {
   }
 }
 
-@media (max-width: 870px) {
+@media (max-width: 900px) {
   .ribbon {
     margin-top: 10px;
     font-size: 0.8em;
@@ -103,7 +119,7 @@ img {
   }
   .mobile-placement {
     position: absolute;
-    top: 10px;
+    top: 42px;
     right: 5px;
     padding-top: 0 !important;
     margin-top: 0 !important;
@@ -345,30 +361,40 @@ a {
     line-height: 1;
   }
 
+  h5 {
+    font-weight: 600;
+    font-size: 1em;
+    color: $gray-black;
+    margin-top: 25px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  h6 {
+    font-weight: 400;
+    font-size: 0.9em;
+    color: $gray-black;
+    margin-top: 25px;
+    line-height: 1;
+  }
+
+
   p {
     font-size: 1em;
     line-height: 1.6em;
     margin-bottom: 15px;
-
-    &.intro-p:first-letter {
-      font-size: 50px;
-      float: left;
-      position: relative;
-      margin: 15px 5px 0 0;
-    }
   }
 
   blockquote {
+    border-color: $gray-gallery;
     color: $gray-chalice;
-    font-size: 0.9em;
+    font-size: 1em;
+    line-height: 1.6em;
     font-weight: 600;
+    margin: 25px 0;
   }
 
   &.summary {
-    blockquote {
-      display: none;
-    }
-
     h2 {
       border: none;
       font-size: 1.2em;

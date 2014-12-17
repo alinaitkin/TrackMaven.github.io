@@ -15,24 +15,22 @@ With that, let us begin!
 
 ## What is onboarding?
 
----
-
 >
-Onboarding is the mechanism with which you take new employees and turn them into **autonomous**, **confident**, and **productive** members of the company. 
+Onboarding is the mechanism with which you take new employees and turn them into **autonomous**, **confident**, and **productive** members of the company.
 
 
 
-#### Autonomy
+### Autonomy
 
 Having autonomy goes a long way toward being professionally satisfied. Two critical measures of autonomy are how much supervision is necessary and whether one is able to choose which types of problems to work on.
 
 
-#### Confidence
+### Confidence
 
 Is your onboarding process creating engineers who believe they are valuable and who feel that they can actually enact change? Confident engineers are more likely to learn and pick up new skills that are required for the job because they are willing to fail in the short term. Confidence is important not only for the individual but also for the entire team, as it helps to create the space for emergent leaders.
 
 
-#### Productivity
+### Productivity
 How quickly can you take a stranger and turn them into a productive member of the team?
 
 Time to productivity can be measured by gauging how long it takes to set up a local development environment, how easy it is to deploy code and run tests, and any other ways in which an engineer can contribute to a codebase.
@@ -40,8 +38,6 @@ Time to productivity can be measured by gauging how long it takes to set up a lo
 At TrackMaven, I was impressed with the automation of these processes, the documentation not just on the codebase but on conventions, and how easy it is to access this information.
 
 ## Why is it important?
-
----
 
 >
 Onboarding is important because it encourages **team bonding** and **knowledge transfer**.
@@ -70,8 +66,6 @@ With that, it is time to share my TrackMaven onboarding experience.
 
 
 ## My experience at TrackMaven
-----
-
 
 ### Productivity
 
@@ -83,7 +77,7 @@ Because of how well documented and automated our process is for shipping code, I
 ### Autonomy
 
 
-One of the most helpful aspects of TrackMaven's onboarding was their onboarding checklist, which covers everything from local devops to scaling production boxes. Instead of having to wait passively for the next person with free time to come and show me something, I was able to play an active role and decide what I wanted to learn that day. Not only did this give me an outlet for my curousity, but it also gave me that warm fuzzy feeling that only self-directed learning can elicit. Also, there is just something magical about crossing things off a large list. By the end of the month I had only a few tasks left (one of them being to write a blog post). 
+One of the most helpful aspects of TrackMaven's onboarding was their onboarding checklist, which covers everything from local devops to scaling production boxes. Instead of having to wait passively for the next person with free time to come and show me something, I was able to play an active role and decide what I wanted to learn that day. Not only did this give me an outlet for my curousity, but it also gave me that warm fuzzy feeling that only self-directed learning can elicit. Also, there is just something magical about crossing things off a large list. By the end of the month I had only a few tasks left (one of them being to write a blog post).
 
 
 ### Confidence
@@ -106,6 +100,6 @@ After my firsthand experience, I will attest that is true. Our team's feedback m
 
 ###  Great place to work
 
-Overall, I was impressed with the TrackMaven onboarding. I have ideas of my own to make the onboarding process even better. So far it has been great, and I am looking forward to tackling even harder problems and improving an awesome product. 
+Overall, I was impressed with the TrackMaven onboarding. I have ideas of my own to make the onboarding process even better. So far it has been great, and I am looking forward to tackling even harder problems and improving an awesome product.
 
 Did I mention that we are [hiring](http://trackmaven.com/careers)?

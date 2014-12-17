@@ -33,11 +33,12 @@
     <link href="{{ SITEURL }}/theme/css/main.css" rel="stylesheet">
   </head>
   <body>
+  {% block masthead %}{% endblock %}
     <div class="wrap">
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <a href="{{ SITEURL }}/"><img class="logo" src="{{ SITEURL }}/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="{{ SITEURL }}/">The Engine Room</a>
