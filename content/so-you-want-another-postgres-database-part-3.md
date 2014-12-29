@@ -7,6 +7,8 @@ Author: John Young
 Avatar: john-young
 Summary: Tuning your PostgreSQL cluster for performance
 
+__Read [Part 2](http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/)__
+
 ## Tuning your PostgreSQL servers on Amazon EC2
 It will probably come as no surprise that the settings that are best for your PostgreSQL cluster are heavily dependent on your data and how you're using it. No one can say what will work best for you in every single use case, and it's up to you to profile your database to determine what does and does not work for you. With that being said, a great starting point for general use cases can be found in Christophe Pettus' talk [PostgreSQL when it's not your job](http://thebuild.com/presentations/not-your-job.pdf). If you're completely new to tuning your Postgres instances, I highly recommend using these settings as an initial profile point.
 
