@@ -6,7 +6,7 @@ Slug: so-you-want-another-postgresql-database-part-2
 Author: John Young
 Avatar: john-young
 
-__Read [Part 1](http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-1/)__
+__Read [Part 1](/blog/so-you-want-another-postgresql-database-part-1/)__
 
 ## Automatic nightly base backups to Amazon S3 using WAL-E
 
@@ -80,3 +80,5 @@ We will also need to clean up our S3 bucket by deleting old base backups. This c
 
   * `crontab -e`
   * `30 2 * * * /usr/bin/envdir /etc/wal-e.d/env /usr/local/bin/wal-e delete --confirm retain 5`
+
+__Continue onto [Part 3](/blog/so-you-want-another-postgresql-database-part-3/)__

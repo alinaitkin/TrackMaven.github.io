@@ -119,4 +119,4 @@ host    <user_name>       <db_name>     <IP_ADDRESS>/32           md5
 
 * Celebrate
 
-__ Continue onto [Part 2](http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/)__
+__ Continue onto [Part 2](/blog/so-you-want-another-postgresql-database-part-2/)__
