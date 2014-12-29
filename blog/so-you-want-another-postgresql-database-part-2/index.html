@@ -48,7 +48,7 @@ So You Want Another PostgreSQL Database? (Part 2) - The Engine Room - TrackMaven
   <h2 class="blog-post-title centered">So You Want Another PostgreSQL Database? (Part 2)</h2>
   <p class="blog-post-meta single">Posted on <strong>October 18, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/john-young/">John Young</a><br>Category: <a href="/category/devops/">DevOps</a> | <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-2/#disqus_thread"></a></p>
   <div class="blog-post-content">
-    <p><strong>Read <a href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-1/">Part 1</a></strong></p>
+    <p><strong>Read <a href="/blog/so-you-want-another-postgresql-database-part-1/">Part 1</a></strong></p>
 <h2>Automatic nightly base backups to Amazon S3 using WAL-E</h2>
 <p>In the first part of this series of posts, we set up streaming replication between a primary database and a replica database by shipping WAL files between them. While functional, it lacks the robustness and safety that a production database requires. To add an additional layer of protection to our process, we ship our WAL files to S3 so that our replica can ALWAYS bring itself up to date regardless of an enormous write load on the primary or a temporary network disruption preventing the primary and replica from communicating with each other. </p>
 <p>We also create a base backup of our database nightly and send that to S3 so that we can restore our database to any point in time we need in case of catastrophe. With a base backup and the WAL files written since that backup was taken, your database can very easily be recovered to any point in time you specify.</p>
@@ -121,6 +121,7 @@ archive_timeout = 60
 <li><code>crontab -e</code></li>
 <li><code>30 2 * * * /usr/bin/envdir /etc/wal-e.d/env /usr/local/bin/wal-e delete --confirm retain 5</code></li>
 </ul>
+<p><strong>Continue onto <a href="/blog/so-you-want-another-postgresql-database-part-3/">Part 3</a></strong></p>
 
 <p class="blog-post-meta footer-meta">Tags: <a href="/tag/postgres/">postgres</a>, <a href="/tag/double-database/">double-database</a>, <a href="/tag/how-to/">how-to</a></p>  </div>
   <div class="well">
