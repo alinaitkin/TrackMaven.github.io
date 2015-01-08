@@ -31,7 +31,7 @@ DEFAULT_PAGINATION = 10
 ARTICLE_EXCLUDES = (('pages', 'demos'))
 
 # Static paths will be copied without parsing their contents
-STATIC_PATHS = ['images', 'extra/CNAME']
+STATIC_PATHS = ['images', 'extra/CNAME', 'demos']
 
 ARTICLE_URL = 'blog/{slug}/'
 ARTICLE_SAVE_AS = 'blog/{slug}/index.html'
