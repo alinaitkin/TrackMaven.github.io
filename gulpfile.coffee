@@ -39,6 +39,6 @@ gulp.task "watch", ->
     gulp.watch("theme/styles/**/*.scss", ["scss"])
     gulp.watch("theme/static/css/**/*.css", ["html"])
     gulp.watch("theme/templates/**/*.html", ["html"])
-    gulp.watch("content/*.md", ["html"])
+    gulp.watch("content/**/*.md", ["html"])
 
 gulp.task("default", ["html", "watch", "connect"])
