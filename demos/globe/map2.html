@@ -3,10 +3,10 @@
     <meta charset="utf-8">
     <title>Flight data visualization</title>
     <script src="three.min.js"></script>
-    <script src="globe.js"></script>
+    <script src="globe2.js"></script>
   </head>
   <body>
-    <div id='container' />
+   <div id='container' />
 
     <script>
       // Where to put the globe?
@@ -19,7 +19,7 @@
       var xhr = new XMLHttpRequest();
 
       // Where do we get the data?
-      xhr.open( 'GET', 'flight_data.json', true );
+      xhr.open( 'GET', 'flight_traffic.json', true );
 
       // What do we do when we have it?
       xhr.onreadystatechange = function() {
@@ -29,14 +29,10 @@
 
           // Parse the JSON
           var data = JSON.parse( xhr.responseText );
+          var options = {'format': 'magnitude', 'imgDir': '/'}
 
           // Tell the globe about your JSON data
-          for ( var i = 0; i < data.length; i ++ ) {
-            // Incorrect version in current example:
-            // globe.addData( data[i][1], 'magnitude', data[i][0] );
-
-            globe.addData(data[i][1], {'format': 'magnitude'});
-          }
+          globe.addData(data, options);
 
           // Create the geometry
           globe.createPoints();
@@ -45,6 +41,7 @@
           globe.animate();
 
         }
+
       };
 
       // Begin request
