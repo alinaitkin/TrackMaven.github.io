@@ -208,7 +208,7 @@ Now for the tricky part: displaying arcs between airports as "flight" patterns..
 
 My trigonometry is a little rusty, so I'm still working out the details of how to interpolate spherical coordinates properly. For now, I used a *very* hacky system of finding a "midpoint" between the two points, which mostly only works for flights around the US depending on the signs of the coordinate pairs; you'll notice for instance that all the flights to Europe currently dip into the earth before reaching their destinations! I then generate a smooth spline using those three points.
 
-You can see the results, which I limit to only the busiest airport pairs to cut down somewhat on clutter, [here as a live demo](/demos/globe/map.html):
+You can see the results, which I limit to only the busiest airport pairs to cut down somewhat on clutter, [here as a live demo](/demos/globe/map2.html):
 
 <center>![map4](/images/map4.png)</center>
 
