@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-01-08T00:00:00+01:00</updated><entry><title>Monthly Challenge: Visualization</title><link href="http://engineroom.trackmaven.com/blog/using-cartodb-and-threejs-for-mapping/" rel="alternate"></link><updated>2015-01-08T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2015-01-08:blog/using-cartodb-and-threejs-for-mapping/</id><summary type="html">&lt;h2&gt;Using CartoDB and Three.js for mapping&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-02-06T00:00:00+01:00</updated><entry><title>Announcing Celery Once</title><link href="http://engineroom.trackmaven.com/blog/announcing-celery-once/" rel="alternate"></link><updated>2015-02-06T00:00:00+01:00</updated><author><name>Cameron Maske</name></author><id>tag:engineroom.trackmaven.com,2015-02-06:blog/announcing-celery-once/</id><summary type="html">&lt;p&gt;At TrackMaven we are big users of &lt;a href="http://www.celeryproject.org/"&gt;Celery&lt;/a&gt;, an asynchronous task queue written in Python. Today we're happy to release a useful package we have been using internally called &lt;a href="https://pypi.python.org/pypi/celery_once/"&gt;Celery Once!&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Celery Once allows you to specify and run unique tasks across your distributed Celery cluster. It can be used to prevent workers performing the same task when scheduled multiple times.&lt;/p&gt;
+&lt;h2&gt;Example usage&lt;/h2&gt;
+&lt;p&gt;Imagine the scenario of generating and send a PDF report to a user.
+On our web app, a user could kick off this task by submitting a form to a web server, which then triggers our Celery task.&lt;/p&gt;
+&lt;p&gt;If generating the report is slow and our user hits submit multiple times, we don't want to queue up additional repeated tasks that end up spamming the user's inbox.&lt;/p&gt;
+&lt;p&gt;Here is how we could solve the scenario using Celery Once!
+After &lt;a href="https://github.com/TrackMaven/celery-once#usage"&gt;setting up&lt;/a&gt; &lt;code&gt;celery&lt;/code&gt; with &lt;code&gt;celery_once&lt;/code&gt; installed, we can write a mutually exclusive task, like so...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# tasks.py&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;celery&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reports&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;generate_report&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;celery_once&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;QueueOnce&lt;/span&gt;
+
+&lt;span class="nd"&gt;@celery.task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;QueueOnce&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;send_pdf_report&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;report&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;generate_report&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Behind the scenes, &lt;code&gt;QueueOnce&lt;/code&gt; uses &lt;a href="http://redis.io"&gt;Redis&lt;/a&gt; to &lt;a href="https://github.com/TrackMaven/celery-once/blob/c7b8902a52ee727e4e68392887d905f1e436f7ef/celery_once/tasks.py#L98"&gt;check against or set a lock&lt;/a&gt; based on the task's name and its arguments.&lt;/p&gt;
+&lt;p&gt;If we try to run the same task, while it's already queued, an &lt;code&gt;AlreadyQueued&lt;/code&gt; exception is raised.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Run the initial task, not yet queued up...&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;send_pdf_report&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;alice@example.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# Duplicate task run before previous one completes..&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;send_pdf_report&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;alice@example.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Traceback&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;most&lt;/span&gt; &lt;span class="n"&gt;recent&lt;/span&gt; &lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="n"&gt;AlreadyQueued&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# Running for a different user has its own lock&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;send_pdf_report&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bob@example.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's Celery Once in a nutshell! More documentation on how to install, set up and tweak it to your needs can be found &lt;a href="https://github.com/TrackMaven/celery-once"&gt;here&lt;/a&gt;.&lt;/p&gt;</summary><category term="celery"></category><category term="redis"></category><category term="open source"></category></entry><entry><title>Monthly Challenge: Visualization</title><link href="http://engineroom.trackmaven.com/blog/using-cartodb-and-threejs-for-mapping/" rel="alternate"></link><updated>2015-01-08T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2015-01-08:blog/using-cartodb-and-threejs-for-mapping/</id><summary type="html">&lt;h2&gt;Using CartoDB and Three.js for mapping&lt;/h2&gt;
 &lt;p&gt;Our next monthly challenge is &lt;strong&gt;visualization&lt;/strong&gt;! Although you could visualize data on just about anything in just about any way, for this post we're going to focus on &lt;strong&gt;mapping&lt;/strong&gt; data geographically using two different tools:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;CartoDB: a great drag-and-drop solution for super quick and simple map creation - also a paid product that limits its free plan to 50MB of data!&lt;/li&gt;
