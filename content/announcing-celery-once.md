@@ -1,5 +1,5 @@
 Title: Announcing Celery Once
-Date: 2015-02-06
+Date: 2015-02-03
 Category: Development
 Tags: celery, redis, open source
 Slug: announcing-celery-once
