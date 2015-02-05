@@ -1,57 +1,57 @@
 title: Our Stack
 slug: stack
 
-## Here's what we're using to build the product, keep our engine room running, and to become a better team.
+## Below you will find what we're using to build our product, keep the engine room running, and grow as a team.
 
 <div class="row">
-<div class="col-md-2">
-    <h3>If you like working with the same technologies, feel free to <a href="https://boards.greenhouse.io/trackmaven/jobs/41377">apply</a>! We are always looking for great engineers.<h3>
+<div class="col-md-3">
+    <h3 class="text-muted">If you like working with these technologies, feel free to <a href="https://boards.greenhouse.io/trackmaven/jobs/41377">apply</a>! We are always looking for great engineers.<h3>
 </div>
 
-<div class="col-md-4 col-md-offset-2">
+<div class="col-md-4 col-md-offset-1">
     <h4>Hosting</h4>
     <ul>
-        <li>Amazon Web Services</li>
-        <li>Linode</li>
+        <li><a href="http://aws.amazon.com/">Amazon Web Services</a></li>
+        <li><a href="https://www.linode.com/">Linode</a></li>
     </ul>
 
-    <h4>Operating System & Tools</h4>
+    <h4>Web Tools</h4>
     <ul>
-        <li>Ubuntu</li>
-        <li>nginx</li>
-        <li>PostgreSQL</li>
-        <li>redis</li>
-        <li>ElasticSearch</li>
+        <li><a href="http://nginx.org/en/docs/">nginx</a></li>
+        <li><a href="http://www.postgresql.org/">PostgreSQL</a></li>
+        <li><a href="http://redis.io/">redis</a></li>
+        <li><a href="http://www.elasticsearch.org/">ElasticSearch</a></li>
     </ul>
 
     <h4>Collaborative Tools</h4>
     <ul>
-        <li>Hipchat</li>
-        <li>Trello</li>
+        <li><a href="https://www.hipchat.com/">Hipchat</a></li>
+        <li><a href="https://trello.com/">Trello</a></li>
+        <li><a href="https://hubot.github.com/">Hubot</a></li>
     <ul>
 </div>
 
 <div class="col-md-4">
-    <h4>Web Application Development</h4>
+    <h4>Backend Application Development</h4>
     <ul>
-        <li>django</li>
-        <li>django rest framework</li>
-        <li>Celery</li>
+        <li><a href="https://www.djangoproject.com/">Django</a></li>
+        <li><a href="http://www.django-rest-framework.org/">Django Rest Framework</a></li>
+        <li><a href="http://www.celeryproject.org/">Celery</a></li>
     </ul>
 
-    <h4>UI Libraries</h4>
+    <h4>Frontend Libraries</h4>
     <ul>
-        <li>angular.js</li>
-        <li>D3</li>
-        <li>underscore.js</li>
+        <li><a href="https://angularjs.org/">Angular.js</a></li>
+        <li><a href="http://d3js.org/">D3.js</a></li>
+        <li><a href="http://underscorejs.org/">underscore.js</a></li>
     </ul>
 
-    <h4>Configuration & Deployment</h4>
+    <h4>Dev OPs</h5>
     <ul>
-        <li>docker</li>
-        <li>ansible</li>
-        <li>fabric</li>
-        <li>git</li>
+        <li><a href="https://www.docker.com/">Docker</a></li>
+        <li><a href="http://www.ansible.com/home">Ansible</a></li>
+        <li><a href="http://www.fabfile.org/">Fabric</a></li>
+        <li><a href="https://github.com/">Git (Github)</a></li>
     </ul>
 </div>
 </div>
