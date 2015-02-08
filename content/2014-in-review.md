@@ -10,20 +10,20 @@ Since this is the first year that TrackMaven has our Engine Room blog, this will
 
 ### So here are the numbers:
 
-* +4 Engineers. We started 2014 with 4 engineers and have doubled in size! There was definitely some growing pains, but checkout Farhan's [onboarding post](/blog/onboarding-at-trackmaven/) to see how far we've come!
-* +8,965 code commits. Even as fast as our team has been expanding so has the code base for TrackMaven. We are constantly trying to provide the best platform for digital marketers and committing code helps us get there.
-* +204 releases. Even thought continuous deployment was something we added to our stack around June of 2014, we were still able to push 204 releases of the application to our customers.
+* +4 Engineers. We started 2014 with four engineers and have doubled in size! There were definitely some growing pains, but check out Farhan's [onboarding post](/blog/onboarding-at-trackmaven/) to see how far we've come!
+* +8,965 code commits. Even as fast as our team has been expanding, so has the code base for TrackMaven. We are constantly trying to provide the best platform for digital marketers, and committing code helps us get there.
+* +204 releases. Even though continuous deployment was something we added to our stack around June of 2014, we were still able to push 204 releases of the application to our customers.
 
 ### We also released some amazing features & enhancements in 2014!
 
-* We migrated completely from Heroku to AWS to give the engineers a finer sense of control of the application.
+* We migrated completely from Heroku to AWS to give the engineers finer control of the application.
 * We secured our application with SSL to provide the utmost secure connection with our customers. (Read how to set up HTTPS [here](/blog/setting-up-https-security/).)
-* We released an amazing data visualization suite using D3. (You can read more on how to integrate D3 in Angular.js [here](/blog/building-a-testable-d3-charting-application-within-angularjs/))
+* We released an amazing data visualization suite using D3. (You can read more on how to integrate D3 in AngularJS [here](/blog/building-a-testable-d3-charting-application-within-angularjs/))
 * We scaled everything! Just like the task of doubling our engineering staff, we were able to scale TrackMaven, more than doubling our infrastructure. (Read about scaling PostgreSQL [here](/blog/so-you-want-another-postgresql-database-part-1/))
-* We introduced ElasticSearch into our cluster to give our customers access to blazing fast search of our activity feed.
+* We introduced Elasticsearch into our cluster to give our customers access to blazing fast search of our activity feed.
 
 ### Other Nice Things
-* We also started becoming a pillar of the DC Tech scene with giving 15 talks ranging from Lightning talks at local Meetups, to one-off talks at other companies, to a few Python conferences. As we grow as a team, I hope to see the number of talks given to the tech communities also grow. 
+* We started becoming a pillar of the DC Tech scene, giving 15 talks ranging from lightning talks at local meetups, to one-off talks at other companies, to a few Python conferences. As we grow as a team, I hope to see the number of talks given to the tech communities also grow.
 * We also started a [Monthly Challenge Meetup](www.meetup.com/TrackMaven-Monthly-Challenge/) to encourage the DC tech community to continue to learn and improve.
 
 We have a lot more planned for 2015 and will be writing about it here on the Engine Room! Here's to an amazing 2015.
