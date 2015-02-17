@@ -1,5 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/fletcher-heisler.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-01-08T00:00:00+01:00</updated><entry><title>Monthly Challenge: Visualization</title><link href="http://engineroom.trackmaven.com/blog/using-cartodb-and-threejs-for-mapping/" rel="alternate"></link><updated>2015-01-08T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2015-01-08:blog/using-cartodb-and-threejs-for-mapping/</id><summary type="html">&lt;h2&gt;Using CartoDB and Three.js for mapping&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/fletcher-heisler.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-02-17T00:00:00+01:00</updated><entry><title>Monthly Challenge: Mobile Development</title><link href="http://engineroom.trackmaven.com/blog/monthly-challenge-mobile-development/" rel="alternate"></link><updated>2015-02-17T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2015-02-17:blog/monthly-challenge-mobile-development/</id><summary type="html">&lt;p&gt;TrackMaven's next &lt;a href="www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge&lt;/a&gt; meetup will cover &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/events/219945053/"&gt;mobile development&lt;/a&gt;. To help kickstart some projects, in this post I'll cover the basics of one way to get started creating a cross-platform mobile app.&lt;/p&gt;
+&lt;p&gt;We'll be using &lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;, a framework for making beautiful, responsive mobile apps using HTML5 and AngularJS. Ionic sits on top of &lt;a href="http://cordova.apache.org/"&gt;Cordova&lt;/a&gt; and has a &lt;a href="http://ionicframework.com/blog/what-is-cordova-phonegap/"&gt;complicated relationship&lt;/a&gt; with &lt;a href="http://phonegap.com/"&gt;PhoneGap&lt;/a&gt;, both of which can also be used individually for writing cross-platform mobile applications. A few other possible options for getting started in mobile development:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://jlongster.com/First-Impressions-using-React-Native"&gt;React Native&lt;/a&gt; is (as of this post) not yet publicly released but shows tremendous promise&lt;/li&gt;
+&lt;li&gt;Go native with the &lt;a href="http://developer.android.com/sdk/index.html"&gt;Android SDK&lt;/a&gt; and start &lt;a href="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/index.html"&gt;jumping through hoops&lt;/a&gt; to develop on Apple's iOS&lt;/li&gt;
+&lt;li&gt;Try out &lt;a href="http://kivy.org/"&gt;Kivy&lt;/a&gt; for writing mobile (and non-mobile) apps in Python! I personally haven't had great luck getting Kivy apps to compile on multiple devices, but it's definitely an appealing concept&lt;/li&gt;
+&lt;li&gt;Appcelerator's &lt;a href="http://www.appcelerator.com/titanium/"&gt;Titanium&lt;/a&gt; uses a JavaScript-based SDK and covers iOS, Android, Windows, BlackBerry and HTML5; I haven't tried it out, but have heard that in some cases (especially on older devices) it may be more performant than Ionic, being a step or two closer to native code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this Ionic example, we're going to cover the following:
+- Push a sample app to iOS and Android emulators + devices (without forking over $99 to Apple)
+- Set up custom styles using Sass
+- Convert the sample JS to CoffeeScript with automatic gulp compilation
+- Add custom icons and a splash screen&lt;/p&gt;
+&lt;p&gt;Let's get to it!&lt;/p&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;p&gt;First off, you'll need to have &lt;a href="http://nodejs.org/"&gt;Node.js&lt;/a&gt; installed, then install the &lt;code&gt;ionic&lt;/code&gt; NPM package:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo npm install -g cordova ionic&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You can now create a new Ionic project using one of three templates:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;blank&lt;/code&gt; - you guessed it&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tabs&lt;/code&gt; - includes a title header bar and "home", "star", and "settings" buttons on a footer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sidemenu&lt;/code&gt; - includes a collapsible lefthand sidebar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ionic start myprojectname sidemenu
+cd myprojectname/
+ionic serve&lt;/p&gt;
+&lt;p&gt;After changing into the &lt;code&gt;myprojectname&lt;/code&gt; directory (or whatever you want to name it), running &lt;code&gt;ionic serve&lt;/code&gt; will start up the sample project on localhost and automatically open the running app in your browser. Ship it!&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One important note: when testing your app locally, because of &lt;a href="http://enable-cors.org/"&gt;CORS&lt;/a&gt; rules, you won't be able to access any external data. For instance, calling an API or even loading in a picture from the web will be blocked by default on most browsers.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;There are a few ways around this; for instance, you &lt;em&gt;could&lt;/em&gt; use JSONP instead of &lt;code&gt;$http&lt;/code&gt; calls, mess with request headers, load up a separate brower without CORS protection... &lt;strong&gt;or&lt;/strong&gt; my preferred method: just use a &lt;a href="https://chrome.google.com/webstore/detail/cors-toggle/omcncfnpmcabckcddookmnajignpffnh?hl=en"&gt;Chrome plugin&lt;/a&gt; to toggle CORS on and off. This isn't the most secure, idea, so make sure you're only purposefully allowing cross domain requests while testing your app, not browsing the web.&lt;/p&gt;
+&lt;h3&gt;Run it on iOS&lt;/h3&gt;
+&lt;p&gt;Before diving into the code, let's make sure we can get the app on all our devices. For loading the project onto an iOS device, the first steps is to &lt;a href="https://developer.apple.com/xcode/downloads/"&gt;have XCode&lt;/a&gt;. Next you'll need to add iOS as a platform for the Ionic project and build the project for iOS:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;ionic platform add ios
+ionic build ios
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will create a &lt;code&gt;.xcodeproj&lt;/code&gt; file in &lt;code&gt;/platform/ios&lt;/code&gt;. Optionally, you can install and run the iOS simulator to run the app within an on-screen iDevice of choice:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;npm install -g ios-sim
+ionic emulate ios
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To get the project running on a physical iDevice, previously you would have had to sign up for a $99 developer license, then build/load the project onto the device from within XCode. However, Ionic has recently released a wonderful workaround in their &lt;a href="http://ionicframework.com/blog/view-app-is-alive/"&gt;Ionic View for iOS&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With the Ionic View app, you can first sign up for an account with Ionic &lt;a href="https://apps.ionic.io/signup"&gt;here&lt;/a&gt;, then &lt;a href="https://itunes.apple.com/us/app/ionic-view/id849930087"&gt;download the free app&lt;/a&gt; from the iTunes store onto your device of choice. Finally, just run:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic upload&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll need to authenticate your Ionic account, then the project will be uploaded &lt;a href="http://apps.ionic.io/projects"&gt;here&lt;/a&gt; and available for viewing/testing from within Ionic View on the iOS device!&lt;/p&gt;
+&lt;h3&gt;Run it on Android&lt;/h3&gt;
+&lt;p&gt;First, let's get dependencies set up. We'll need:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://ant.apache.org/bindownload.cgi"&gt;ant&lt;/a&gt;; run &lt;code&gt;ant -version&lt;/code&gt; to check if you have it already&lt;/li&gt;
+&lt;li&gt;the &lt;a href="http://developer.android.com/sdk/index.html"&gt;Android SDK&lt;/a&gt;; if you're using brew, run &lt;code&gt;brew install android-sdk&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;all default selected packages from Android's package manager. Run &lt;code&gt;android&lt;/code&gt; to enter the manager; you may need to run this command multiple times to re-enter the package manager and get all the defaults installed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now we can add &lt;code&gt;android&lt;/code&gt; as a platform to the Ionic project:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic platform add android&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If you get the error: 
+&lt;code&gt;Error: ANDROID_HOME is not set and "android" command not in your PATH.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll need to add the path to &lt;code&gt;android&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt;. To find the right location, run &lt;code&gt;android&lt;/code&gt; and note the root folder of the SDK, then find the full path to the specific tool; for me, having installed through &lt;code&gt;brew&lt;/code&gt;, the path to add was &lt;code&gt;/usr/local/Cellar/android-sdk/r21.1/tools&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now we can build the project for Android:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic build android&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Optionally, if you want to use an Android emulator to test on various devices, we can set up an "AVD" - an Android Virtual Device. Full details are available &lt;a href="http://developer.android.com/tools/devices/managing-avds-cmdline.html"&gt;here&lt;/a&gt;, but the short version is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run &lt;code&gt;android list targets&lt;/code&gt; to get a list of possible images along with IDs&lt;/li&gt;
+&lt;li&gt;Choose an image and run &lt;code&gt;android create avd -n {name} -t {ID}&lt;/code&gt;, where {name} is for instance "myandroid" and {ID} is the target ID number.&lt;/li&gt;
+&lt;li&gt;Some platforms have multiple ABIs (like choosing an API, but at the machine code level), in which case you'll need to specify one using the &lt;code&gt;-b&lt;/code&gt; flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As an example, I used:
+&lt;code&gt;android create avd -n andefault1 -t 2 -b default/armeabi-v7a&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Finally, spin up the emulator:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic emulate android&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To get the app running on a physical Android device, plug the device into USB and run:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic run android&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If nothing happens, you might need to swipe the device's top menu down and select an option like "charge only" mode. You can use the Android debugger to list all available devices and check if the phone is being recognized:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;adb devices -l&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Roll your own Sass&lt;/h2&gt;
+&lt;p&gt;We've still got a default template! We can customize the styling of the app using &lt;a href="http://sass-lang.com/guide"&gt;Sass&lt;/a&gt;. To get set up, first run this intuitive command:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ionic setup sass&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;All of our Sass will be loaded in the file &lt;code&gt;./scss/ionic.app.scss&lt;/code&gt; - this will point to &lt;code&gt;www/lib/ionic/scss&lt;/code&gt; for &lt;em&gt;many&lt;/em&gt; separate SCSS files that can all be customized in style. Take a look at the color definitions at the top of &lt;code&gt;www/lib/ionic/scss/_variables.scss&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$light&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                           &lt;span class="mh"&gt;#fff&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$stable&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                          &lt;span class="mh"&gt;#f8f8f8&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$positive&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                        &lt;span class="mh"&gt;#4a87ee&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$calm&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                            &lt;span class="mh"&gt;#43cee6&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$balanced&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                        &lt;span class="mh"&gt;#66cc33&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$energized&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                       &lt;span class="mh"&gt;#f0b840&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$assertive&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                       &lt;span class="mh"&gt;#ef4e3a&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$royal&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                           &lt;span class="mh"&gt;#8a6de9&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="nv"&gt;$dark&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;                            &lt;span class="mh"&gt;#444&lt;/span&gt; &lt;span class="nv"&gt;!default&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For a quick and highly visible win, we can change around the hex codes in this file to modify the app's main color palette.&lt;/p&gt;
+&lt;p&gt;Running &lt;code&gt;ionic serve&lt;/code&gt; will use &lt;a href="http://gulpjs.com/"&gt;gulp&lt;/a&gt; to check for and automatically recompile any Sass changes.&lt;/p&gt;
+&lt;h2&gt;Set up CoffeeScript&lt;/h2&gt;
+&lt;p&gt;At TrackMaven, we write a lot of &lt;a href="http://coffeescript.org/"&gt;CoffeeScript&lt;/a&gt; instead of raw JavaScript; this tends to save a lot of time/eyesore/etc if you know what you're doing, especially coming from a Python background. So, let's set up this Ionic project to compile &lt;code&gt;coffee&lt;/code&gt; files into JS!&lt;/p&gt;
+&lt;p&gt;First, some minor updates to the main page, &lt;code&gt;index.html&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;link&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;css/ionic.app.css&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;lib/ionic/js/ionic.bundle.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cordova.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;js/app.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+
+  &lt;span class="nt"&gt;&amp;lt;body&lt;/span&gt; &lt;span class="na"&gt;ng-app=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;app&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;ion-nav-view&amp;gt;&amp;lt;/ion-nav-view&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we just renamed &lt;code&gt;ng-app&lt;/code&gt; from "starter" and point to a (future) compiled &lt;code&gt;app.js&lt;/code&gt; file rather than individual JS files.&lt;/p&gt;
+&lt;p&gt;Now, move the current &lt;code&gt;app.js&lt;/code&gt; and &lt;code&gt;controllers.js&lt;/code&gt; files to a new folder &lt;code&gt;/www/coffee&lt;/code&gt; and rename then to have &lt;code&gt;.coffee&lt;/code&gt; extensions. We could leave them as-is, since JavaScript is valid CoffeeScript, but let's convert them to actual CoffeeScript so that we can more easily make modifications later.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;app.coffee&lt;/code&gt; ends up looking something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;angular&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;module&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;ionic&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;app.controllers&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;($ionicPlatform) -&amp;gt;&lt;/span&gt;
+  &lt;span class="nx"&gt;$ionicPlatform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ready&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class="c1"&gt;# Hide the accessory bar by default (remove this to show the accessory bar above the keyboard&lt;/span&gt;
+    &lt;span class="c1"&gt;# for form inputs)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;cordova&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;cordova&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keyboard&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="nx"&gt;cordova&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keyboard&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hideKeyboardAccessoryBar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;StatusBar&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="c1"&gt;# org.apache.cordova.statusbar required&lt;/span&gt;
+      &lt;span class="nx"&gt;StatusBar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;styleDefault&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;config&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;($stateProvider, $urlRouterProvider) -&amp;gt;&lt;/span&gt;
+  &lt;span class="nx"&gt;$stateProvider&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;url: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/app&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;abstract: &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;templateUrl: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;templates/menu.html&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;controller: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;AppCtrl&amp;#39;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app.search&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;url: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/search&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;views: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;#39;menuContent&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;templateUrl: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;templates/search.html&amp;quot;&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app.browse&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;url: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/browse&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;views: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;#39;menuContent&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;templateUrl: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;templates/browse.html&amp;quot;&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app.playlists&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;url: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/playlists&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;views: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;#39;menuContent&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;templateUrl: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;templates/playlists.html&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nv"&gt;controller: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;PlaylistsCtrl&amp;#39;&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app.single&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;url: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/playlists/:playlistId&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nv"&gt;views: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;#39;menuContent&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;templateUrl: &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;templates/playlist.html&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nv"&gt;controller: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;PlaylistCtrl&amp;#39;&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;})&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# if none of the above states are matched, use this as the fallback&lt;/span&gt;
+  &lt;span class="nx"&gt;$urlRouterProvider&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;otherwise&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/app/playlists&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;While our &lt;code&gt;controllers.coffee&lt;/code&gt; file is as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;angular&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;module&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;app.controllers&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[])&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;controller&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;AppCtrl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;($scope, $ionicModal, $timeout) -&amp;gt;&lt;/span&gt;
+  &lt;span class="c1"&gt;# Form data for the login modal&lt;/span&gt;
+  &lt;span class="nv"&gt;$scope.loginData = &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Create the login modal that we will use later&lt;/span&gt;
+  &lt;span class="nx"&gt;$ionicModal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;fromTemplateUrl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;templates/login.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;scope: &lt;/span&gt;&lt;span class="nx"&gt;$scope&lt;/span&gt;
+  &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;(modal) -&amp;gt;&lt;/span&gt;
+    &lt;span class="nv"&gt;$scope.modal = &lt;/span&gt;&lt;span class="nx"&gt;modal&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Triggered in the login modal to close it&lt;/span&gt;
+  &lt;span class="nv"&gt;$scope.closeLogin = &lt;/span&gt;&lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class="nx"&gt;$scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;modal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hide&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Open the login modal&lt;/span&gt;
+  &lt;span class="nv"&gt;$scope.login = &lt;/span&gt;&lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class="nx"&gt;$scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;modal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Perform the login action when the user submits the login form&lt;/span&gt;
+  &lt;span class="nv"&gt;$scope.doLogin = &lt;/span&gt;&lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Doing login&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;$scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loginData&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nx"&gt;$scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;closeLogin&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;controller&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;PlaylistsCtrl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;($scope) -&amp;gt;&lt;/span&gt;
+    &lt;span class="nv"&gt;$scope.playlists = &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;title: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Reggae&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;id: &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;title: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Chill&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;id: &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;title: &lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Dubstep&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;id: &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;controller&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;PlaylistCtrl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;($scope, $stateParams) -&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to set up CoffeeScript auto-compilation to get our &lt;code&gt;.coffee&lt;/code&gt; files loaded into &lt;code&gt;app.js&lt;/code&gt; whenever a change is made. In &lt;code&gt;/gulpfile.js&lt;/code&gt;, add the following:&lt;/p&gt;
+&lt;p&gt;At the top with the other global variable declarations:
+&lt;code&gt;var coffee = require('gulp-coffee');&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Add a folder to the compilation paths:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;var paths = {
+  sass: [&amp;#39;./scss/**/*.scss&amp;#39;],
+  coffee: [&amp;#39;./www/**/*.coffee&amp;#39;]
+};
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Add &lt;code&gt;coffee&lt;/code&gt; to the &lt;code&gt;watch&lt;/code&gt; task:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;watch&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sass&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sass&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;coffee&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;coffee&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then add the full &lt;code&gt;coffee&lt;/code&gt; task:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;coffee&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;coffee&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;coffee&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;bare&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;error&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;gutil&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;concat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;app.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./www/js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;end&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally, you'll need to add &lt;code&gt;gulp-coffee&lt;/code&gt;:
+&lt;code&gt;npm install gulp-coffee --save&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then make sure that &lt;code&gt;gulp-coffee&lt;/code&gt; has been added to &lt;code&gt;package.json&lt;/code&gt; as a dependency. Now run &lt;code&gt;ionic serve&lt;/code&gt; and make changes to the &lt;code&gt;.coffee&lt;/code&gt; files to automatically recompile &lt;code&gt;app.js&lt;/code&gt; and reload the app!&lt;/p&gt;
+&lt;h2&gt;Add custom icons and splash screen&lt;/h2&gt;
+&lt;p&gt;This step used to be a hassle to manage, but Ionic has &lt;a href="http://ionicframework.com/blog/automating-icons-and-splash-screens/"&gt;recently automated&lt;/a&gt; nearly the entire process:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add a root &lt;code&gt;resources&lt;/code&gt; directory to the project&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;resources&lt;/code&gt;, add a 192x192px or larger &lt;code&gt;icon.png&lt;/code&gt; file (or &lt;code&gt;.psd&lt;/code&gt;, &lt;code&gt;.ai&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;resources&lt;/code&gt;, add a 2208x2208px or larger &lt;code&gt;splash.png&lt;/code&gt; file (or &lt;code&gt;.psd&lt;/code&gt;, &lt;code&gt;.ai&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;ionic resources&lt;/code&gt; to automatically generate all the appropriate files&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;--icon&lt;/code&gt; or &lt;code&gt;--splash&lt;/code&gt; options to update only one set of resource&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This &lt;a href="http://ionicframework.com/blog/automating-icons-and-splash-screens/"&gt;post&lt;/a&gt; from Ionic has more details around the particular design aspects, but that's about it!&lt;/p&gt;
+&lt;h3&gt;Some possible next steps...&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Set up an actual login page with authentication with &lt;a href="http://jamesbrewer.io/2014/09/22/json-web-token-authentication-part-one/"&gt;JSON Web Tokens&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Use Angular &lt;a href="https://docs.angularjs.org/api/ng/service/$http"&gt;$http&lt;/a&gt; requests to load in some external data&lt;/li&gt;
+&lt;li&gt;Add in &lt;a href="http://ionicframework.com/docs/api/directive/ionInfiniteScroll/"&gt;infinite scroll&lt;/a&gt; to query endless paginated data (what else are smartphones for?)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ionicframework.com/docs/guide/publishing.html"&gt;Publish your app&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;????&lt;/li&gt;
+&lt;li&gt;Profit!&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="mobile"></category><category term="ionic"></category><category term=""></category></entry><entry><title>Monthly Challenge: Visualization</title><link href="http://engineroom.trackmaven.com/blog/using-cartodb-and-threejs-for-mapping/" rel="alternate"></link><updated>2015-01-08T00:00:00+01:00</updated><author><name>Fletcher Heisler</name></author><id>tag:engineroom.trackmaven.com,2015-01-08:blog/using-cartodb-and-threejs-for-mapping/</id><summary type="html">&lt;h2&gt;Using CartoDB and Three.js for mapping&lt;/h2&gt;
 &lt;p&gt;Our next monthly challenge is &lt;strong&gt;visualization&lt;/strong&gt;! Although you could visualize data on just about anything in just about any way, for this post we're going to focus on &lt;strong&gt;mapping&lt;/strong&gt; data geographically using two different tools:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;CartoDB: a great drag-and-drop solution for super quick and simple map creation - also a paid product that limits its free plan to 50MB of data!&lt;/li&gt;
