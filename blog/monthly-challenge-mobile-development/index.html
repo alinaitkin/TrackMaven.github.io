@@ -62,7 +62,7 @@ Monthly Challenge: Mobile Development - The Engine Room - TrackMaven
 - Convert the sample JS to CoffeeScript with automatic gulp compilation
 - Add custom icons and a splash screen</p>
 <p>Let's get to it!</p>
-<h3>Dependencies</h3>
+<h2>Dependencies</h2>
 <p>First off, you'll need to have <a href="http://nodejs.org/">Node.js</a> installed, then install the <code>ionic</code> NPM package:</p>
 <p><code>sudo npm install -g cordova ionic</code></p>
 <p>You can now create a new Ionic project using one of three templates:</p>
@@ -79,7 +79,7 @@ ionic serve</p>
 <p>One important note: when testing your app locally, because of <a href="http://enable-cors.org/">CORS</a> rules, you won't be able to access any external data. For instance, calling an API or even loading in a picture from the web will be blocked by default on most browsers.</p>
 </blockquote>
 <p>There are a few ways around this; for instance, you <em>could</em> use JSONP instead of <code>$http</code> calls, mess with request headers, load up a separate brower without CORS protection... <strong>or</strong> my preferred method: just use a <a href="https://chrome.google.com/webstore/detail/cors-toggle/omcncfnpmcabckcddookmnajignpffnh?hl=en">Chrome plugin</a> to toggle CORS on and off. This isn't the most secure, idea, so make sure you're only purposefully allowing cross domain requests while testing your app, not browsing the web.</p>
-<h3>Run it on iOS</h3>
+<h2>Run it on iOS</h2>
 <p>Before diving into the code, let's make sure we can get the app on all our devices. For loading the project onto an iOS device, the first steps is to <a href="https://developer.apple.com/xcode/downloads/">have XCode</a>. Next you'll need to add iOS as a platform for the Ionic project and build the project for iOS:</p>
 <div class="highlight"><pre>ionic platform add ios
 ionic build ios
@@ -96,7 +96,7 @@ ionic emulate ios
 <p>With the Ionic View app, you can first sign up for an account with Ionic <a href="https://apps.ionic.io/signup">here</a>, then <a href="https://itunes.apple.com/us/app/ionic-view/id849930087">download the free app</a> from the iTunes store onto your device of choice. Finally, just run:</p>
 <p><code>ionic upload</code></p>
 <p>You'll need to authenticate your Ionic account, then the project will be uploaded <a href="http://apps.ionic.io/projects">here</a> and available for viewing/testing from within Ionic View on the iOS device!</p>
-<h3>Run it on Android</h3>
+<h2>Run it on Android</h2>
 <p>First, let's get dependencies set up. We'll need:</p>
 <ul>
 <li><a href="http://ant.apache.org/bindownload.cgi">ant</a>; run <code>ant -version</code> to check if you have it already</li>

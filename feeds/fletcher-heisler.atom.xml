@@ -13,7 +13,7 @@
 - Convert the sample JS to CoffeeScript with automatic gulp compilation
 - Add custom icons and a splash screen&lt;/p&gt;
 &lt;p&gt;Let's get to it!&lt;/p&gt;
-&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;h2&gt;Dependencies&lt;/h2&gt;
 &lt;p&gt;First off, you'll need to have &lt;a href="http://nodejs.org/"&gt;Node.js&lt;/a&gt; installed, then install the &lt;code&gt;ionic&lt;/code&gt; NPM package:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;sudo npm install -g cordova ionic&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;You can now create a new Ionic project using one of three templates:&lt;/p&gt;
@@ -30,7 +30,7 @@ ionic serve&lt;/p&gt;
 &lt;p&gt;One important note: when testing your app locally, because of &lt;a href="http://enable-cors.org/"&gt;CORS&lt;/a&gt; rules, you won't be able to access any external data. For instance, calling an API or even loading in a picture from the web will be blocked by default on most browsers.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;There are a few ways around this; for instance, you &lt;em&gt;could&lt;/em&gt; use JSONP instead of &lt;code&gt;$http&lt;/code&gt; calls, mess with request headers, load up a separate brower without CORS protection... &lt;strong&gt;or&lt;/strong&gt; my preferred method: just use a &lt;a href="https://chrome.google.com/webstore/detail/cors-toggle/omcncfnpmcabckcddookmnajignpffnh?hl=en"&gt;Chrome plugin&lt;/a&gt; to toggle CORS on and off. This isn't the most secure, idea, so make sure you're only purposefully allowing cross domain requests while testing your app, not browsing the web.&lt;/p&gt;
-&lt;h3&gt;Run it on iOS&lt;/h3&gt;
+&lt;h2&gt;Run it on iOS&lt;/h2&gt;
 &lt;p&gt;Before diving into the code, let's make sure we can get the app on all our devices. For loading the project onto an iOS device, the first steps is to &lt;a href="https://developer.apple.com/xcode/downloads/"&gt;have XCode&lt;/a&gt;. Next you'll need to add iOS as a platform for the Ionic project and build the project for iOS:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;ionic platform add ios
 ionic build ios
@@ -47,7 +47,7 @@ ionic emulate ios
 &lt;p&gt;With the Ionic View app, you can first sign up for an account with Ionic &lt;a href="https://apps.ionic.io/signup"&gt;here&lt;/a&gt;, then &lt;a href="https://itunes.apple.com/us/app/ionic-view/id849930087"&gt;download the free app&lt;/a&gt; from the iTunes store onto your device of choice. Finally, just run:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ionic upload&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;You'll need to authenticate your Ionic account, then the project will be uploaded &lt;a href="http://apps.ionic.io/projects"&gt;here&lt;/a&gt; and available for viewing/testing from within Ionic View on the iOS device!&lt;/p&gt;
-&lt;h3&gt;Run it on Android&lt;/h3&gt;
+&lt;h2&gt;Run it on Android&lt;/h2&gt;
 &lt;p&gt;First, let's get dependencies set up. We'll need:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://ant.apache.org/bindownload.cgi"&gt;ant&lt;/a&gt;; run &lt;code&gt;ant -version&lt;/code&gt; to check if you have it already&lt;/li&gt;
