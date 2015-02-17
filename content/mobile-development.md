@@ -23,7 +23,7 @@ For this Ionic example, we're going to cover the following:
 
 Let's get to it!
 
-### Dependencies
+## Dependencies
 
 First off, you'll need to have [Node.js](http://nodejs.org/) installed, then install the `ionic` NPM package:
 
@@ -46,7 +46,7 @@ After changing into the `myprojectname` directory (or whatever you want to name 
 There are a few ways around this; for instance, you *could* use JSONP instead of `$http` calls, mess with request headers, load up a separate brower without CORS protection... **or** my preferred method: just use a [Chrome plugin](https://chrome.google.com/webstore/detail/cors-toggle/omcncfnpmcabckcddookmnajignpffnh?hl=en) to toggle CORS on and off. This isn't the most secure, idea, so make sure you're only purposefully allowing cross domain requests while testing your app, not browsing the web.
 
 
-### Run it on iOS
+## Run it on iOS
 
 Before diving into the code, let's make sure we can get the app on all our devices. For loading the project onto an iOS device, the first steps is to [have XCode](https://developer.apple.com/xcode/downloads/). Next you'll need to add iOS as a platform for the Ionic project and build the project for iOS:
 
@@ -71,7 +71,7 @@ With the Ionic View app, you can first sign up for an account with Ionic [here](
 You'll need to authenticate your Ionic account, then the project will be uploaded [here](http://apps.ionic.io/projects) and available for viewing/testing from within Ionic View on the iOS device!
 
 
-### Run it on Android
+## Run it on Android
 
 First, let's get dependencies set up. We'll need:
 
