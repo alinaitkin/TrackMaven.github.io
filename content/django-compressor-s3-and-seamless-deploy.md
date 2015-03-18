@@ -1,5 +1,5 @@
 Title: Django Compressor and s3
-Date: 2014-12-10
+Date: 2015-03-17
 Category: Development
 Tags: Django, Django Compressor, s3, static files
 Author: Josh Finnie
@@ -13,7 +13,7 @@ There were a lot of problems with this process. As our infrastructure grew, we s
 
 This first thing we needed to do is move the `collectstatic` command to our "manager" box. This made it so that the `collectstatic` command only ran once, but it did not solve the issue about versioning our static media. To do the versioning for us, we reintroduced [Django-Compressor](http://django-compressor.readthedocs.org/en/latest/) to our deployment strategy. Django Compressor "compresses linked and inline JavaScript or CSS into a single cached file," and this single cached file is versioned! Perfect... almost.
 
-## Setting Up Django Compressor
+### Setting Up Django Compressor & Django Storages
 
 Setting up Django Compressor with s3 should not be difficult, but we found the documentation a bit lacking in the actual steps of how to set it up. Through some trial and error, we came up with the following setup that seems to work:
 
@@ -61,11 +61,15 @@ We need to also tell our templates to use this newly-created, compressed static 
 
 ```html
 <!-- "base.html" -->
- {% block base_js %}
-  {% compress js %}
-      <script ...="..."></script">
-  {% endcompress %}
+{% block javascripts %}
+    {% compress js %}
+        <script scr="/path/to/javascript.js"></script>
+    {% endcompress %}
 {% endblock %}
 ```
 
 Adding the `compress` template tag tells your django compressor what to compress, along with telling your template to have the compressed file name added there.
+
+## Conclusion
+
+After a few iterations of the above set up, we were able to get a consistently awesome result from using Django Compressor along side Django Storages. A bit lesson we learned was that we were accidentally shipping all our code to s3 before we were compressing it. This lead to some interesting version collisions where we were compressing new static media, but the web servers still wanted to use the old compressions. We found it was very important to make sure that you are using the `COMPRESS_OFFLINE=True` flag the second you have more than one web server.
