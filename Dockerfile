@@ -8,6 +8,9 @@ RUN apt-get -y install git
 # Install Ruby
 RUN apt-get install -y ruby
 
+# Updating NPM
+RUN npm update -g npm
+
 # Install Gulp
 RUN npm install -g gulp@3.8.11 > /dev/null 2>&1
 
