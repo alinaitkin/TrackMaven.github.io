@@ -4,17 +4,17 @@ The TrackMaven development blog powered by [Pelican](http://pelican.readthedocs.
 
 ## Development.
 
-Install node modules with...
+Build the builder docker container
 ```
-fig run builder npm install .
-```
-
-Then run
-```
-fig up
+docker-compose build builder
 ```
 
-Navigate to [localdocker:8080](http://localdocker:8080)
+Then run the builder docker container
+```
+docker-compose up
+```
+
+Navigate to [localhost:8080](http://localhost:8080)/[localdocker:8080](http://localdocker:8080)
 
 ## Setting up article
 
