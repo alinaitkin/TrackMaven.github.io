@@ -19,12 +19,12 @@ gulp.task "connect", ->
 
 # Styles for the site. Turns .scss files into a single main.css
 gulp.task "scss", ->
-    gulp.src("theme/styles/main.scss")
+    sass("theme/styles/main.scss", { style: 'expanded' })
         .pipe(plumber())
-        .pipe(sass())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifyCSS())
         .pipe(gulp.dest("theme/static/css"))
+        .pipe(connect.reload())
 
 # Rebuild the html.
 gulp.task "html", ->
@@ -41,4 +41,4 @@ gulp.task "watch", ->
     gulp.watch("theme/templates/**/*.html", ["html"])
     gulp.watch("content/**/*.md", ["html"])
 
-gulp.task("default", ["html", "watch", "connect"])
+gulp.task("default", ["html", "scss", "watch", "connect"])
