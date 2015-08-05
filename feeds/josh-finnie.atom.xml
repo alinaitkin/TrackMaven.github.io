@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/josh-finnie.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-02-10T00:00:00+01:00</updated><entry><title>2014: Year in Review</title><link href="http://engineroom.trackmaven.com/blog/2014-year-in-review/" rel="alternate"></link><updated>2015-02-10T00:00:00+01:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2015-02-10:blog/2014-year-in-review/</id><summary type="html">&lt;p&gt;Since this is the first year that TrackMaven has our Engine Room blog, this will be our first year in review. But I am hoping that this is a trend that will continue as we grow! We want to highlight a lot of what we did during 2014, and show our incredible growth as a department. You can head over to see our company-wide &lt;a href="http://trackmaven.com/2014/"&gt;2014 in review&lt;/a&gt; to get a better understanding how TrackMaven as a whole grew, but below you will find some interesting facts about the Engineering team.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/josh-finnie.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-06-22T00:00:00+02:00</updated><entry><title>Monthly Challenge: Functional Programming</title><link href="http://engineroom.trackmaven.com/blog/monthly-challenge-functional-programming/" rel="alternate"></link><updated>2015-06-22T00:00:00+02:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2015-06-22:blog/monthly-challenge-functional-programming/</id><summary type="html">&lt;p&gt;Our topic for this month's &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt; is Functional Programming! In this post, we'll get you started with one of the many languages out there dedicated to functional programming: &lt;a href="https://www.haskell.org/"&gt;Haskell&lt;/a&gt;! Here at TrackMaven, we write most of our code in Python and JavaScript, which are both capable of writing functional programming in their own right, but with the true spirit of our Monthly Challenges, I am going to write about a language that I am not super familiar with and see what we can do with it.&lt;/p&gt;
+&lt;h3&gt;What is Functional Programming&lt;/h3&gt;
+&lt;p&gt;But first, what is functional programming and why are we dedicating an entire Monthly Challenge to the topic? Functional Programming is the practices of writing code using solely functions avoiding both changing state and mutable data. &lt;sup&gt;[&lt;a href="https://en.wikipedia.org/wiki/Functional_programming"&gt;1&lt;/a&gt;]&lt;/sup&gt; Having side-effect free functions being the building blocks of your code can ease the difficulty found in some complicated problems. However, using the functional programming paradigm is quite different from the standard paradigm of Object Orientated programming and hopefully this blog post will give you a nice primer for it.&lt;/p&gt;
+&lt;p&gt;Within the world of functional programming, there are a few "heavy-hitters" to choose from. As I said above, in this blog post we are going to focus on Haskell, but there are many more; here is a list of a few I recommend you checking out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://fsharp.org/"&gt;F#&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://ocaml.org/"&gt;OCaml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.erlang.org/"&gt;Erlang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://clojure.org/"&gt;Clojure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.scala-lang.org/"&gt;Scala&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;First Functional Program&lt;/h3&gt;
+&lt;p&gt;Let's jump right in and get our feet wet with Haskell! The first thing we want to do in make sure Haskell is installed on our machine. To do this, simply go to &lt;a href="https://www.haskell.org/platform/"&gt;this website&lt;/a&gt; and download the Haskell Platform for your operating system. Once installed you should be able to run &lt;code&gt;ghci&lt;/code&gt; and get into the interactive Haskell compiler called "Glasgow Haskell Compiler."&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ghci
+GHCi, version 7.10.1: http://www.haskell.org/ghc/  :? &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nb"&gt;help&lt;/span&gt;
+Prelude&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once in the interactive compiler, we can start to use Haskell. Using the built-in function &lt;code&gt;putStrLn&lt;/code&gt;, we can print out "Hello World!" simply by running the following command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hello, world!&amp;quot;&lt;/span&gt;
+&lt;span class="kt"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;world&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We have written your first Haskel program. Sure it wasn't that impressive, but I hope it portrayed the functional programming paradigm. &lt;code&gt;putStrLn&lt;/code&gt; in a function that takes an argument of type "String". To see a function's &lt;a href="https://wiki.haskell.org/Type_signature"&gt;signature&lt;/a&gt;, just run the following command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt;  
+&lt;span class="nf"&gt;putStrLn&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The signature of the function shows its "name" (&lt;code&gt;putStrLn&lt;/code&gt;), its "argument(s) type" (&lt;code&gt;String&lt;/code&gt;) and its "output type" (&lt;code&gt;IO ()&lt;/code&gt;). Using this becomes helpful later on as you interact with and create custom functions. Next, let's get a little more in-depth (and away from "Hello World") and take a look at the factorial algorithm:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;fac&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;fac&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;fac&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="mi"&gt;3628800&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here you can see we have defined a simple function called &lt;code&gt;fac&lt;/code&gt; which will calculate the factorial of a given number. The awesome thing about this function is that we even recursively calls it to help with the calculation. Seeing the ease in which a factorial is calculated really starts to make you believe that the functional programming paradigm is something to look forward to.&lt;/p&gt;
+&lt;h3&gt;Functional Programming IRL&lt;/h3&gt;
+&lt;p&gt;Now that we have a few examples under our belt, let's take a look at where you might have seen the functional programming paradigm before. If you are familiar with the python web development ecosystem you are probably familiar with the argument between these two programming paradigms. &lt;/p&gt;
+&lt;p&gt;In &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;, there are two main ways to go about programming a &lt;code&gt;view&lt;/code&gt;, there are Class-Based &lt;code&gt;view&lt;/code&gt;s and there are functional &lt;code&gt;view&lt;/code&gt;s. Each of them has their benefits and drawbacks, but it does a great job at illustrating the differences between function programming and object oriented programming. When dealing with a individual viewpoint of a website, it is easy to thing of it as a singleton function:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;current_datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;now&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;html&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;It is now {}.&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the above example, you have a function that explicitly deals with a single response. Its job is to accept a request and respond with an HTML template with the current time. Class-Based views within the Django ecosystem came along as the complexity of web applications grew. As endpoints had to deal with different request methods, you started to see a lot of duplication in your code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;my_view&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;GET&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="c"&gt;# &amp;lt;view logic&amp;gt;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;result&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;POST&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="c"&gt;# &amp;lt;view logic&amp;gt;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;result&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And class-based inheritance, something you cannot get in pure functional programming, you were allowed to simplify your code through inheritance to something that looked like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.views.generic&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;View&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyView&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;View&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c"&gt;# &amp;lt;view logic&amp;gt;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;result&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c"&gt;# &amp;lt;view logic&amp;gt;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;result&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, your logic is cleaner, but you are left with the programmatic black-box that is &lt;code&gt;View&lt;/code&gt;. This is a class that was provided to you through the Django framework and is now starting to add a lot of weight to your application where a functional programming paradigm works just as well. And to this day, the debate on whether or not CBVs are the proper way to write views in Django carries on.&lt;/p&gt;
+&lt;h3&gt;More Haskell&lt;/h3&gt;
+&lt;p&gt;Now let's have a little more fun with Haskell. We are going to write a simple command-line game where we are going to try and guess the number the computer is thinking of. To do this, let's create a file named &lt;code&gt;guess-the-number.hs&lt;/code&gt; and copy in the following code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.Random&lt;/span&gt;  
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.Monad&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;when&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
+
+&lt;span class="nf"&gt;isValidNumber&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+
+&lt;span class="nf"&gt;testGuessedNumber&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+        &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;You&amp;#39;re correct!&amp;quot;&lt;/span&gt;
+        &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Sorry, the correct answer was &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;  
+    &lt;span class="n"&gt;gen&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;getStdGen&lt;/span&gt;  
+    &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;randNumber&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;randomR&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;gen&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;StdGen&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;     
+    &lt;span class="n"&gt;putStr&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Which number in the range from 1 to 10 am I thinking of? &amp;quot;&lt;/span&gt;  
+    &lt;span class="n"&gt;numberString&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;getLine&lt;/span&gt;  
+    &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt; &lt;span class="n"&gt;numberString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;  
+        &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="n"&gt;numberString&lt;/span&gt;  
+        &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;isValidNumber&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;
+            &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;testGuessedNumber&lt;/span&gt; &lt;span class="n"&gt;randNumber&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;
+            &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Please select a number between 1 and 10!&amp;quot;&lt;/span&gt;
+        &lt;span class="n"&gt;newStdGen&lt;/span&gt;  
+        &lt;span class="n"&gt;main&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can now run this program through our Haskell interpreter by running the following command &lt;code&gt;runhaskell guess_the_number.hs&lt;/code&gt;. Doing so, we should be prompted to guess a number:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of?
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We put in some basic validation, so give it a go and see what happens!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;runhaskell guess_the_number.hs
+Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of? 2
+You&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;re correct!
+Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of? 1
+Sorry, the correct answer was 6
+Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of? 11
+Please &lt;span class="k"&gt;select&lt;/span&gt; a number between &lt;span class="m"&gt;1&lt;/span&gt; and 10!
+Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of? -1
+Please &lt;span class="k"&gt;select&lt;/span&gt; a number between &lt;span class="m"&gt;1&lt;/span&gt; and 10!
+Which number in the range from &lt;span class="m"&gt;1&lt;/span&gt; to &lt;span class="m"&gt;10&lt;/span&gt; am I thinking of? a
+guess_the_number.hs: Prelude.read: no parse
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The validation does a pretty good job as long as we put in numbers, but we crashed the application when we inputed a letter. There are obvious improvements we could make to our validation, but I am going to leave that up to you.&lt;/p&gt;
+&lt;h3&gt;Even More Haskell&lt;/h3&gt;
+&lt;p&gt;I wanted to make the above program a little more "haskellonic" (like pythonic, but for Haskell...) So I took a lot of the functions we created above, gave them proper signatures and added a little recursion!&lt;/p&gt;
+&lt;p&gt;Below is the finished program:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.Random&lt;/span&gt;  
+
+&lt;span class="nf"&gt;randomNumber&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="c1"&gt;-- chosen by fair dice roll.&lt;/span&gt;
+                 &lt;span class="c1"&gt;-- guaranteed to be random.&lt;/span&gt;
+
+&lt;span class="nf"&gt;isValidNumber&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="nf"&gt;isValidNumber&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;True&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;otherwise&lt;/span&gt;       &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;False&lt;/span&gt;
+
+&lt;span class="nf"&gt;testGuessedNumber&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="nf"&gt;testGuessedNumber&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;    &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;True&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;otherwise&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;False&lt;/span&gt;
+
+&lt;span class="nf"&gt;getInt&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="nf"&gt;getInt&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;getLine&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;  
+    &lt;span class="n"&gt;putStr&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Which number in the range from 1 to 10 am I thinking of? &amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;getInt&lt;/span&gt; 
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;isValidNumber&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;
+        &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="n"&gt;randomNumber&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;
+        &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;please select a number between 1 and 10.&amp;quot;&lt;/span&gt;
+
+&lt;span class="nf"&gt;run&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt;&lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;run&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;outcome&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kt"&gt;True&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+        &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;You Win!&amp;quot;&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;outcome&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kt"&gt;False&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+        &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;You guessed incorrectly, please try again.&amp;quot;&lt;/span&gt;
+        &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;getInt&lt;/span&gt;
+        &lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;
+    &lt;span class="kr"&gt;where&lt;/span&gt; &lt;span class="n"&gt;outcome&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;testGuessedNumber&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As one can see, I had some issues with randomness in Haskell (among other things...), but above it at least a much more well-rounded example of Haskell code where you can start to see some of the benefits.&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;I have to say that I was impressed with the syntax and ease of (most parts of) Haskell, but I have to admit I am not jumping ship anytime soon. This could be because I didn't give it the true time it deserved, or it could be because I am so spoiled with Python. What are your thoughts about Functional Programming? &lt;/p&gt;
+&lt;p&gt;Please &lt;a href="mailto:engineroom@trackmaven.com"&gt;let us know&lt;/a&gt; if you have tried out anything interesting using functional programming - bonus points if you include an open-source repo. You can see what we did for the TrackMaven Monthly Challenge here: &lt;a href="http://challenge.hackpad.com"&gt;challenge.hackpad.com&lt;/a&gt;&lt;/p&gt;</summary><category term="programming"></category></entry><entry><title>2014: Year in Review</title><link href="http://engineroom.trackmaven.com/blog/2014-year-in-review/" rel="alternate"></link><updated>2015-02-10T00:00:00+01:00</updated><author><name>Josh Finnie</name></author><id>tag:engineroom.trackmaven.com,2015-02-10:blog/2014-year-in-review/</id><summary type="html">&lt;p&gt;Since this is the first year that TrackMaven has our Engine Room blog, this will be our first year in review. But I am hoping that this is a trend that will continue as we grow! We want to highlight a lot of what we did during 2014, and show our incredible growth as a department. You can head over to see our company-wide &lt;a href="http://trackmaven.com/2014/"&gt;2014 in review&lt;/a&gt; to get a better understanding how TrackMaven as a whole grew, but below you will find some interesting facts about the Engineering team.&lt;/p&gt;
 &lt;h3&gt;So here are the numbers:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;+4 Engineers. We started 2014 with four engineers and have doubled in size! There were definitely some growing pains, but check out Farhan's &lt;a href="/blog/onboarding-at-trackmaven/"&gt;onboarding post&lt;/a&gt; to see how far we've come!&lt;/li&gt;
