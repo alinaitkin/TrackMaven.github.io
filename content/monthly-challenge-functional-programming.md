@@ -1,5 +1,5 @@
 Title: Monthly Challenge: Functional Programming
-Date: 2015-06-22
+Date: 2015-08-05
 Category: Monthly Challenge
 Tags: programming
 Slug: monthly-challenge-functional-programming
