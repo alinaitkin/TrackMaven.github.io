@@ -7,7 +7,9 @@
   <div class="blog-post-content">
     {{ article.content }}
 
-    {% if article.tags %}<p class="blog-post-meta footer-meta">Tags: {% for tag in article.tags %}<a href="/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+    {% if article.tags %}<p class="blog-post-meta footer-meta"><strong>Tags:</strong> {% for tag in article.tags %}<a href="/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+
+    <div class="addthis_sharing_toolbox"></div>
   </div>
   <div class="well">
     <div class="row">
