@@ -38,12 +38,6 @@ gulp.task "html", ->
 # Optimises the images for web.
 gulp.task "img-opt", ->
     gulp.src("images/**/*")
-        .pipe(imageResize({
-            width : 100,
-            height : 100,
-            crop : true,
-            upscale : false
-        }))
         .pipe(imagemin({
             progressive: true
         }))
