@@ -50,7 +50,7 @@ gulp.task "img-opt", ->
         .pipe(gulp.dest("output/images/"))
 
 # Optimises the images for web.
-gulp.task "img-opt-headshots", ->
+gulp.task "headshots", ->
     gulp.src("headshots/*")
         .pipe(imageResize({
             width : 200,
