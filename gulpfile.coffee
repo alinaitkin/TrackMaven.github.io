@@ -29,8 +29,8 @@ gulp.task "scss", ->
 
 # Rebuild the html.
 gulp.task "html", ->
-    gulp.src("")
-        .pipe(run("rm -fr output"))
+    gulp.src("output")
+        .pipe(run("rm -rf output/*"))
         .pipe(run("make html"))
         .pipe(connect.reload())
 
