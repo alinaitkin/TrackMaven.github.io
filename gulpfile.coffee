@@ -28,7 +28,7 @@ gulp.task "scss", ->
 
 # Rebuild the html.
 gulp.task "html", ->
-    gulp.src("output/index.html")
+    gulp.src("")
         .pipe(run("rm -fr output"))
         .pipe(run("make html"))
         .pipe(run("cp -r images/ output/images/"))
