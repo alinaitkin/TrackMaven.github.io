@@ -8,6 +8,9 @@ RUN apt-get -y install git
 # Install Ruby
 RUN apt-get install -y ruby
 
+# Install ImageMagick
+RUN apt-get install -y imagemagick graphicsmagick
+
 # Updating NPM
 RUN npm update -g npm
 

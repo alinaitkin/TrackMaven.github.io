@@ -4,6 +4,7 @@ gutil = require "gulp-util"
 autoprefixer = require "gulp-autoprefixer"
 connect = require "gulp-connect"
 imagemin = require "gulp-imagemin"
+imageResize = require "gulp-image-resize"
 minifyCSS = require "gulp-minify-css"
 plumber = require "gulp-plumber"
 pngquant = require "imagemin-pngquant"
@@ -37,10 +38,30 @@ gulp.task "html", ->
 # Optimises the images for web.
 gulp.task "img-opt", ->
     gulp.src("images/**/*")
+        .pipe(imageResize({
+            width : 100,
+            height : 100,
+            crop : true,
+            upscale : false
+        }))
         .pipe(imagemin({
             progressive: true
         }))
         .pipe(gulp.dest("output/images/"))
+
+# Optimises the images for web.
+gulp.task "img-opt-headshots", ->
+    gulp.src("headshots/*")
+        .pipe(imageResize({
+            width : 200,
+            height : 200,
+            crop : true,
+            upscale : false
+        }))
+        .pipe(imagemin({
+            progressive: true
+        }))
+        .pipe(gulp.dest("output/images/headshots/"))
 
 # Watch for any changes and run the required tasks.
 gulp.task "watch", ->
