@@ -115,7 +115,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
 
     @mock.patch('multiply')
-    def test_add_and_multiply(mock_multiply):
+    def test_add_and_multiply(self, mock_multiply):
 
         x = 3
         y = 5
@@ -142,7 +142,7 @@ The syntax used above may look confusing at first. Let's consider the relevant l
 
 ```python
 @mock.patch('multiply')
-def test_add_and_multiply(mock_multiply):
+def test_add_and_multiply(self, mock_multiply):
 ```
 
 We've used the `mock.patch` decorator to **replace** `multiply` with a mock object. We then insert this into our test by passing it as an argument, which we've called `mock_multiply`. Within the context of the test, any call to `multiply` will be redirected to our `mock_multiply` object.
