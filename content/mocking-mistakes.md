@@ -6,7 +6,7 @@ Slug: mocking-mistakes
 Author: Jon Evans
 Avatar: jonathan-evans
 
-I've discussed the value of using Python's `mock` library for testing in a couple of [previous](http://engineroom.trackmaven.com/blog/making-a-mockery-of-python/) [articles](http://engineroom.trackmaven.com/blog/real-life-mocking/). Recently, however, a [kind commenter](http://engineroom.trackmaven.com/blog/real-life-mocking/#comment-2310097361) brought to my attention an insidious error in my example code. Having looked into this sneaky mistake, I wanted to briefly discuss it - hopefully I can prevent other developers encountering similar pitfalls!
+I've discussed the value of using Python's `mock` library for testing in a couple of previous articles [Making a Mockery of Python](http://engineroom.trackmaven.com/blog/making-a-mockery-of-python/) and [Real Life Mocking](http://engineroom.trackmaven.com/blog/real-life-mocking/). Recently, however, a [kind commenter](http://engineroom.trackmaven.com/blog/real-life-mocking/#comment-2310097361) brought to my attention an insidious error in my example code. Having looked into this sneaky mistake, I wanted to briefly discuss it - hopefully I can prevent other developers encountering similar pitfalls!
 
 ## Mock mocks everything
 
@@ -43,7 +43,7 @@ An alternative is to use the [`autospec` property](https://docs.python.org/3/lib
 
 > Auto-speccing creates mock objects that have the same attributes and methods as the objects they are replacing, and any functions and methods (including constructors) have the same call signature as the real object. This ensures that your mocks will fail in the same way as your production code if they are used incorrectly.
 
-When we use the `autospec=True` argument in our `@mock.patch` decorator, our mock object will only exhibit the methods that actually exist on the original object we are replacing.
+When we use the `autospec=True` argument in our `@mock.patch` decorator, our mock object will only exhibit the methods that actually exist on the original object we are replacing. Actual methods and properties specific to mock objects, like `assert_called_once_with` and `call_count`, are still accessible as well. However, methods that don't exist natively on the `mock.Mock` object *or* on the object being replaced will throw errors if they are called. Let's look at an example in a test:
 
 ```python
 class ClientTestCase(unittest.TestCase)
@@ -55,7 +55,7 @@ class ClientTestCase(unittest.TestCase)
         mock_create_headers.assert_called_once()
 ```
 
-This means that `assert_called_once` and `assert_not_called` are exposed as the deceptive fake methods that they were all along:
+This means that `assert_called_once` and `assert_not_called` are exposed as the deceptive fake methods that they were all along. The test above will fail as follows:
 
 ```
 $ python tests.py
