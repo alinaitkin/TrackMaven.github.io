@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block page_title %}Home{% endblock %}
+{% block masthead %}
+<header class="masthead">
+  <div class="container">
+    <a href="http://trackmaven.com">&larr; Check out TrackMaven.com</a>
+  </div>
+</header>
+{% endblock %}
 {% block content %}
 {% if articles %}
 {% for article in (articles_page.object_list if articles_page else articles) %}
