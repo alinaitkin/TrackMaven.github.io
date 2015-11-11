@@ -1,5 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Engine Room - TrackMaven</title><link>http://engineroom.trackmaven.com/</link><description></description><atom:link href="http://engineroom.trackmaven.com/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0200</lastBuildDate><item><title>Monthly Challenge: Functional Programming</title><link>http://engineroom.trackmaven.com/blog/monthly-challenge-functional-programming/</link><description>&lt;p&gt;Our topic for this month's &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt; is Functional Programming! In this post, we'll get you started with one of the many languages out there dedicated to functional programming: &lt;a href="https://www.haskell.org/"&gt;Haskell&lt;/a&gt;! Here at TrackMaven, we write most of our code in Python and JavaScript, which are both capable of writing functional programming in their own right, but with the true spirit of our Monthly Challenges, I am going to write about a language that I am not super familiar with and see what we can do with it.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Engine Room - TrackMaven</title><link>http://engineroom.trackmaven.com/</link><description></description><atom:link href="http://engineroom.trackmaven.com/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 10 Nov 2015 00:00:00 +0100</lastBuildDate><item><title>Getting Started with Django REST Framework (DRF) and AngularJS (Part 1)</title><link>http://engineroom.trackmaven.com/blog/getting-started-drf-angularjs-part-1/</link><description>&lt;p&gt;This is the first section in a series about getting started with &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;, &lt;a href="http://www.django-rest-framework.org/"&gt;Django REST Framework (DRF)&lt;/a&gt; and &lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;.  The goal of this series to to create an extensive, RESTful web application that uses Django and Django REST Framework as the server application and AngularJS for the client application.  We will not be using Django templates here; our front- and back-end applications will be separate entities.&lt;/p&gt;
+&lt;p&gt;For this project, we will be using Django &lt;code&gt;1.8.5&lt;/code&gt; and Django REST Framework &lt;code&gt;3.3.0&lt;/code&gt;.  Further, this guide assumes you have installed standard python development tools and &lt;a href="https://virtualenvwrapper.readthedocs.org/en/latest/"&gt;virtualenvwrapper&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Goals of this Section&lt;/h2&gt;
+&lt;p&gt;This section focuses on Django, covering the following topics:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#introduction"&gt;Brief introduction to Django, Django REST Framework, and AngularJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#project-creation"&gt;Initial project setup and creation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#folder-structure"&gt;Folder structure modification to support both front- and back-end development&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="introduction"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;A Brief Introduction: Django, DRF and AngularJS&lt;/h2&gt;
+&lt;p&gt;RESTful APIs have become increasingly popular among modern web applications since they provide a standard means to interact with resources across applications.  Conforming to RESTful constraints can create web applications that are both high-performing and maintainable.  The Django and DRF frameworks provide developers with fast and secure ways to create RESTful web applications packed full of useful features, such as an extensive ORM, serialization, custom authentication and permissions classes, and browsable APIs among others.&lt;/p&gt;
+&lt;p&gt;Think of Django as the database manager for your server.  The Django ORM provides powerful ways to locally setup and manage database tables and the data within them.  DRF is the external window into your database.  DRF provides the means to create powerful APIs to access application data while allowing developers to customize permissions, authentication, filtering, and more.  AngularJS if a front-end framework that provides two-way data binding between HTML and Javascript to dynamically display data.&lt;/p&gt;
+&lt;p&gt;At TrackMaven, we use Django and DRF as the main backend frameworks for our web application development and AngularJS for front-end development.  Through these, we find that web application development is both straight-forward and extensible enough to fit into our growing demands while maintaining RESTful principles.&lt;/p&gt;
+&lt;p&gt;&lt;a name="project-creation"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Setting up a New Project&lt;/h2&gt;
+&lt;h3&gt;Creating an Initial Project&lt;/h3&gt;
+&lt;p&gt;Getting started with Django and DRF is quite easy.  Django provides a startup script that builds a starter project with default configurations, an initial &lt;code&gt;/admin/&lt;/code&gt; API endpoint, and a management command file for running the application.&lt;/p&gt;
+&lt;p&gt;To start, let's create a virtual environment for our sample project and download our required packages.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkvirtualenv drf-sample
+&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="nv"&gt;django&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;1.8.5
+&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="nv"&gt;djangorestframework&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;3.3.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Within the virtual environment, we can run the Django start-up script to create a new project named &lt;code&gt;drf_sample&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;django-admin startproject drf_sample
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We now have a new project folder named &lt;code&gt;drf_sample&lt;/code&gt; with the following structure:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;drf_sample/
+├── drf_sample
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Cool, but what do these files actually do?&lt;/p&gt;
+&lt;dl&gt;
+  &lt;dt&gt;settings.py&lt;/dt&gt;
+  &lt;dd style="padding: 0 0 10px 25px;"&gt;Contains Django/DRF settings and specifies where various project modules are located.  Additional information on the file can be found in the &lt;a href="https://docs.djangoproject.com/en/1.8/topics/settings/"&gt;Django Settings documentation&lt;/a&gt;&lt;/dd&gt;
+  &lt;dt&gt;urls.py&lt;/dt&gt;
+  &lt;dd style="padding: 0 0 10px 25px;"&gt;The URL dispatcher for the project API.  Pre-loaded with an &lt;em&gt;/admin/&lt;/em&gt; endpoint for project administration.&lt;/dd&gt;
+  &lt;dt&gt;wsgi.py&lt;/dt&gt;
+  &lt;dd style="padding: 0 0 10px 25px;"&gt;Uses &lt;a href="http://wsgi.readthedocs.org/en/latest/"&gt;WSGI&lt;/a&gt; to define the runnable application server.&lt;/dd&gt;
+  &lt;dt&gt;manage.py&lt;/dt&gt;
+  &lt;dd style="padding: 0 0 10px 25px;"&gt;Provides command-line options for administrators to setup/run the application server and sync the database with our Django model definitions.  More information on this file can be found in the &lt;a href="https://docs.djangoproject.com/en/1.8/ref/django-admin/"&gt;Django Admin documentation&lt;/a&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;&lt;a name="folder-structure"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Fitting the Directory Structure to our Needs&lt;/h2&gt;
+&lt;p&gt;The default Django project folder structure is quite minimal and doesn't give us an easy way to organize server code vs client code within the same project.  Remember, our goal is to create a web application that supports both server and client as two separate applications within the same project, so a differentiation between server and client code is preferred.&lt;/p&gt;
+&lt;p&gt;Why use separate applications?  Simple answer: cleaniless, decoupling and consistency.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Keeping the server and client code separate makes for a cleaner development environment.&lt;/li&gt;
+&lt;li&gt;Other than the API contract ensured by the server, the code for the front- and back-end contains little-to-no dependencies between each other.  If the server goes down, the client can still function and report an outtage if necessary.&lt;/li&gt;
+&lt;li&gt;Our server application provides a specific contract as to how data within the server can be accessed.  The client will use that contract to access the data it needs to display on the front-end.  All other applications accessing server data will use the same contract.  Server data access remains consistent irregardless of the application accessing the data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Update the Directory Structure&lt;/h4&gt;
+&lt;p&gt;Let's modify the default project folder structure to support our separate applications.  The modified folder structure should look like the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;drf_sample/
+├── client
+└── server
+    ├── config
+    │   ├── __init__.py
+    │   ├── settings.py
+    │   └── wsgi.py
+    ├── __init__.py
+    ├── manage.py
+    └── urls.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;Note: At this point, our &lt;code&gt;__init__.py&lt;/code&gt; files are blank, so create them where necessary.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The updated structure separates our newly created Django server project from our future development space for the AngularJS client.  All Django and DRF development is done in the &lt;code&gt;server&lt;/code&gt; directory while all front-end AngularJS development is done in the &lt;code&gt;client&lt;/code&gt; directory.&lt;/p&gt;
+&lt;h4&gt;Fix the Default Module Links&lt;/h4&gt;
+&lt;p&gt;Various parts of a Django application need to link to other modules within the project.  The default project setup used default links based on the original project structure.  Modifying the structure has caused those links to break.  Moving forward, we will ensure that all new module links conform to the new directory structure, but the current broken links must be fixed before we move on.  The following line changes will fix our issues:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;In server/config/settings.py&lt;/em&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ROOT_URLCONF&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;urls&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;changes&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;
+&lt;span class="n"&gt;ROOT_URLCONF&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;server.urls&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;WSGI_APPLICATION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;wsgi.application&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;changes&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;
+&lt;span class="n"&gt;WSGI_APPLICATION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;config.wsgi.application&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;In server/config/wsgi.py&lt;/em&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setdefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DJANGO_SETTINGS_MODULE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;drf_sample.settings&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;changes&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;
+&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setdefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DJANGO_SETTINGS_MODULE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;settings&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;In server/manage.py:&lt;/em&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setdefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DJANGO_SETTINGS_MODULE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;drf_sample.settings&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;changes&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;
+&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setdefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DJANGO_SETTINGS_MODULE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;config.settings&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can test that our new links work by using &lt;code&gt;manage.py&lt;/code&gt; from the terminal to run the project server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python server/manage.py runserver
+
+Performing system checks...
+
+System check identified no issues &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; silenced&lt;span class="o"&gt;)&lt;/span&gt;.
+
+You have unapplied migrations&lt;span class="p"&gt;;&lt;/span&gt; your app may not work properly &lt;span class="k"&gt;until&lt;/span&gt; they are applied.
+Run &lt;span class="s1"&gt;&amp;#39;python manage.py migrate&amp;#39;&lt;/span&gt; to apply them.
+
+November 02, &lt;span class="m"&gt;2015&lt;/span&gt; - 20:36:56
+Django version 1.8, using settings &lt;span class="s1"&gt;&amp;#39;config.settings&amp;#39;&lt;/span&gt;
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perfect!  Our project is now ready to support both server and client code.&lt;/p&gt;
+&lt;h2&gt;Looking Forward&lt;/h2&gt;
+&lt;p&gt;Our project is in a good spot to begin development!  Look for to the next post soon, covering database model definition, model migration to the underlying SQL backend and model object creation through the python Django ORM.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Tim Butler</dc:creator><pubDate>Tue, 10 Nov 2015 00:00:00 +0100</pubDate><guid>tag:engineroom.trackmaven.com,2015-11-10:blog/getting-started-drf-angularjs-part-1/</guid><category>django</category><category>django rest framework</category><category>angularjs</category></item><item><title>Monthly Challenge: Functional Programming</title><link>http://engineroom.trackmaven.com/blog/monthly-challenge-functional-programming/</link><description>&lt;p&gt;Our topic for this month's &lt;a href="http://www.meetup.com/TrackMaven-Monthly-Challenge/"&gt;Monthly Challenge meetup&lt;/a&gt; is Functional Programming! In this post, we'll get you started with one of the many languages out there dedicated to functional programming: &lt;a href="https://www.haskell.org/"&gt;Haskell&lt;/a&gt;! Here at TrackMaven, we write most of our code in Python and JavaScript, which are both capable of writing functional programming in their own right, but with the true spirit of our Monthly Challenges, I am going to write about a language that I am not super familiar with and see what we can do with it.&lt;/p&gt;
 &lt;h3&gt;What is Functional Programming&lt;/h3&gt;
 &lt;p&gt;But first, what is functional programming and why are we dedicating an entire Monthly Challenge to the topic? Functional Programming is the practices of writing code using solely functions avoiding both changing state and mutable data. &lt;sup&gt;[&lt;a href="https://en.wikipedia.org/wiki/Functional_programming"&gt;1&lt;/a&gt;]&lt;/sup&gt; Having side-effect free functions being the building blocks of your code can ease the difficulty found in some complicated problems. However, using the functional programming paradigm is quite different from the standard paradigm of Object Orientated programming and hopefully this blog post will give you a nice primer for it.&lt;/p&gt;
 &lt;p&gt;Within the world of functional programming, there are a few "heavy-hitters" to choose from. As I said above, in this blog post we are going to focus on Haskell, but there are many more; here is a list of a few I recommend you checking out:&lt;/p&gt;
