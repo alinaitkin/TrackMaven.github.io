@@ -34,7 +34,7 @@ Building a Testable D3 Charting Application Within Angular.js - The Engine Room 
       <div class="blog-masthead">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <a href="http://engineroom.trackmaven.com/"><img class="logo" src="http://engineroom.trackmaven.com/theme/images/logo@2x.png"/ ></a>
               <h1 class="blog-title">
                 <a href="http://engineroom.trackmaven.com/">The Engine Room</a>
@@ -51,7 +51,7 @@ Building a Testable D3 Charting Application Within Angular.js - The Engine Room 
   <h2 class="blog-post-title centered">Building a Testable D3 Charting Application Within Angular.js</h2>
   <p class="blog-post-meta single">Posted on <strong>October 04, 2014</strong> by <a href="http://engineroom.trackmaven.com/author/fred-battista/">Fred Battista</a><br>Category: <a href="/category/graphing/">Graphing</a> | <a href="http://engineroom.trackmaven.com/blog/building-a-testable-d3-charting-application-within-angularjs/#disqus_thread"></a></p>
   <div class="blog-post-content">
-    <p>Why this post?</p>
+    <h2>Why this post?</h2>
 <blockquote>
 <ul>
 <li>
@@ -66,9 +66,9 @@ Building a Testable D3 Charting Application Within Angular.js - The Engine Room 
 </ul>
 </blockquote>
 <p><em>nb: At TrackMaven, we use Coffeescript+Angular to manage our frontend.</em></p>
-<p>Graphing is a core feature of TrackMaven's application. As we added more graph types, it became obvious that a monolithic hunk of coffeescript was not an ideal foundation. </p>
-<p>Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself. </p>
-<p>We think that everything that was previously a section of chained definitions (e.g <code>element.attr('','')..</code>) could be promoted to its own function within a service. </p>
+<p>Graphing is a core feature of TrackMaven's application. As we added more graph types, it became obvious that a monolithic hunk of coffeescript was not an ideal foundation.</p>
+<p>Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself.</p>
+<p>We think that everything that was previously a section of chained definitions (e.g <code>element.attr('','')..</code>) could be promoted to its own function within a service.</p>
 <p>This means that our graph's many layers and variables which were all previously defined within a single directive like this:</p>
 <div class="highlight"><pre>svg = d3.select(element[0])
 y = d3.scale.linear()
@@ -119,12 +119,12 @@ x = d3.time.scale()
 <p>The advantages of this approach may not be immediately obvious (extra work! why?) but within the context of d3 and enterprise software they are important.</p>
 <p><strong>1. Separate definition of container from its initialization</strong></p>
 <p>Firstly, the defenition/creation of graphical layers has been separated from their initialization. This can be somewhat confusing but is a consequence of the <a href="http://www.w3.org/TR/SVG/">SVG spec</a> having no support for a z-index. There is no way to change the 'stacked' order of elements on an SVG except by manually redrawing the elements again in the correct order.</p>
-<p>By separating the container definition from the initialization it becomes much easier to correctly draw and test the order of SVG elements. This is of especial importance when clipping masks are in play - untangling long code blocks is annoying. </p>
+<p>By separating the container definition from the initialization it becomes much easier to correctly draw and test the order of SVG elements. This is of especial importance when clipping masks are in play - untangling long code blocks is annoying.</p>
 <p><strong>2. Easily change and re-initialize graph types</strong></p>
 <p>With the returned values on the graphBase object it becomes trivial to alter the properties as needed. If I need to give the svgContainer a green background it is as simple as: <code>@svgContainer.style('background-color','green')</code> WHEREVER I need to make the change. I do not need to hunt for the block where the <code>svgContainer</code> is created.</p>
 <p><strong>3. Testing is easier/feasible</strong></p>
 <p>Testing is easier with this approach. Previously, any change in the monolithic code block had the potential ta affect every test. With the modular approach, your integration tests may fail but you unit tests have a much higher chance of survival.</p>
-<p>With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.  </p>
+<p>With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.</p>
 <p>For instance, this is the first test of our graph tooltips:</p>
 <div class="highlight"><pre>    it &#39;should correctly render tooltips&#39;, -&gt;
         tooltips.redraw(mockData)
@@ -143,7 +143,7 @@ x = d3.time.scale()
 <p>We expect to go deeper with this modularization as we add graph types. Specifically, we want to modularize the <code>brush</code> interaction to flex and activate across different SVG elements. Creating a separate <code>graphBrush</code> service is likely.</p>
 <p><em>Additional resources which cover similar material:</em></p>
 <ul>
-<li><a href="http://misoproject.com/d3-chart/">d3.chart: a framework for building reusable charts with d3.js</a> </li>
+<li><a href="http://misoproject.com/d3-chart/">d3.chart: a framework for building reusable charts with d3.js</a></li>
 <li><a href="http://bost.ocks.org/mike/chart/">Mike Bostok's 'Towards Reuseable Charts'</a></li>
 <li><a href="http://pivotallabs.com/d3-test-driven-development/">d3 and Test-Driven-Development</a></li>
 <li><a href="https://github.com/stevenalexander/d3-testing">Great set of example code in vanilla JS on Jasmine-driven testing of D3</a></li>

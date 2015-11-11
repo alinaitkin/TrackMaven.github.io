@@ -1211,20 +1211,18 @@ effective_cache_size = 100GB
 &lt;center&gt;&lt;img alt="Database resource usage as seen by htop" src="/images/db-usage.png" /&gt;&lt;/center&gt;&lt;/p&gt;</summary><category term="postgres"></category><category term="how-to"></category></entry><entry><title>Onboarding at TrackMaven</title><link href="http://engineroom.trackmaven.com/blog/onboarding-at-trackmaven/" rel="alternate"></link><updated>2014-12-16T00:00:00+01:00</updated><author><name>Farhan Syed</name></author><id>tag:engineroom.trackmaven.com,2014-12-16:blog/onboarding-at-trackmaven/</id><summary type="html">&lt;p&gt;Today I will be talking about onboarding! We will cover what the heck onboarding means, why it is important, and then &lt;em&gt;gasp&lt;/em&gt; I'll attempt to grade how well my new coworkers onboarded me in my first month. Bear in mind that this will be focused on engineering only.&lt;/p&gt;
 &lt;p&gt;With that, let us begin!&lt;/p&gt;
 &lt;h2&gt;What is onboarding?&lt;/h2&gt;
-&lt;hr /&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Onboarding is the mechanism with which you take new employees and turn them into &lt;strong&gt;autonomous&lt;/strong&gt;, &lt;strong&gt;confident&lt;/strong&gt;, and &lt;strong&gt;productive&lt;/strong&gt; members of the company. &lt;/p&gt;
+&lt;p&gt;Onboarding is the mechanism with which you take new employees and turn them into &lt;strong&gt;autonomous&lt;/strong&gt;, &lt;strong&gt;confident&lt;/strong&gt;, and &lt;strong&gt;productive&lt;/strong&gt; members of the company.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4&gt;Autonomy&lt;/h4&gt;
+&lt;h3&gt;Autonomy&lt;/h3&gt;
 &lt;p&gt;Having autonomy goes a long way toward being professionally satisfied. Two critical measures of autonomy are how much supervision is necessary and whether one is able to choose which types of problems to work on.&lt;/p&gt;
-&lt;h4&gt;Confidence&lt;/h4&gt;
+&lt;h3&gt;Confidence&lt;/h3&gt;
 &lt;p&gt;Is your onboarding process creating engineers who believe they are valuable and who feel that they can actually enact change? Confident engineers are more likely to learn and pick up new skills that are required for the job because they are willing to fail in the short term. Confidence is important not only for the individual but also for the entire team, as it helps to create the space for emergent leaders.&lt;/p&gt;
-&lt;h4&gt;Productivity&lt;/h4&gt;
+&lt;h3&gt;Productivity&lt;/h3&gt;
 &lt;p&gt;How quickly can you take a stranger and turn them into a productive member of the team?&lt;/p&gt;
 &lt;p&gt;Time to productivity can be measured by gauging how long it takes to set up a local development environment, how easy it is to deploy code and run tests, and any other ways in which an engineer can contribute to a codebase.&lt;/p&gt;
 &lt;p&gt;At TrackMaven, I was impressed with the automation of these processes, the documentation not just on the codebase but on conventions, and how easy it is to access this information.&lt;/p&gt;
 &lt;h2&gt;Why is it important?&lt;/h2&gt;
-&lt;hr /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Onboarding is important because it encourages &lt;strong&gt;team bonding&lt;/strong&gt; and &lt;strong&gt;knowledge transfer&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1246,12 +1244,11 @@ effective_cache_size = 100GB
 &lt;p&gt;Those are the onboarding basics. While they may seem simple, because in today's technology landscape getting an engineer to be productive is not cheap and establishing a company culture is difficult, the basics should be taken seriously.&lt;/p&gt;
 &lt;p&gt;With that, it is time to share my TrackMaven onboarding experience.&lt;/p&gt;
 &lt;h2&gt;My experience at TrackMaven&lt;/h2&gt;
-&lt;hr /&gt;
 &lt;h3&gt;Productivity&lt;/h3&gt;
 &lt;p&gt;I was completely blown away at the level of automation that I was introduced to during my first week at TrackMaven. Setting up my local development environment took only an hour and a half. So much of that is due to the awesome tooling we have: &lt;strong&gt;&lt;a href="https://www.docker.com/"&gt;Docker&lt;/a&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;a href="https://www.orchardup.com/"&gt;Fig&lt;/a&gt;&lt;/strong&gt; make setting up isolated services a breeze and TrackMaven has a hand-rolled CLI for all stages of the application life cycle (start, update, destroy). I was also impressed by the amount of testing code that has been written for the application. Finally, our deployment strategy was straight-forward: we use &lt;strong&gt;&lt;a href="http://www.ansible.com/home"&gt;Ansible&lt;/a&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;a href="http://www.fabfile.org/"&gt;Fabric&lt;/a&gt;&lt;/strong&gt; to deploy to our different environments. Yes, we love Python!&lt;/p&gt;
 &lt;p&gt;Because of how well documented and automated our process is for shipping code, I was able to push code out on the second day, and it was great to feel that I was contributing to a team so quickly. While I did not immediately understand how the entire application worked, being able to operate within a streamlined and automated process helped me to feel confident.&lt;/p&gt;
 &lt;h3&gt;Autonomy&lt;/h3&gt;
-&lt;p&gt;One of the most helpful aspects of TrackMaven's onboarding was their onboarding checklist, which covers everything from local devops to scaling production boxes. Instead of having to wait passively for the next person with free time to come and show me something, I was able to play an active role and decide what I wanted to learn that day. Not only did this give me an outlet for my curousity, but it also gave me that warm fuzzy feeling that only self-directed learning can elicit. Also, there is just something magical about crossing things off a large list. By the end of the month I had only a few tasks left (one of them being to write a blog post). &lt;/p&gt;
+&lt;p&gt;One of the most helpful aspects of TrackMaven's onboarding was their onboarding checklist, which covers everything from local devops to scaling production boxes. Instead of having to wait passively for the next person with free time to come and show me something, I was able to play an active role and decide what I wanted to learn that day. Not only did this give me an outlet for my curousity, but it also gave me that warm fuzzy feeling that only self-directed learning can elicit. Also, there is just something magical about crossing things off a large list. By the end of the month I had only a few tasks left (one of them being to write a blog post).&lt;/p&gt;
 &lt;h3&gt;Confidence&lt;/h3&gt;
 &lt;p&gt;I was able to push code on day two, and by the end of my fourth day I had developed a feature, pushed it through all the steps of our process (git strategy, QA, PR, testing environment deploy), and merged into master! It was exciting to to feel like part of the team in less than 96 hours. I would not have been able to do this without:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pair programming&lt;/strong&gt;. In my first week I paired with five of the seven engineers on our team. This was a great opportunity not only to see many awesome tools (&lt;a href="https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc?hl=en-US"&gt;chrome extensions&lt;/a&gt;, keyboard shortcuts, scripts) that my co-workers were using but also to understand the codebase architecture.&lt;/p&gt;
@@ -1263,7 +1260,7 @@ effective_cache_size = 100GB
 &lt;/blockquote&gt;
 &lt;p&gt;After my firsthand experience, I will attest that is true. Our team's feedback mechanisms allow us to try things out, experiment, and fail quickly (in a good way). Our team structure is flat, and everyone is encouraged to improve the process and not shy away from open communication.&lt;/p&gt;
 &lt;h3&gt;Great place to work&lt;/h3&gt;
-&lt;p&gt;Overall, I was impressed with the TrackMaven onboarding. I have ideas of my own to make the onboarding process even better. So far it has been great, and I am looking forward to tackling even harder problems and improving an awesome product. &lt;/p&gt;
+&lt;p&gt;Overall, I was impressed with the TrackMaven onboarding. I have ideas of my own to make the onboarding process even better. So far it has been great, and I am looking forward to tackling even harder problems and improving an awesome product.&lt;/p&gt;
 &lt;p&gt;Did I mention that we are &lt;a href="http://trackmaven.com/careers"&gt;hiring&lt;/a&gt;?&lt;/p&gt;</summary><category term="training"></category><category term="onboarding"></category><category term="docker"></category></entry><entry><title>Making a Mockery of Python</title><link href="http://engineroom.trackmaven.com/blog/making-a-mockery-of-python/" rel="alternate"></link><updated>2014-12-01T00:00:00+01:00</updated><author><name>Jon Evans</name></author><id>tag:engineroom.trackmaven.com,2014-12-01:blog/making-a-mockery-of-python/</id><summary type="html">&lt;p&gt;Today we will be talking about mocking. No, not the joke at someone else's expense kind. Mocking is a technique to temporarily replace &lt;strong&gt;real&lt;/strong&gt; parts of our code with &lt;strong&gt;fake&lt;/strong&gt;, simpler parts, so that we can check that the rest of the parts are working as we intend. Here we'll consider some simple use cases for mocking in Python tests, and try to show how this extremely useful technique can make us better at testing.&lt;/p&gt;
 &lt;h2&gt;Why do we mock?&lt;/h2&gt;
 &lt;p&gt;When we carry out unit testing, our goal is to test a small section of code - for example a function or class method - in isolation. In other words, we should only be testing the code that is contained in said function. If we rely on calls to other pieces of code in our test, then we find ourselves in an unfortunate situation where changes to the nested code can break the test, despite the code of the function being tested remaining the same. This is best illustrated by example:&lt;/p&gt;
@@ -2506,7 +2503,7 @@ archive_timeout = 60
 &lt;li&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;30 2 * * * /usr/bin/envdir /etc/wal-e.d/env /usr/local/bin/wal-e delete --confirm retain 5&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Continue onto &lt;a href="/blog/so-you-want-another-postgresql-database-part-3/"&gt;Part 3&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</summary><category term="postgres"></category><category term="double-database"></category><category term="how-to"></category></entry><entry><title>Building a Testable D3 Charting Application Within Angular.js</title><link href="http://engineroom.trackmaven.com/blog/building-a-testable-d3-charting-application-within-angularjs/" rel="alternate"></link><updated>2014-10-04T00:00:00+02:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-10-04:blog/building-a-testable-d3-charting-application-within-angularjs/</id><summary type="html">&lt;p&gt;Why this post?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Continue onto &lt;a href="/blog/so-you-want-another-postgresql-database-part-3/"&gt;Part 3&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</summary><category term="postgres"></category><category term="double-database"></category><category term="how-to"></category></entry><entry><title>Building a Testable D3 Charting Application Within Angular.js</title><link href="http://engineroom.trackmaven.com/blog/building-a-testable-d3-charting-application-within-angularjs/" rel="alternate"></link><updated>2014-10-04T00:00:00+02:00</updated><author><name>Fred Battista</name></author><id>tag:engineroom.trackmaven.com,2014-10-04:blog/building-a-testable-d3-charting-application-within-angularjs/</id><summary type="html">&lt;h2&gt;Why this post?&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2521,9 +2518,9 @@ archive_timeout = 60
 &lt;/ul&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;em&gt;nb: At TrackMaven, we use Coffeescript+Angular to manage our frontend.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Graphing is a core feature of TrackMaven's application. As we added more graph types, it became obvious that a monolithic hunk of coffeescript was not an ideal foundation. &lt;/p&gt;
-&lt;p&gt;Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself. &lt;/p&gt;
-&lt;p&gt;We think that everything that was previously a section of chained definitions (e.g &lt;code&gt;element.attr('','')..&lt;/code&gt;) could be promoted to its own function within a service. &lt;/p&gt;
+&lt;p&gt;Graphing is a core feature of TrackMaven's application. As we added more graph types, it became obvious that a monolithic hunk of coffeescript was not an ideal foundation.&lt;/p&gt;
+&lt;p&gt;Our solution was to separate the graphing bloc into separate factories, services, and directories to enable code reuse and testing along the lines of the actual components of the SVG itself.&lt;/p&gt;
+&lt;p&gt;We think that everything that was previously a section of chained definitions (e.g &lt;code&gt;element.attr('','')..&lt;/code&gt;) could be promoted to its own function within a service.&lt;/p&gt;
 &lt;p&gt;This means that our graph's many layers and variables which were all previously defined within a single directive like this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;svg = d3.select(element[0])
 y = d3.scale.linear()
@@ -2574,12 +2571,12 @@ x = d3.time.scale()
 &lt;p&gt;The advantages of this approach may not be immediately obvious (extra work! why?) but within the context of d3 and enterprise software they are important.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. Separate definition of container from its initialization&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Firstly, the defenition/creation of graphical layers has been separated from their initialization. This can be somewhat confusing but is a consequence of the &lt;a href="http://www.w3.org/TR/SVG/"&gt;SVG spec&lt;/a&gt; having no support for a z-index. There is no way to change the 'stacked' order of elements on an SVG except by manually redrawing the elements again in the correct order.&lt;/p&gt;
-&lt;p&gt;By separating the container definition from the initialization it becomes much easier to correctly draw and test the order of SVG elements. This is of especial importance when clipping masks are in play - untangling long code blocks is annoying. &lt;/p&gt;
+&lt;p&gt;By separating the container definition from the initialization it becomes much easier to correctly draw and test the order of SVG elements. This is of especial importance when clipping masks are in play - untangling long code blocks is annoying.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2. Easily change and re-initialize graph types&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;With the returned values on the graphBase object it becomes trivial to alter the properties as needed. If I need to give the svgContainer a green background it is as simple as: &lt;code&gt;@svgContainer.style('background-color','green')&lt;/code&gt; WHEREVER I need to make the change. I do not need to hunt for the block where the &lt;code&gt;svgContainer&lt;/code&gt; is created.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;3. Testing is easier/feasible&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Testing is easier with this approach. Previously, any change in the monolithic code block had the potential ta affect every test. With the modular approach, your integration tests may fail but you unit tests have a much higher chance of survival.&lt;/p&gt;
-&lt;p&gt;With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.  &lt;/p&gt;
+&lt;p&gt;With the above setup it is possible to mock and test the creation of elements with specific ids on any given SVG. This is very difficult to do with a giant block of code.&lt;/p&gt;
 &lt;p&gt;For instance, this is the first test of our graph tooltips:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    it &amp;#39;should correctly render tooltips&amp;#39;, -&amp;gt;
         tooltips.redraw(mockData)
@@ -2598,7 +2595,7 @@ x = d3.time.scale()
 &lt;p&gt;We expect to go deeper with this modularization as we add graph types. Specifically, we want to modularize the &lt;code&gt;brush&lt;/code&gt; interaction to flex and activate across different SVG elements. Creating a separate &lt;code&gt;graphBrush&lt;/code&gt; service is likely.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Additional resources which cover similar material:&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://misoproject.com/d3-chart/"&gt;d3.chart: a framework for building reusable charts with d3.js&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://misoproject.com/d3-chart/"&gt;d3.chart: a framework for building reusable charts with d3.js&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://bost.ocks.org/mike/chart/"&gt;Mike Bostok's 'Towards Reuseable Charts'&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://pivotallabs.com/d3-test-driven-development/"&gt;d3 and Test-Driven-Development&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/stevenalexander/d3-testing"&gt;Great set of example code in vanilla JS on Jasmine-driven testing of D3&lt;/a&gt;&lt;/li&gt;
