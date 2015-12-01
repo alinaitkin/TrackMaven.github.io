@@ -143,7 +143,7 @@ FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=
 <span class="k">class</span> <span class="nc">MyTestCase</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;multiply&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">test_add_and_multiply</span><span class="p">(</span><span class="n">mock_multiply</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_add_and_multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_multiply</span><span class="p">):</span>
 
         <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
@@ -166,7 +166,7 @@ FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=
 <h2>What just happened?</h2>
 <p>The syntax used above may look confusing at first. Let's consider the relevant lines more closely:</p>
 <div class="highlight"><pre><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;multiply&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">test_add_and_multiply</span><span class="p">(</span><span class="n">mock_multiply</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">test_add_and_multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_multiply</span><span class="p">):</span>
 </pre></div>
 
 

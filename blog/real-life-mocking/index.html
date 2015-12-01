@@ -139,7 +139,7 @@ Real Life Mocking - The Engine Room - TrackMaven
 
         <span class="c"># Check that our function made the expected internal calls</span>
         <span class="n">mock_get</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">call_count</span><span class="p">)</span>
 
         <span class="c"># If we want, we can check the contents of the response</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response_dict</span><span class="p">,</span> <span class="n">expected_dict</span><span class="p">)</span>
@@ -166,7 +166,7 @@ Real Life Mocking - The Engine Room - TrackMaven
 <p>This can be extremely useful if we need to define a deserialized response that looks like real data, for example if we want to check how it is manipulated later in the function.</p>
 <p>After calling the <code>_get</code> method in our test, we check that it called the <code>requests.get</code> method, as well as making sure it called our <code>.json</code> method on our mock response.</p>
 <div class="highlight"><pre><span class="n">mock_get</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
-<span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">call_count</span><span class="p">)</span>
 </pre></div>
 
 
@@ -234,10 +234,10 @@ Real Life Mocking - The Engine Room - TrackMaven
 
         <span class="c"># Check that our function made the expected internal calls</span>
         <span class="n">mock_get</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mock_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="o">.</span><span class="n">call_count</span><span class="p">)</span>
 
         <span class="c"># Make sure we did not attempt to deserialize the response</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">assert_not_called</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">call_count</span><span class="p">)</span>
 
         <span class="c"># Make sure our HTTP error handler is called</span>
         <span class="n">mock_http_error_handler</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">http_error</span><span class="p">)</span>
@@ -374,7 +374,7 @@ Real Life Mocking - The Engine Room - TrackMaven
         <span class="c"># Check that our function made the expected internal calls</span>
         <span class="n">expected_calls</span> <span class="o">=</span> <span class="p">[</span><span class="n">mock</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected_calls</span><span class="p">,</span> <span class="n">mock_get</span><span class="o">.</span><span class="n">call_args_list</span><span class="p">)</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mock_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">call_count</span><span class="p">)</span>
 
         <span class="c"># Check the result</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response_dict</span><span class="p">,</span> <span class="n">expected_dict</span><span class="p">)</span>
