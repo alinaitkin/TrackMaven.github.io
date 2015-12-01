@@ -105,7 +105,7 @@ class ClientTestCase(unittest.TestCase):
 
         # Check that our function made the expected internal calls
         mock_get.assert_called_once_with(url=url)
-        mock_response.json.assert_called_once()
+        self.assertEqual(1, mock_response.json.call_count)
 
         # If we want, we can check the contents of the response
         self.assertEqual(response_dict, expected_dict)
@@ -137,7 +137,7 @@ After calling the `_get` method in our test, we check that it called the `reques
 
 ```python
 mock_get.assert_called_once_with(url=url)
-mock_response.json.assert_called_once()
+self.assertEqual(1, mock_response.json.call_count)
 ```
 Notice how we can make sure that any mock methods are called with the correct arguments, in this case making sure we requested the correct `url`.
 
@@ -213,10 +213,10 @@ class ClientTestCase(unittest.TestCase):
 
         # Check that our function made the expected internal calls
         mock_get.assert_called_once_with(url=url)
-        mock_response.raise_for_status.assert_called_once()
+        self.assertEqual(1, mock_response.raise_for_status.call_count)
 
         # Make sure we did not attempt to deserialize the response
-        mock_response.json.assert_not_called()
+        self.assertEqual(0, mock_response.json.call_count)
 
         # Make sure our HTTP error handler is called
         mock_http_error_handler.assert_called_once_with(http_error)
@@ -369,7 +369,7 @@ Now we're on the home stretch. We just need to cover the case of a `ConnectionEr
         # Check that our function made the expected internal calls
         expected_calls = [mock.call(url=url)] * 3
         self.assertEqual(expected_calls, mock_get.call_args_list)
-        mock_response.json.assert_called_once()
+        self.assertEqual(1, mock_response.json.call_count)
 
         # Check the result
         self.assertEqual(response_dict, expected_dict)
