@@ -14,11 +14,22 @@ With the introduction of ES6 (or ES2015), we have seen a lot of the good parts o
 
 With this experiment, I want to show how switching to ES6 might 1) effect our outputted Javascript and 2) effect the efficiency we write pre-compiled Javascript.
 
+## Conclusion
+
+As you can see below, the generated Javascript (from both Coffeescript and ES6) is very similar. I don't think we'd be losing anything in terms of readability of our generated Javascript. However, where the big difference is is still in the readablity of the pre-compiled code. I chose a very basic CRUD API class as our example and even with this simple example, I feel like I am haunted by the curly brackets.
+
+I feel more than ever that ES6 is going in the right direction; it is a huge leap down from where we currently are with Coffeescript. And of course there are tons of benefits from getting away from Coffeescript and start writing ES6, but right now I think we will be sticking with Coffeescript. This is mostly due to the fact that we would still need to transpile the code. I certainly see ourselves moving te ES6 once it is accepted in the browsers we need here at TrackMaven.
+
+One interesting thing that transpiling your code does give you, however, is the ability to use both! Not sure we are ready for it at TrackMaven, but there is nothing stopping you from transpiling both your Coffeescript code **AND** your ES6 code. This path is actually very interesting to me!
+
+What's your thoughts? Any users of Coffeescript make the jump to ES6 successfully? Anyone think we're crazy with sticking with Coffeescript? Anyone using both Coffeescript and ES6? Let us know below in the comments. Thanks!
+
+Below is the code examples for this little experiment. Please feel free to browse, or jump directly to [the comments](#disqus_thread) to let us know your thought.
+
 - [Coffeescript](#coffee)
 - [Javascript compiled from Coffeescript](#js1)
 - [ES6](#es6)
 - [Javascript compiled from ES6](#js2)
-- [Conclusion](#conclusion)
 
 <a name="#coffee"></a>
 ### Coffeescript <small>[back to top](#top)</small>
@@ -363,14 +374,3 @@ angular.module('common.services').factory('APIResource', function ($q, $log, $ht
 ```
 
 __Note__: This Javascript was compiled from the above ES6 Javascript using the [Babel.js Repl](https://babeljs.io/repl/).
-
-<a name="conclusion"></a>
-## Conclusion
-
-As you can see, the generated Javascript (from both Coffeescript and ES6) is very similar. I don't think we'd be losing anything in terms of readability of our generated Javascript. However, where the big difference is is still in the readablity of the pre-compiled code. I chose a very basic CRUD API class as our example and even with this simple example, I feel like I am haunted by the curly brackets.
-
-I feel more than ever that ES6 is going in the right direction; it is a huge leap down from where we currently are with Coffeescript. And of course there are tons of benefits from getting away from Coffeescript and start writing ES6, but right now I think we will be sticking with Coffeescript. This is mostly due to the fact that we would still need to transpile the code. I certainly see ourselves moving te ES6 once it is accepted in the browsers we need here at TrackMaven.
-
-One interesting thing that transpiling your code does give you, however, is the ability to use both! Not sure we are ready for it at TrackMaven, but there is nothing stopping you from transpiling both your Coffeescript code **AND** your ES6 code. This path is actually very interesting to me!
-
-What's your thoughts? Any users of Coffeescript make the jump to ES6 successfully? Anyone think we're crazy with sticking with Coffeescript? Anyone using both Coffeescript and ES6? Let us know below in the comments. Thanks!
