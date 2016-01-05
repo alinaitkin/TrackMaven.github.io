@@ -29,7 +29,7 @@ To illustrate this new feature we are going to develop a simple python website u
             r = requests.get(url)
             print("{} returned {}".format(url, r.status_code))
         except Exception as c:
-            print("{} is down, it returned {}".format(url, c))
+            print("{} is down".format(url))
 
     async def main():
         await asyncio.wait([
