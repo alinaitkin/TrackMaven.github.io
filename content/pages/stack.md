@@ -25,9 +25,9 @@ slug: stack
 
     <h4>Collaborative Tools</h4>
     <ul>
-        <li><a href="https://www.hipchat.com/">Hipchat</a></li>
-        <li><a href="https://trello.com/">Trello</a></li>
+        <li><a href="https://slack.com/">Slack</a></li>
         <li><a href="https://hubot.github.com/">Hubot</a></li>
+        <li><a href="https://trello.com/">Trello</a></li>
     <ul>
 </div>
 
@@ -37,16 +37,17 @@ slug: stack
         <li><a href="https://www.djangoproject.com/">Django</a></li>
         <li><a href="http://www.django-rest-framework.org/">Django Rest Framework</a></li>
         <li><a href="http://www.celeryproject.org/">Celery</a></li>
+        <li><a href="https://nodejs.org/en/">Node.js</li>
     </ul>
 
     <h4>Frontend Libraries</h4>
     <ul>
         <li><a href="https://angularjs.org/">Angular.js</a></li>
         <li><a href="http://d3js.org/">D3.js</a></li>
-        <li><a href="http://underscorejs.org/">underscore.js</a></li>
+        <li><a href="http://coffeescript.org/">CoffeScript</a></li>
     </ul>
 
-    <h4>Dev OPs</h5>
+    <h4>Dev OPs</h4>
     <ul>
         <li><a href="https://www.docker.com/">Docker</a></li>
         <li><a href="http://www.ansible.com/home">Ansible</a></li>
