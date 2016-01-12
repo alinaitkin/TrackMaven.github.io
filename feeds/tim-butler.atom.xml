@@ -1,5 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/tim-butler.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2015-11-10T00:00:00+01:00</updated><entry><title>Getting Started with Django REST Framework (DRF) and AngularJS (Part 1)</title><link href="http://engineroom.trackmaven.com/blog/getting-started-drf-angularjs-part-1/" rel="alternate"></link><updated>2015-11-10T00:00:00+01:00</updated><author><name>Tim Butler</name></author><id>tag:engineroom.trackmaven.com,2015-11-10:blog/getting-started-drf-angularjs-part-1/</id><summary type="html">&lt;p&gt;This is the first section in a series about getting started with &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;, &lt;a href="http://www.django-rest-framework.org/"&gt;Django REST Framework (DRF)&lt;/a&gt; and &lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;.  The goal of this series to to create an extensive, RESTful web application that uses Django and Django REST Framework as the server application and AngularJS for the client application.  We will not be using Django templates here; our front- and back-end applications will be separate entities.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/tim-butler.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2016-01-11T00:00:00+01:00</updated><entry><title>Getting Started with Django REST Framework (DRF) and AngularJS (Part 2)</title><link href="http://engineroom.trackmaven.com/blog/getting-started-drf-angularjs-part-2/" rel="alternate"></link><updated>2016-01-11T00:00:00+01:00</updated><author><name>Tim Butler</name></author><id>tag:engineroom.trackmaven.com,2016-01-11:blog/getting-started-drf-angularjs-part-2/</id><summary type="html">&lt;p&gt;&lt;strong&gt;Read: &lt;a href="/blog/getting-started-drf-angularjs-part-1/"&gt;Part 1 - Initial Project Setup&lt;/a&gt;&lt;/strong&gt;
+&lt;strong&gt;Write: &lt;a href="https://github.com/TrackMaven/getting-started-with-drf-angular/tree/part-2"&gt;Part 2 Supplementary Code&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is the second post in a multi-part series geared toward getting started with Django Rest Framework (DRF) and AngularJS.  The goal of this series is to create an extensive, RESTful web application that uses DRF in the server and AngularJS in the client.&lt;/p&gt;
+&lt;p&gt;This post focuses on Django, with topics covering&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#project-description"&gt;A Description of Our Series Project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#module-creation"&gt;Adding a new Project Module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#model-definition"&gt;Defining Database Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#migrations"&gt;Migrating Database Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#object-creation"&gt;Creating Model Data via the Django ORM&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will be using Django &lt;code&gt;1.8.5&lt;/code&gt; and Django Rest Framework &lt;code&gt;3.3.0&lt;/code&gt;.  The base directory for our project is named &lt;code&gt;drf-sample&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name="project-description"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;A Description of Our Series Project&lt;/h2&gt;
+&lt;p&gt;This post begins to outline code that we will be contributing to throughout this series.  You are welcome to create your own project following the ideas and strategies talked about here, but for the purpose of consistency within the series we will be making a single project and adding to it over time.&lt;/p&gt;
+&lt;p&gt;Our project is an employee management system for retail chains.  We will need to keep track of multiple retail chains (their name, slogan, website, etc.), each store location within the chain (store number, opening date, address, etc.) and the employees within each store (employee number, name, starting date, etc.).  Each store location may be associated with only a single chain and each employee may work at only a single store at a time.&lt;/p&gt;
+&lt;p&gt;Throughout the series, we will create an underlying database for our project, an API to access our data securely from external sources, and single-page app interface that reads and modifies the data.  Of course, these are very high-level requirements and the scope of this project will grow as the series continues!create&lt;/p&gt;
+&lt;p&gt;&lt;a name="module-creation"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Adding a New Project Module&lt;/h2&gt;
+&lt;p&gt;Before we begin coding, we need to create a new module within our project.  Since our project is geared toward retail management, we will name the module &lt;code&gt;retail&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To create a new module within our Django project, we need to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new directory within the project structure&lt;/li&gt;
+&lt;li&gt;Add the new directory to the list of Djangos installed applications.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First, add the &lt;code&gt;server/retail/&lt;/code&gt; directory to the project.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;drf_sample/
+├── client
+└── server
+    ├── retail
+    │   └── __init__.py
+    ├── config
+    ├── __init__.py
+    ├── manage.py
+    └── urls.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;Note: Do not forget to create a &lt;code&gt;__init__.py&lt;/code&gt; file inside the new directory.  It will not be recognized as a module without this file.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Next, we need to ensure that our project knows that the new directory is meant to be an application module.  The &lt;code&gt;server/config/settings.py&lt;/code&gt; file contains an &lt;code&gt;INSTALLED_APPS&lt;/code&gt; setting which lists of all modules recognized by the project.  A module will only be recognized by the project if it has been included in this setting.  Add the &lt;code&gt;retail&lt;/code&gt; module to &lt;code&gt;INSTALLED_APPS&lt;/code&gt; by including the directory name in the list.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;retail&amp;#39;&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Django will now use the &lt;code&gt;retail&lt;/code&gt; directory to associate code with the &lt;code&gt;retail&lt;/code&gt; application module.&lt;/p&gt;
+&lt;p&gt;Let's start coding the module!&lt;/p&gt;
+&lt;p&gt;&lt;a name="model-definition"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Defining Database Models&lt;/h2&gt;
+&lt;p&gt;Generally, the first step in coding a new module is to create a database schema for the module data using Django &lt;code&gt;Models&lt;/code&gt;.  &lt;code&gt;Models&lt;/code&gt; are classes that Django translates into an underlying relational database tables.  Have no fear; developers very rarely need to worry using SQL to interact with the database.  Instead, interactions with the tables are handled through the Django ORM (more on this later).&lt;/p&gt;
+&lt;p&gt;For our module, we want to define three models:  &lt;code&gt;Chain&lt;/code&gt; and &lt;code&gt;Store&lt;/code&gt;, and &lt;code&gt;Employee&lt;/code&gt;.  These models are fairly straight forward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Chain&lt;/code&gt; represents a retail chain at a very high level (Target, for example).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Store&lt;/code&gt; represents a single store location of a &lt;code&gt;Chain&lt;/code&gt; (a single Target location).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Employee&lt;/code&gt; represents an individual person working at a &lt;code&gt;Store&lt;/code&gt; (John Doe, the cashier).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To add &lt;code&gt;models&lt;/code&gt; to the new module, create a &lt;code&gt;server/retail/models.py&lt;/code&gt; file and add the following code.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.utils&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;timezone&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.core.validators&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;MaxValueValidator&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;MinValueValidator&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Chain&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot; High-level retail chain model&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;description&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;slogan&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;founded_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;URLField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Store&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot; Store location model.  Foreign key to Chain.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;chain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;opening_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;timezone&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c"&gt;# Business hours in a 24 hour clock.  Default 8am-5pm.&lt;/span&gt;
+    &lt;span class="n"&gt;business_hours_start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IntegerField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;validators&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+            &lt;span class="n"&gt;MinValueValidator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="n"&gt;MaxValueValidator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;business_hours_end&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IntegerField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;validators&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+            &lt;span class="n"&gt;MinValueValidator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="n"&gt;MaxValueValidator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Employee&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot; Location employee model.  Foreign key to Store.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;store&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Store&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;first_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;last_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;hired_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;timezone&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The above code may seem a bit complicated at first, so let's go through what it all means.&lt;/p&gt;
+&lt;p&gt;Each &lt;code&gt;Model&lt;/code&gt; class defines what will become a table in the underlying database and class attributes define columns within the associated table.  Each class attribute is as a &lt;a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#field-types"&gt;Django Model field type&lt;/a&gt; specifying the column data type along with optional type-specific parameters (such as the maximum length of a character field).  Field types correspond to common SQL column data types, including characters, integers, boolean fields, and date/times.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;ForeignKey&lt;/code&gt; field type creates a one-to-many relationship between two models.  In the code above, the &lt;code&gt;Store&lt;/code&gt; model contains a &lt;code&gt;ForeignKey&lt;/code&gt; to the &lt;code&gt;Chain&lt;/code&gt; model.  This means an instance of &lt;code&gt;Store&lt;/code&gt; can be associated with a single &lt;code&gt;Chain&lt;/code&gt; object, but a &lt;code&gt;Chain&lt;/code&gt; can be associated with many &lt;code&gt;Stores&lt;/code&gt;.  Likewise, an instance of &lt;code&gt;Employee&lt;/code&gt; can be associated with a single &lt;code&gt;Store&lt;/code&gt; object, but a &lt;code&gt;Store&lt;/code&gt; may be associated with several &lt;code&gt;Employees&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It is best to keep table and column names relevant to the data they store, so make sure that your models and fields follow that same rule.&lt;/p&gt;
+&lt;p&gt;&lt;a name="migrations"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Migrating Database Models&lt;/h2&gt;
+&lt;p&gt;We have defined our Django &lt;code&gt;Models&lt;/code&gt; to represent the database we want, but we have not used them to create the underlying database schema.  To create our database we will use Django &lt;a href="https://docs.djangoproject.com/en/1.8/topics/migrations/"&gt;Migrations&lt;/a&gt;.  Migrations are a way of synchronizing the database schema with the state of your project &lt;code&gt;Models&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To run the first project migration, run the following two commands from the project root directory:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;python server/manage.py makemigrations retail&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;python server/manage.py migrate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+drf-sample$ python server/manage.py makemigrations retail
+Migrations for 'retail':
+  &lt;strong&gt;0001_initial.py:
+    - Create model Chain
+    - Create model Employee
+    - Create model Store&lt;/strong&gt;
+    - Add field store to employee
+&lt;/pre&gt;
+
+&lt;pre&gt;
+drf-sample$ python server/manage.py migrate
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles, messages
+  Apply all migrations: admin, contenttypes, retail, auth, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+  Installing custom SQL...
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  &lt;strong&gt;Applying retail.0001_initial... OK&lt;/strong&gt;
+  Applying sessions.0001_initial... OK
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note: For the purpose of this guide, do not worry about manually creating a database.  By default, Django creates a &lt;code&gt;db.sqlite3&lt;/code&gt; file containing a local SQL DB to be used by the project.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Excellent, let's go over the output from the commands.  During the first command, we can see that a migration file is created, &lt;code&gt;retail.0001_initial&lt;/code&gt;, and three &lt;code&gt;models&lt;/code&gt; were created in the file:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Create model Chain&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Create model Employee&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Create model Store&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;During the second command, the migration file is applied.  This means our tables have been created in the database!&lt;/p&gt;
+&lt;p&gt;The output also shows a lot of other migrations.  Django requires a few models to run correctly.  Do not worry about these other migrations for now.  Just know that they are used internally by Django and for user permissions.&lt;/p&gt;
+&lt;p&gt;That is all we need to do with our models for now!  Whenever a &lt;code&gt;retail&lt;/code&gt; model changes, such as when a new field is added to a model, the above migration commands must be executed again to ensure that the underlying database is kept up to date with the updated model definition.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: The &lt;code&gt;makemigrations&lt;/code&gt; command creates a &lt;code&gt;migrations&lt;/code&gt; directory in the &lt;code&gt;retail&lt;/code&gt; module.  This new directory holds versioned migration files keeping track of all model changes over time.  The &lt;code&gt;migrate&lt;/code&gt; command executes all migrations within the directory &lt;strong&gt;in order&lt;/strong&gt; to ensure consistent results.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name="object-creation"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Creating Model Data via the Django ORM&lt;/h2&gt;
+&lt;p&gt;Tables without data are not very interesting.  Let's take a moment to go over the Django ORM and add objects to our models.&lt;/p&gt;
+&lt;p&gt;To interact with the Django ORM, we can use the Django shell.  The Django shell opens a Python interactive shell that sets the &lt;code&gt;DJANGO_SETTINGS_MODULE&lt;/code&gt; environment variable allowing use of our &lt;code&gt;server/config/settings.py&lt;/code&gt; file configurations.  Otherwise, the Django shell is everything you'd expect from a normal python shell.&lt;/p&gt;
+&lt;p&gt;To open the Django shell, run the &lt;code&gt;python server/manage.py shell&lt;/code&gt; command from the project root folder.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python server/manage.py shell
+Python 2.7.6 &lt;span class="o"&gt;(&lt;/span&gt;default, Jun &lt;span class="m"&gt;22&lt;/span&gt; 2015, 17:58:13&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;GCC 4.8.2&lt;span class="o"&gt;]&lt;/span&gt; on linux2
+Type &lt;span class="s2"&gt;&amp;quot;help&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;copyright&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;credits&amp;quot;&lt;/span&gt; or &lt;span class="s2"&gt;&amp;quot;license&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; more information.
+&lt;span class="o"&gt;(&lt;/span&gt;InteractiveConsole&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First, interact with the &lt;code&gt;Chain&lt;/code&gt; model.  Import &lt;code&gt;Chain&lt;/code&gt; and create an instance of the &lt;code&gt;Chain&lt;/code&gt; model with all column values filled in.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;retail.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Cafe Amazing&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Founded to serve the best sandwiches.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;slogan&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;The best cafe in the USA!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;founded_date&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2014-12-04T20:55:17Z&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.thecafeamazing.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Instantiating an object does not automatically save the object to the database.  A Django model must be explicitly saved before its data is committed.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; chain.save()
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Great!  Now we have created a &lt;code&gt;Chain&lt;/code&gt; object and stored it in the database!  It's as easy as that.  We check that the object was created as expected by querying from the database using the Django database API.  From the Django shell, model objects can be queried using the format &lt;code&gt;&amp;lt;model_class&amp;gt;.objects.&amp;lt;query_type&amp;gt;&lt;/code&gt;.  For example, to query for all &lt;code&gt;Chain&lt;/code&gt; objects, we can use &lt;code&gt;Chain.objects.all()&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt; &lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The result of &lt;code&gt;.all()&lt;/code&gt; returns a list of all objects of the specified model type.  From the output, it looks likes we have a list of one object!  Let's make sure that object is what we previously saved.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c"&gt;# store the first object in the list of Chains&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;Cafe Amazing&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;description&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;Founded to serve the best sandwiches.&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;slogan&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;The best cafe in the USA!&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;founded_date&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;2014-12-04T20:55:17Z&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;website&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;http://www.thecafeamazing.com&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;Note: By default, Django applies an &lt;code&gt;ID&lt;/code&gt; to the model object when saved to the database.  This becomes the primary key of the object within the model type.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;More on querying objects through the Django shell can be found in the &lt;a href="https://docs.djangoproject.com/en/1.8/topics/db/queries/"&gt;Making Queries documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Next, let's make a &lt;code&gt;Store&lt;/code&gt; object that is a member of the &lt;code&gt;Chain&lt;/code&gt; we previously created.  Remember that the &lt;code&gt;Store&lt;/code&gt; model object needs a reference to a &lt;code&gt;Chain&lt;/code&gt;, so we must pass it a saved &lt;code&gt;Chain&lt;/code&gt; object.  We can use a &lt;code&gt;.get(name='Cafe Amazing')&lt;/code&gt; query to retrieve the desired &lt;code&gt;Chain&lt;/code&gt; object based on chain name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;chain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Chain&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Cafe Amazing&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;retail.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Store&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;store&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Store&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;chain&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;AB019&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1234 French Quarter Terrace Columbia MD&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;opening_date&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2015-12-04T22:55:17Z&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;number&lt;/span&gt;
+&lt;span class="s"&gt;u&amp;#39;AB019&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally, let's make an Employee object.  Remember that we must provide it a saved &lt;code&gt;Store&lt;/code&gt; reference and we can use a &lt;code&gt;.get(number='AB019')&lt;/code&gt; query to retrieve the desired &lt;code&gt;Store&lt;/code&gt; object based on store number.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;store&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;AB019&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;retail.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Employee&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;employee&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Employee&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;026546&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;first_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;John&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;last_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;doe&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;hired_date&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2015-12-04T00:00:00Z&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;employee&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Employee&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;number&lt;/span&gt;
+&lt;span class="s"&gt;u&amp;#39;026546&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Look great!  We have now created three objects within our database.&lt;/p&gt;
+&lt;h2&gt;Looking Forward&lt;/h2&gt;
+&lt;p&gt;A lot was covered in this post so this is a great point to end on.  Look for the next post soon, covering API endpoint creation, including views, serializers, and URL routing for the &lt;code&gt;Retail&lt;/code&gt; application.&lt;/p&gt;</summary><category term="django"></category><category term="django rest framework"></category><category term="angularjs"></category></entry><entry><title>Getting Started with Django REST Framework (DRF) and AngularJS (Part 1)</title><link href="http://engineroom.trackmaven.com/blog/getting-started-drf-angularjs-part-1/" rel="alternate"></link><updated>2015-11-10T00:00:00+01:00</updated><author><name>Tim Butler</name></author><id>tag:engineroom.trackmaven.com,2015-11-10:blog/getting-started-drf-angularjs-part-1/</id><summary type="html">&lt;p&gt;This is the first section in a series about getting started with &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;, &lt;a href="http://www.django-rest-framework.org/"&gt;Django REST Framework (DRF)&lt;/a&gt; and &lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;.  The goal of this series to to create an extensive, RESTful web application that uses Django and Django REST Framework as the server application and AngularJS for the client application.  We will not be using Django templates here; our front- and back-end applications will be separate entities.&lt;/p&gt;
 &lt;p&gt;For this project, we will be using Django &lt;code&gt;1.8.5&lt;/code&gt; and Django REST Framework &lt;code&gt;3.3.0&lt;/code&gt;.  Further, this guide assumes you have installed standard python development tools and &lt;a href="https://virtualenvwrapper.readthedocs.org/en/latest/"&gt;virtualenvwrapper&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Goals of this Section&lt;/h2&gt;
 &lt;p&gt;This section focuses on Django, covering the following topics:&lt;/p&gt;
