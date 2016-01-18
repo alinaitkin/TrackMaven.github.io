@@ -6,15 +6,15 @@ Slug: python-asynchronous-programming-with-async-await
 Author: Salar Rahmanian
 Avatar: salar-rahmanian
 
-When [Python 3.5](https://docs.python.org/3/whatsnew/3.5.html) was released in September 2015 it added [PEP-492](https://www.python.org/dev/peps/pep-0492/) to its feature set. This makes asynchronous programming using Python possible and today we are going to demonstrate how to use this new feature and syntax.
+When [Python 3.5](https://docs.python.org/3/whatsnew/3.5.html) was released in September 2015 it added [PEP-492](https://www.python.org/dev/peps/pep-0492/) to its feature set. PEP-492 enables asynchronous programming with Python and today we will demonstrate how to use this new feature and syntax.
 
-### What is Python Asynchronous Programming
+### What is Python Asynchronous Programming?
 
-In a normal Python application, in a single thread or process tasks are normally executed synchronously one after another. Sometimes a task may have a delay in finishing and this will delay the next task in the sequence being executed slowing down the whole application from completing.
+A normal Python application consists of a single thread, or process, and tasks are executed synchronously, or one after another. This means that any task which takes a long time will delay all other tasks in the sequence being executed. Thus, in a synchronous application, a single slow task can have an outsize impact on the performance of the entire application.
 
-Asynchronous programming adds the ability to multitask in a single thread or process. What this means is that we can have tasks running in parallel to each other instead of them being executed sequentially. There maybe situations where you need to wait for parallel tasks to complete before continuing.
+Asyncio enables multitasking-style process scheduling within a single thread. What this means is that we can have tasks running effectively simultaneously instead of sequentially. 
 
-The new syntax in Python 3.5 makes it possible to run your tasks in parallel and wait for them to complete when needed.
+The new syntax in Python 3.5 makes it possible to schedule your tasks to run in parallel and wait for them to complete when needed.
 
 ### Overview
 
@@ -55,9 +55,9 @@ Running the script will give this output:
     https://httpbin.org/delay/10 returned 200
     http://engineroom.trackmaven.com/ returned 200
 
-The order of these responses may vary each time you run your script as they are running in parallel and each could return at different times to each other.
+The order of these responses may vary each time you run your script as they are running in parallel and will return at different times.
 
-As you can see the program completes once all 5 sites called have responded. Calls to the 5 sites are made in parallel.
+As you can see the program completes only once all 5 sites called have responded, but a slow response from one site, which may have been at the top of the list, prevents the entire application from finishing but does not prevent sites to check farther down in the list from returning. 
 
 You can find the source code to my example script on [GitHub](https://github.com/TrackMaven/blog-uptimemaven)
 
