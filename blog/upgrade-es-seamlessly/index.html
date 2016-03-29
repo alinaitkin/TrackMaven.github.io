@@ -73,18 +73,28 @@ Upgrade Elasticsearch Cluster Software and Hardware Seamlessly - The Engine Room
 <p>First, launch a new instance with the specs you want. It makes things easier if you base this instance off an image of a working Elasticsearch node, so that your config settings are retained and you do not forget to install any required dependencies. You don't want this node to join your cluster yet, as you still need to upgrade it. We prevented this by simply not giving it access to our Elasticsearch AWS security groups. Now, let's upgrade our version.</p>
 <p>Elasticsearch has good <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html">documentation</a> around how to perform a rolling version upgrade. It's best to follow their steps closely. However, since the node we're upgrading isn't a part of our cluster yet, it's much simpler. We have Elasticsearch installed from their tar packages, so we download the latest version, and place it in a directory next to our current version. We also manage our Elasticsearch processes with <code>supervisor</code>, so we shut it down as well.</p>
 <ul>
-<li>Stop supervisor</li>
-<li><code>sudo service supervisor stop</code></li>
-<li>Download and extract the new version</li>
-<li><code>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.tar.gz &amp;&amp; tar xvzf elasticsearch-1.7.0.tar.gz &amp;&amp; rm -f elasticsearch-1.7.0.tar.gz &amp;&amp; sudo mv elasticsearch-1.7.0 /opt/elasticsearch-1.7</code></li>
-<li>Delete the new version's config, and copy over your previous config settings</li>
-<li><code>sudo rm /opt/elasticsearch-1.7/config/elasticsearch.yml</code></li>
-<li><code>sudo mv /opt/elasticsearch/config/elasticsearch.yml /opt/elasticsearch-1.7/config/</code></li>
-<li>Delete the previous version and put the new version in its place</li>
-<li><code>sudo rm -rf /opt/elasticsearch</code></li>
-<li><code>sudo mv /opt/elasticsearch-1.7 /opt/elasticsearch</code></li>
-<li>Restart supervisor</li>
-<li><code>sudo service supervisor start</code></li>
+<li>
+<p>Stop supervisor:</p>
+<p><code>sudo service supervisor stop</code></p>
+</li>
+<li>
+<p>Download and extract the new version:</p>
+<p><code>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.tar.gz &amp;&amp; tar xvzf elasticsearch-1.7.0.tar.gz &amp;&amp; rm -f elasticsearch-1.7.0.tar.gz &amp;&amp; sudo mv elasticsearch-1.7.0 /opt/elasticsearch-1.7</code></p>
+</li>
+<li>
+<p>Delete the new version's config, and copy over your previous config settings:</p>
+<p><code>sudo rm /opt/elasticsearch-1.7/config/elasticsearch.yml</code></p>
+<p><code>sudo mv /opt/elasticsearch/config/elasticsearch.yml /opt/elasticsearch-1.7/config/</code></p>
+</li>
+<li>
+<p>Delete the previous version and put the new version in its place:</p>
+<p><code>sudo rm -rf /opt/elasticsearch</code></p>
+<p><code>sudo mv /opt/elasticsearch-1.7 /opt/elasticsearch</code></p>
+</li>
+<li>
+<p>Restart supervisor:</p>
+<p><code>sudo service supervisor start</code></p>
+</li>
 </ul>
 <p>With this newly upgraded node, we create an AMI of this instance so that we don't need to keep performing this manual upgrade process. All new instances going forward should be based off this upgraded image.</p>
 <p>Now, it's time to join this node to the cluster. We add the necessary security groups and watch our cluster health (<code>localhost:9200/_cluster/health?pretty</code>) show us what's happening. We should see a new data node join the cluster, and our cluster health change from <code>green</code> to <code>yellow</code>. The <code>yellow</code> state happens because of our mismatched version numbers in the cluster. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html#_step_6_wait_for_the_node_to_recover">Primary shards assigned to the newer version will not allocate their replica shards to older versioned nodes</a>. With only one upgraded node, we will have unassigned replica shards. This is remedied once we have two upgraded nodes in the cluster, and health will again return to <code>green</code>.</p>
