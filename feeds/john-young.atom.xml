@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/john-young.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2014-12-29T00:00:00+01:00</updated><entry><title>So you want another PostgreSQL database? (part 3)</title><link href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-3/" rel="alternate"></link><updated>2014-12-29T00:00:00+01:00</updated><author><name>John Young</name></author><id>tag:engineroom.trackmaven.com,2014-12-29:blog/so-you-want-another-postgresql-database-part-3/</id><summary type="html">&lt;p&gt;&lt;strong&gt;Read &lt;a href="/blog/so-you-want-another-postgresql-database-part-1/"&gt;Part 1&lt;/a&gt; or &lt;a href="/blog/so-you-want-another-postgresql-database-part-2/"&gt;Part 2&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Engine Room - TrackMaven</title><link href="http://engineroom.trackmaven.com/" rel="alternate"></link><link href="http://engineroom.trackmaven.com/feeds/john-young.atom.xml" rel="self"></link><id>http://engineroom.trackmaven.com/</id><updated>2016-03-29T00:00:00+02:00</updated><entry><title>Upgrade Elasticsearch cluster software and hardware seamlessly</title><link href="http://engineroom.trackmaven.com/blog/upgrade-es-seamlessly/" rel="alternate"></link><updated>2016-03-29T00:00:00+02:00</updated><author><name>John Young</name></author><id>tag:engineroom.trackmaven.com,2016-03-29:blog/upgrade-es-seamlessly/</id><summary type="html">&lt;h2&gt;Cluster Upgrades&lt;/h2&gt;
+&lt;p&gt;Our decision to begin using Elasticsearch came from a fairly typical use case for the popular distributed data store. We had hundreds of millions of pieces of content, and we wanted to support text search across them. As we set out to migrate our architecture from a relatively simple Postgres setup to include indexing all of our documents into Elasticsearch, we did what everyone does: we played around with Elasticsearch and made some educated guesses about the hardware we would need to support our needs. And, as so often happens, we underestimated.&lt;/p&gt;
+&lt;p&gt;Our biggest problem was with disk space usage. Indexing our dataset took up far more space than we had anticipated, and we needed to increase the size of the attached AWS EBS volumes on our instances. Somewhat less pressing than our disk usage was our heap usage, which made us want to increase the memory of each node so that we could allocate more heap space (friendly reminder that it's &lt;a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html#compressed_oops"&gt;very important&lt;/a&gt; to keep your heap size below 30.5gb). All the while, we were several versions behind: running 1.3.2 at the time of 1.7.0's release. We figured the best course of action was to tackle all three of these problems at the same time, without any cluster downtime.&lt;/p&gt;
+&lt;p&gt;Some caveats before we begin:
+ - This only applies to minor version upgrades, like 1.x to 1.x, or 2.x to 2.x. Major version upgrades, like 1.x to 2.x, are more complicated and require a full cluster restart.
+ - If you only have one master-eligible node, then taking it down will make your cluster very sad. If you're using the more commonly recommended number of 3 master-eligible nodes, a new one will be elected seamlessly as you take each down individually for upgrades
+ - Our infrastructure is hosted on AWS, but the underlying principles are the same across any hardware cluster
+ - If you don't already have backups of your production data, do that before thinking about any of this&lt;/p&gt;
+&lt;h2&gt;Out with the old, in with the new&lt;/h2&gt;
+&lt;p&gt;From a high level, our process looks like this:
+1. Launch a new, larger EC2 instance based off our current node AMIs, with larger EBS volumes attached
+2. Upgrade this instance's version of Elasticsearch
+3. Create a new AMI for our upgraded instance
+4. Join this new node to our production cluster
+5. Re-allocate all shards off an older, non-upgraded node
+6. Allow the cluster to rebalance itself
+7. Once all nodes have been shipped off the old node, shut it down
+8. Repeat this process of spawning new instances based off the upgraded AMI until all nodes have been upgraded&lt;/p&gt;
+&lt;p&gt;Creating AMIs, launching instances based off of them, and changing instance/volume sizes are steps specific to AWS, and outside the scope of this post. There is a ton of great documentation around these things already available, so I will be skipping over anything detailed on them. Let's get started.&lt;/p&gt;
+&lt;p&gt;First, launch a new instance with the specs you want. It makes things easier if you base this instance off an image of a working Elasticsearch node, so that your config settings are retained and you do not forget to install any required dependencies. You don't want this node to join your cluster yet, as you still need to upgrade it. We prevented this by simply not giving it access to our Elasticsearch AWS security groups. Now, let's upgrade our version.&lt;/p&gt;
+&lt;p&gt;Elasticsearch has good &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html"&gt;documentation&lt;/a&gt; around how to perform a rolling version upgrade. It's best to follow their steps closely. However, since the node we're upgrading isn't a part of our cluster yet, it's much simpler. We have Elasticsearch installed from their tar packages, so we download the latest version, and place it in a directory next to our current version. We also manage our Elasticsearch processes with &lt;code&gt;supervisor&lt;/code&gt;, so we shut it down as well.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Stop supervisor&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo service supervisor stop&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Download and extract the new version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.tar.gz &amp;amp;&amp;amp; tar xvzf elasticsearch-1.7.0.tar.gz &amp;amp;&amp;amp; rm -f elasticsearch-1.7.0.tar.gz &amp;amp;&amp;amp; sudo mv elasticsearch-1.7.0 /opt/elasticsearch-1.7&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Delete the new version's config, and copy over your previous config settings&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo rm /opt/elasticsearch-1.7/config/elasticsearch.yml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo mv /opt/elasticsearch/config/elasticsearch.yml /opt/elasticsearch-1.7/config/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Delete the previous version and put the new version in its place&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo rm -rf /opt/elasticsearch&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo mv /opt/elasticsearch-1.7 /opt/elasticsearch&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Restart supervisor&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo service supervisor start&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this newly upgraded node, we create an AMI of this instance so that we don't need to keep performing this manual upgrade process. All new instances going forward should be based off this upgraded image.&lt;/p&gt;
+&lt;p&gt;Now, it's time to join this node to the cluster. We add the necessary security groups and watch our cluster health (&lt;code&gt;localhost:9200/_cluster/health?pretty&lt;/code&gt;) show us what's happening. We should see a new data node join the cluster, and our cluster health change from &lt;code&gt;green&lt;/code&gt; to &lt;code&gt;yellow&lt;/code&gt;. The &lt;code&gt;yellow&lt;/code&gt; state happens because of our mismatched version numbers in the cluster. &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html#_step_6_wait_for_the_node_to_recover"&gt;Primary shards assigned to the newer version will not allocate their replica shards to older versioned nodes&lt;/a&gt;. With only one upgraded node, we will have unassigned replica shards. This is remedied once we have two upgraded nodes in the cluster, and health will again return to &lt;code&gt;green&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Once our new node has joined the cluster successfully, it's time to shut down one of our old nodes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Re-allocate all shards off the node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;curl -XPUT localhost:9200/_cluster/settings -d &amp;#39;{
+    &amp;quot;transient&amp;quot; :{
+        &amp;quot;cluster.routing.allocation.exclude._ip&amp;quot; : &amp;quot;&amp;lt;IP Address&amp;gt;&amp;quot;
+    }
+}&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Wait for the cluster to re-balance itself by watching your cluster health (&lt;code&gt;curl localhost:9200/_cluster/health?pretty&lt;/code&gt;) waiting for &lt;code&gt;relocating_shards&lt;/code&gt; to go to 0&lt;/li&gt;
+&lt;li&gt;Shut down the node&lt;/li&gt;
+&lt;li&gt;Stop and/or terminate the instance, kill the Elasticsearch process, whatever you want to do to decommision this node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That's it. From here, you can spawn an additional instance based off the already upgraded image, and repeat the process of disabling allocation on an older node and decommissioning them one by one. The same process applies to all nodes, whether master or client or data.&lt;/p&gt;
+&lt;p&gt;Enjoy your new cluster!&lt;/p&gt;</summary><category term="elasticsearch"></category><category term="how-to"></category></entry><entry><title>So you want another PostgreSQL database? (part 3)</title><link href="http://engineroom.trackmaven.com/blog/so-you-want-another-postgresql-database-part-3/" rel="alternate"></link><updated>2014-12-29T00:00:00+01:00</updated><author><name>John Young</name></author><id>tag:engineroom.trackmaven.com,2014-12-29:blog/so-you-want-another-postgresql-database-part-3/</id><summary type="html">&lt;p&gt;&lt;strong&gt;Read &lt;a href="/blog/so-you-want-another-postgresql-database-part-1/"&gt;Part 1&lt;/a&gt; or &lt;a href="/blog/so-you-want-another-postgresql-database-part-2/"&gt;Part 2&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Tuning your PostgreSQL servers on Amazon EC2&lt;/h2&gt;
 &lt;p&gt;It will probably come as no surprise that the settings that are best for your PostgreSQL cluster are heavily dependent on your data and how you're using it. No one can say what will work best for you in every single use case, and it's up to you to profile your database to determine what does and does not work for you. With that being said, a great starting point for general use cases can be found in Christophe Pettus' talk &lt;a href="http://thebuild.com/presentations/not-your-job.pdf"&gt;PostgreSQL when it's not your job&lt;/a&gt;. If you're completely new to tuning your Postgres instances, I highly recommend using these settings as an initial profile point.&lt;/p&gt;
 &lt;p&gt;Here's a quick summary of his suggestions:&lt;/p&gt;
