@@ -37,18 +37,30 @@ First, launch a new instance with the specs you want. It makes things easier if 
 
 Elasticsearch has good [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html) around how to perform a rolling version upgrade. It's best to follow their steps closely. However, since the node we're upgrading isn't a part of our cluster yet, it's much simpler. We have Elasticsearch installed from their tar packages, so we download the latest version, and place it in a directory next to our current version. We also manage our Elasticsearch processes with `supervisor`, so we shut it down as well.
 
-* Stop supervisor
- - `sudo service supervisor stop`
-* Download and extract the new version
- - `wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.tar.gz && tar xvzf elasticsearch-1.7.0.tar.gz && rm -f elasticsearch-1.7.0.tar.gz && sudo mv elasticsearch-1.7.0 /opt/elasticsearch-1.7`
-* Delete the new version's config, and copy over your previous config settings
- - `sudo rm /opt/elasticsearch-1.7/config/elasticsearch.yml`
- - `sudo mv /opt/elasticsearch/config/elasticsearch.yml /opt/elasticsearch-1.7/config/`
-* Delete the previous version and put the new version in its place
- - `sudo rm -rf /opt/elasticsearch`
- - `sudo mv /opt/elasticsearch-1.7 /opt/elasticsearch`
-* Restart supervisor
- - `sudo service supervisor start`
+* Stop supervisor:
+
+    `sudo service supervisor stop`
+
+* Download and extract the new version:
+
+    `wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.tar.gz && tar xvzf elasticsearch-1.7.0.tar.gz && rm -f elasticsearch-1.7.0.tar.gz && sudo mv elasticsearch-1.7.0 /opt/elasticsearch-1.7`
+
+* Delete the new version's config, and copy over your previous config settings:
+
+     `sudo rm /opt/elasticsearch-1.7/config/elasticsearch.yml`
+     
+     `sudo mv /opt/elasticsearch/config/elasticsearch.yml /opt/elasticsearch-1.7/config/`
+
+* Delete the previous version and put the new version in its place:
+
+     `sudo rm -rf /opt/elasticsearch`
+
+     `sudo mv /opt/elasticsearch-1.7 /opt/elasticsearch`
+
+* Restart supervisor:
+
+     `sudo service supervisor start`
+
 
 With this newly upgraded node, we create an AMI of this instance so that we don't need to keep performing this manual upgrade process. All new instances going forward should be based off this upgraded image.
 
