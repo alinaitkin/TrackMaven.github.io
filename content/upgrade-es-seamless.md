@@ -1,4 +1,4 @@
-Title: Upgrade Elasticsearch cluster software and hardware seamlessly
+Title: Upgrade Elasticsearch Cluster Software and Hardware Seamlessly
 Date: 2016-03-29
 Category: DevOps
 Tags: elasticsearch, how-to
