@@ -8,15 +8,17 @@
  - Our infrastructure is hosted on AWS, but the underlying principles are the same across any hardware cluster
  - If you don't already have backups of your production data, do that before thinking about any of this&lt;/p&gt;
 &lt;h2&gt;Out with the old, in with the new&lt;/h2&gt;
-&lt;p&gt;From a high level, our process looks like this:
-1. Launch a new, larger EC2 instance based off our current node AMIs, with larger EBS volumes attached
-2. Upgrade this instance's version of Elasticsearch
-3. Create a new AMI for our upgraded instance
-4. Join this new node to our production cluster
-5. Re-allocate all shards off an older, non-upgraded node
-6. Allow the cluster to rebalance itself
-7. Once all nodes have been shipped off the old node, shut it down
-8. Repeat this process of spawning new instances based off the upgraded AMI until all nodes have been upgraded&lt;/p&gt;
+&lt;p&gt;From a high level, our process looks like this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Launch a new, larger EC2 instance based off our current node AMIs, with larger EBS volumes attached&lt;/li&gt;
+&lt;li&gt;Upgrade this instance's version of Elasticsearch&lt;/li&gt;
+&lt;li&gt;Create a new AMI for our upgraded instance&lt;/li&gt;
+&lt;li&gt;Join this new node to our production cluster&lt;/li&gt;
+&lt;li&gt;Re-allocate all shards off an older, non-upgraded node&lt;/li&gt;
+&lt;li&gt;Allow the cluster to rebalance itself&lt;/li&gt;
+&lt;li&gt;Once all nodes have been shipped off the old node, shut it down&lt;/li&gt;
+&lt;li&gt;Repeat this process of spawning new instances based off the upgraded AMI until all nodes have been upgraded&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;Creating AMIs, launching instances based off of them, and changing instance/volume sizes are steps specific to AWS, and outside the scope of this post. There is a ton of great documentation around these things already available, so I will be skipping over anything detailed on them. Let's get started.&lt;/p&gt;
 &lt;p&gt;First, launch a new instance with the specs you want. It makes things easier if you base this instance off an image of a working Elasticsearch node, so that your config settings are retained and you do not forget to install any required dependencies. You don't want this node to join your cluster yet, as you still need to upgrade it. We prevented this by simply not giving it access to our Elasticsearch AWS security groups. Now, let's upgrade our version.&lt;/p&gt;
 &lt;p&gt;Elasticsearch has good &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html"&gt;documentation&lt;/a&gt; around how to perform a rolling version upgrade. It's best to follow their steps closely. However, since the node we're upgrading isn't a part of our cluster yet, it's much simpler. We have Elasticsearch installed from their tar packages, so we download the latest version, and place it in a directory next to our current version. We also manage our Elasticsearch processes with &lt;code&gt;supervisor&lt;/code&gt;, so we shut it down as well.&lt;/p&gt;
