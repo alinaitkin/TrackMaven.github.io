@@ -22,6 +22,7 @@ Some caveats before we begin:
 ## Out with the old, in with the new
 
 From a high level, our process looks like this:
+
 1. Launch a new, larger EC2 instance based off our current node AMIs, with larger EBS volumes attached
 2. Upgrade this instance's version of Elasticsearch
 3. Create a new AMI for our upgraded instance
